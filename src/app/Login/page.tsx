@@ -1,35 +1,36 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+"use client"
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { Box1, Container, ContenedorForm, Contents, Form } from "./styled";
 import {
-  Stack,
-  Typography,
-  Button,
-  CircularProgress,
   Box,
   Link,
+  Stack,
+  Button,
+  Typography,
+  CircularProgress,
 } from "@mui/material";
 import { CssTextField } from "../../utils/styles";
 import { TypeAlertT } from "../../common/alert/types";
 import { AlertGeneral } from "../../common/alert/alert";
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "../../context";
 import { useGetUserCheckedMutation } from "../../redux/service/resApi";
 import { validateRequired } from "../../utils";
 import { toast } from "react-toastify";
 import { SerializedError } from "@reduxjs/toolkit";
+import AuthContext from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const setProfileAuth = useAuthStore((state: any) => state.setProfile);
+  const { login } = useContext(AuthContext);
   /**
-   *Stages
+   * useStates
    */
   const router = useRouter();
   const [dataForm, setDataForm] = useState({
     email: "",
     password: "",
   });
-  const [required, setRequired] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+  const [required, setRequired] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<TypeAlertT>({
     message: "",
     type: "success",
@@ -38,6 +39,9 @@ const Login = () => {
   const [User, { data: dateUser, isError, error, status }] =
     useGetUserCheckedMutation();
 
+  /**
+   * handleChangue
+   */
   const handleChangue = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -75,13 +79,13 @@ const Login = () => {
         dateUser?.user?.role === "doctor"
       ) {
         setLoading(false);
-        setProfileAuth(dateUser);
-        router.push("/admin");
+        login(dateUser);
+        router.push("/Inicio");
       } else {
         if (dateUser?.user?.role === "usuario") {
           setLoading(false);
-          setProfileAuth(dateUser);
-          router.push("/user");
+          login(dateUser);
+          router.push("/Inicio");
         }
       }
       toast(dateUser?.msg, {
@@ -99,7 +103,8 @@ const Login = () => {
         hideProgressBar: false,
       });
     }
-  }, [dateUser, error, setProfileAuth, isError, status, router]);
+  }, [dateUser, error, router, isError, status, login]);
+
   return (
     <Container>
       <Box1>
@@ -115,7 +120,7 @@ const Login = () => {
           }}
         >
           <Form onSubmit={handleSubmit}>
-            <Typography align="center" variant="h5" component="h2">
+            <Typography align="center" variant="h5" component="h2" sx={{color:"black"}}>
               <b>LOGIN</b>
             </Typography>
             <Stack spacing={2}>
