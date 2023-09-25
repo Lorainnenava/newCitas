@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
@@ -31,6 +32,7 @@ const AuthContext = createContext<IAuthContext>(initialValue);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(initialValue?.user);
   const [isLogged, setIsLogged] = useState(false);
+  const [decoded, setDecoded] = useState<jwt.JwtPayload | null>(null);
   const [token, setToken] = useState("");
   const router = useRouter();
 
@@ -38,9 +40,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
    * autenticacion en el login
    */
   const login = (userData: any) => {
-    console.log(userData)
     if (userData?.token) {
       setUser(userData?.user);
+      setDecoded(jwt.decode(userData?.token) as JwtPayload);
       router.push("/Inicio");
       setIsLogged(true);
       sessionStorage.setItem("auth", JSON.stringify(userData));
@@ -55,16 +57,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setIsLogged(false);
         router.push("/Login");
       }
-    } else if (isLogged === false) {
-      setToken("");
-      toast(`Su tiempo de expiración a vencido`, {
-        autoClose: 2000,
-        type: "error",
-        hideProgressBar: true,
-      });
-      router.push("/Login");
-      setUser(initialValue.user);
-      sessionStorage.clear();
+    // } else if (decoded?.exp) {
+    //   const expirationDate = new Date(decoded.exp * 1000);
+    //   const currentDate = new Date();
+    //   if (currentDate > expirationDate) {
+    //     router.push("/Login");
+    //     sessionStorage.clear();
+    //     setUser(initialValue.user);
+    //     toast(`Su tiempo de expiración a vencido`, {
+    //       autoClose: 2000,
+    //       type: "error",
+    //       hideProgressBar: true,
+    //     });
+    //   }
     }
   };
 
@@ -74,6 +79,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     sessionStorage.clear();
     setUser(initialValue.user);
   };
+
+  console.log(decoded)
+/* 
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      if (decoded?.exp) {
+        const expirationDate = new Date(decoded.exp * 1000);
+        const currentDate = new Date();
+        if (currentDate > expirationDate) {
+          console.log("❓❓❓❓")
+          router.push("/Login");
+          sessionStorage.clear();
+          setUser(initialValue.user);
+          toast(`Su tiempo de expiración a vencido`, {
+            autoClose: 2000,
+            type: "error",
+            hideProgressBar: true,
+          });
+        }
+      }
+    };
+    document.addEventListener("click", handleGlobalClick);
+    return () => {
+      document.removeEventListener("click", handleGlobalClick);
+    };
+  }, [router, decoded]); */
 
   return (
     <AuthContext.Provider
