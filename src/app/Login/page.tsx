@@ -1,5 +1,7 @@
 "use client";
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
+import { getUserChecked } from "@/redux/features/login/request";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Box1, Container, ContenedorForm, Contents, Form } from "./styled";
 import {
   Box,
@@ -15,17 +17,17 @@ import { AlertGeneral } from "../../common/alert/alert";
 import { validateRequired } from "../../utils";
 import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { AppDispatch } from "@/redux/store/configRedux";
-import { getUserChecked } from "@/redux/features/login/request";
-import { useAppDispatch } from "@/redux/hooks";
+import { toast } from "react-toastify";
+import { SerializedError } from "@reduxjs/toolkit";
 
 const Login = () => {
   /**
    * useStates
    */
   const router = useRouter();
-  const { login } = useContext(AuthContext);
   const dispatch = useAppDispatch();
+  const user= useAppSelector((state)=> state.root.userLogin)
+  const { login } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [required, setRequired] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<TypeAlertT>({
@@ -37,7 +39,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-
   /**
    * handleChangue
    */
@@ -50,7 +51,7 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+console.log(user)
   /**
    * handleSubmit
    */
@@ -70,6 +71,39 @@ const Login = () => {
       setRequired(false);
     }
   };
+
+/*   useEffect(() => {
+    if (user.data) {
+      if (
+        user.data?.user?.role === "Admi" ||
+        user.data?.user?.role === "doctor"
+      ) {
+        setLoading(false);
+        login(user.data);
+        router.push("/admin");
+      } else {
+        if (dateUser?.user?.role === "usuario") {
+          setLoading(false);
+          login(user.data);
+          router.push("/user");
+        }
+      }
+      toast(user.data?.user.msg, {
+        autoClose: 1500,
+        type: "success",
+        hideProgressBar: false,
+      });
+    }
+    if (user.error !== undefined) {
+      const errorMessage = (user.error as SerializedError)?.message;
+      setLoading(false);
+      toast(errorMessage, {
+        autoClose: 1500,
+        type: "error",
+        hideProgressBar: false, 
+      });
+    }
+  }, [router, login, user]); */
 
   return (
     <Container>

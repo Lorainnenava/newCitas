@@ -2,7 +2,6 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { useLazyGetOneUserQuery } from "@/redux/service/resApi";
 
 type IAuthContext = {
   user: any;
@@ -32,7 +31,6 @@ const AuthContext = createContext<IAuthContext>(initialValue);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(initialValue?.user);
   const [isLogged, setIsLogged] = useState(false);
-  const [getUser, { error }] = useLazyGetOneUserQuery();
   const [token, setToken] = useState("");
   const router = useRouter();
 
@@ -52,7 +50,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         : null;
       const token = auth?.token;
       if (token) {
-        getUser(token);
+        // getUser(token);
         setToken(token);
       } else {
         setIsLogged(false);
@@ -68,22 +66,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(initialValue.user);
   };
 
-  useEffect(() => {
-    const handleGlobalClick = () => {
-      if (error) {
-        router.push("/Login");
-        toast(`Su tiempo de expiración a vencido`, {
-          autoClose: 2000,
-          type: "error",
-          hideProgressBar: true,
-        });
-      }
-    };
-    document.addEventListener("click", handleGlobalClick);
-    return () => {
-      document.removeEventListener("click", handleGlobalClick);
-    };
-  }, [error, router]);
+  // useEffect(() => {
+  //   const handleGlobalClick = () => {
+  //     if (error) {
+  //       router.push("/Login");
+  //       toast(`Su tiempo de expiración a vencido`, {
+  //         autoClose: 2000,
+  //         type: "error",
+  //         hideProgressBar: true,
+  //       });
+  //     }
+  //   };
+  //   document.addEventListener("click", handleGlobalClick);
+  //   return () => {
+  //     document.removeEventListener("click", handleGlobalClick);
+  //   };
+  // }, [error, router]);
 
   return (
     <AuthContext.Provider

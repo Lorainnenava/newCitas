@@ -1,13 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
+"use client";
+
+import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { RootReducer } from "../rootReducer";
 
-export const Userstore = configureStore({
+export const userStore = configureStore({
   reducer: {
     root: RootReducer,
   },
 });
 
-setupListeners(Userstore.dispatch);
-export type RootState = ReturnType<typeof Userstore.getState>;
-export type AppDispatch = typeof Userstore.dispatch;
+setupListeners(userStore.dispatch);
+export type RootState = ReturnType<typeof userStore.getState>;
+export type AppDispatch = typeof userStore.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;

@@ -1,20 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import dotenv from "dotenv";
 import axios from "axios";
 
-dotenv.config();
+const base = "http://localhost:8000";
 
 /**
  * usuario que se esta intentando loguear
  */
 export const getUserChecked = createAsyncThunk(
-  "/usuario",
-  async (data, thunkAPI) => {
+  "/usuario/getUserChecked",
+  async (dataForm: object) => {
     try {
-      if (process.env.BASE_URL) {
-        const response = await axios.patch(process.env.BASE_URL, data);
-        return response.data;
-      }
+      const response = await axios.patch(`${base}/usuario`, dataForm);
+      return response.data;
     } catch (error) {
       throw error;
     }

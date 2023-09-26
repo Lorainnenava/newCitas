@@ -1,3 +1,5 @@
+"use client";
+
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserChecked } from "./request";
 import { UserLoginState } from "./types";
@@ -10,7 +12,7 @@ const initialState: UserLoginState = {
 };
 
 const userLoginSlice = createSlice({
-  name: "usuario",
+  name: "datas",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -22,10 +24,13 @@ const userLoginSlice = createSlice({
       state.data = action.payload;
       state.loading = false;
       state.error = undefined;
+      state.success= true
     });
     builder.addCase(getUserChecked.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      state.success= false
+
     });
   },
 });
