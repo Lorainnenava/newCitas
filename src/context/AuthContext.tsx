@@ -1,8 +1,8 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useLazyGetOneUserQuery } from "@/redux/service/resApi";
 
 type IAuthContext = {
   user: any;
@@ -32,9 +32,10 @@ const AuthContext = createContext<IAuthContext>(initialValue);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(initialValue?.user);
   const [isLogged, setIsLogged] = useState(false);
-  const [decoded, setDecoded] = useState<jwt.JwtPayload | null>(null);
+  const [getUser, { error }] = useLazyGetOneUserQuery();
   const [token, setToken] = useState("");
   const router = useRouter();
+
 
   /**
    * autenticacion en el login
@@ -42,7 +43,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = (userData: any) => {
     if (userData?.token) {
       setUser(userData?.user);
-      setDecoded(jwt.decode(userData?.token) as JwtPayload);
       router.push("/Inicio");
       setIsLogged(true);
       sessionStorage.setItem("auth", JSON.stringify(userData));
@@ -52,24 +52,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         : null;
       const token = auth?.token;
       if (token) {
+        getUser(token);
         setToken(token);
       } else {
         setIsLogged(false);
         router.push("/Login");
       }
-    // } else if (decoded?.exp) {
-    //   const expirationDate = new Date(decoded.exp * 1000);
-    //   const currentDate = new Date();
-    //   if (currentDate > expirationDate) {
-    //     router.push("/Login");
-    //     sessionStorage.clear();
-    //     setUser(initialValue.user);
-    //     toast(`Su tiempo de expiración a vencido`, {
-    //       autoClose: 2000,
-    //       type: "error",
-    //       hideProgressBar: true,
-    //     });
-    //   }
     }
   };
 
@@ -80,31 +68,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(initialValue.user);
   };
 
-  console.log(decoded)
-/* 
   useEffect(() => {
     const handleGlobalClick = () => {
-      if (decoded?.exp) {
-        const expirationDate = new Date(decoded.exp * 1000);
-        const currentDate = new Date();
-        if (currentDate > expirationDate) {
-          console.log("❓❓❓❓")
-          router.push("/Login");
-          sessionStorage.clear();
-          setUser(initialValue.user);
-          toast(`Su tiempo de expiración a vencido`, {
-            autoClose: 2000,
-            type: "error",
-            hideProgressBar: true,
-          });
-        }
+      if (error) {
+        router.push("/Login");
+        toast(`Su tiempo de expiración a vencido`, {
+          autoClose: 2000,
+          type: "error",
+          hideProgressBar: true,
+        });
       }
     };
     document.addEventListener("click", handleGlobalClick);
     return () => {
       document.removeEventListener("click", handleGlobalClick);
     };
-  }, [router, decoded]); */
+  }, [error, router]);
 
   return (
     <AuthContext.Provider

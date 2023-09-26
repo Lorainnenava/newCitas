@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { Box1, Container, ContenedorForm, Contents, Form } from "./styled";
 import {
@@ -12,23 +12,20 @@ import {
 import { CssTextField } from "../../utils/styles";
 import { TypeAlertT } from "../../common/alert/types";
 import { AlertGeneral } from "../../common/alert/alert";
-import { useGetUserCheckedMutation } from "../../redux/service/resApi";
 import { validateRequired } from "../../utils";
-import { toast } from "react-toastify";
-import { SerializedError } from "@reduxjs/toolkit";
 import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { AppDispatch } from "@/redux/store/configRedux";
+import { getUserChecked } from "@/redux/features/login/request";
+import { useAppDispatch } from "@/redux/hooks";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
   /**
    * useStates
    */
   const router = useRouter();
-  const [dataForm, setDataForm] = useState({
-    email: "",
-    password: "",
-  });
+  const { login } = useContext(AuthContext);
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [required, setRequired] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<TypeAlertT>({
@@ -36,8 +33,10 @@ const Login = () => {
     type: "success",
     active: false,
   });
-  const [User, { data: dateUser, isError, error, status }] =
-    useGetUserCheckedMutation();
+  const [dataForm, setDataForm] = useState({
+    email: "",
+    password: "",
+  });
 
   /**
    * handleChangue
@@ -67,43 +66,10 @@ const Login = () => {
       });
     } else {
       setLoading(true);
-      User(dataForm);
+      dispatch(getUserChecked(dataForm));
       setRequired(false);
     }
   };
-
-  useEffect(() => {
-    if (dateUser) {
-      if (
-        dateUser?.user?.role === "Admi" ||
-        dateUser?.user?.role === "doctor"
-      ) {
-        setLoading(false);
-        login(dateUser);
-        router.push("/Inicio");
-      } else {
-        if (dateUser?.user?.role === "usuario") {
-          setLoading(false);
-          login(dateUser);
-          router.push("/Inicio");
-        }
-      }
-      toast(dateUser?.msg, {
-        autoClose: 1500,
-        type: "success",
-        hideProgressBar: false,
-      });
-    }
-    if (isError) {
-      const errorMessage = (error as SerializedError)?.message;
-      setLoading(false);
-      toast(errorMessage, {
-        autoClose: 1500,
-        type: "error",
-        hideProgressBar: false,
-      });
-    }
-  }, [dateUser, error, router, isError, status, login]);
 
   return (
     <Container>
@@ -120,7 +86,12 @@ const Login = () => {
           }}
         >
           <Form onSubmit={handleSubmit}>
-            <Typography align="center" variant="h5" component="h2" sx={{color:"black"}}>
+            <Typography
+              align="center"
+              variant="h5"
+              component="h2"
+              sx={{ color: "black" }}
+            >
               <b>LOGIN</b>
             </Typography>
             <Stack spacing={2}>
