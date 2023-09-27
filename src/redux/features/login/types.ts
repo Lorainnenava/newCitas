@@ -1,16 +1,17 @@
 export interface UserLoginState {
-    loading: boolean;
-    error: string | undefined;
-    success: boolean;
-  //   data= {msg:"", token:", 
-  //   user: {
-  //     email: "",
-  //     identification: "",
-  //     mobileNumber: "",
-  //     name: "",
-  //     password: "",
-  //     role: "",
-  //   }
-  // }
-  data: any
+  loading: boolean;
+  error: string | undefined;
+  success: boolean;
+  data: {
+    msg: string;
+    token: string;
+    user: {
+      email: string;
+      identification: string;
+      mobileNumber: string;
+      name: string;
+      password: string;
+      role: string;
+    };
+  };
 }

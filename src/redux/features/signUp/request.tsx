@@ -2,14 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 /**
- * usuario que se esta intentando loguear
+ * registro de usuario
  */
-export const userLogin = createAsyncThunk(
-  "/usuario/userLogin",
+export const userCreated = createAsyncThunk(
+  "/usuario/signUp",
   async (dataForm: object) => {
     try {
-      const response = await axios.patch(
-        `${process.env.BASE_URL}/usuario/login`,
+      const response = await axios.post(
+        `${process.env.BASE_URL}/usuario/signUp`,
         dataForm,
         {
           headers: {

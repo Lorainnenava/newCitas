@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
-import { getUserChecked } from "@/redux/features/login/request";
+import { userLogin } from "@/redux/features/login/request";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Box1, Container, ContenedorForm, Contents, Form } from "./styled";
 import {
@@ -51,7 +51,7 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
-console.log(user)
+
   /**
    * handleSubmit
    */
@@ -67,28 +67,28 @@ console.log(user)
       });
     } else {
       setLoading(true);
-      dispatch(getUserChecked(dataForm));
+      dispatch(userLogin(dataForm));
       setRequired(false);
     }
   };
 
-/*   useEffect(() => {
-    if (user.data) {
+  useEffect(() => {
+    if (user?.data) {
       if (
-        user.data?.user?.role === "Admi" ||
-        user.data?.user?.role === "doctor"
+        user?.data?.user?.role === "Admi" ||
+        user?.data?.user?.role === "doctor"
       ) {
         setLoading(false);
-        login(user.data);
+        login(user?.data);
         router.push("/admin");
       } else {
-        if (dateUser?.user?.role === "usuario") {
+        if ( user?.data?.user?.role === "usuario") {
           setLoading(false);
           login(user.data);
           router.push("/user");
         }
       }
-      toast(user.data?.user.msg, {
+      toast(user.data?.msg, {
         autoClose: 1500,
         type: "success",
         hideProgressBar: false,
@@ -103,7 +103,7 @@ console.log(user)
         hideProgressBar: false, 
       });
     }
-  }, [router, login, user]); */
+  }, [router, login, user]);
 
   return (
     <Container>

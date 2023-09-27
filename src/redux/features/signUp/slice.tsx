@@ -1,29 +1,29 @@
 "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin } from "./request";
-import { initialStateUserLogin } from "./initialState";
+import { userCreated } from "./request";
+import { initialStateSignUp } from "./initialState";
 
-const userLoginSlice = createSlice({
-  name: "login",
-  initialState: initialStateUserLogin,
+const userSignUpSlice = createSlice({
+  name: "signUp",
+  initialState:initialStateSignUp,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(userLogin.pending, (state) => {
+    builder.addCase(userCreated.pending, (state) => {
       state.loading = true;
       state.error = undefined;
     });
-    builder.addCase(userLogin.fulfilled, (state, action) => {
+    builder.addCase(userCreated.fulfilled, (state, action) => {
       state.data = action.payload;
       state.loading = false;
       state.error = undefined;
       state.success = true;
     });
-    builder.addCase(userLogin.rejected, (state, action) => {
+    builder.addCase(userCreated.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
       state.success = false;
     });
   },
 });
-export default userLoginSlice.reducer;
+export default userSignUpSlice.reducer;
