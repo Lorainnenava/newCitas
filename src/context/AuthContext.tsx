@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState("");
   const router = useRouter();
 
-
   /**
    * autenticacion en el login
    */
@@ -65,6 +64,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     sessionStorage.clear();
     setUser(initialValue.user);
   };
+
 
   // useEffect(() => {
   //   const handleGlobalClick = () => {

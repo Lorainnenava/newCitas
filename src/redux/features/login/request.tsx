@@ -9,7 +9,7 @@ export const userLogin = createAsyncThunk(
   async (dataForm: object) => {
     try {
       const response = await axios.patch(
-        `${process.env.BASE_URL}/usuario/login`,
+        `${process.env.BASE_URL}/usuario`,
         dataForm,
         {
           headers: {

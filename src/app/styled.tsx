@@ -42,7 +42,7 @@ export const Carta = styled.button<CartaProps>`
   border: none;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #8ab3cf;
+    background-color: #7BA7EA;
     cursor: pointer;
   }
 `;
@@ -52,9 +52,10 @@ const IconoCartaContainer = styled.div<CartaImagen>`
   height: 70%;
   border-bottom: 1px dashed white;
   background-image: ${(props) => `url(${props.imagenCarta})`};
-  background-size: 75% 90%;
+  background-size: 70% 75%;
   background-repeat: no-repeat;
   background-position: center;
+  margin-bottom: 10px
 `;
 
 export const IconoCarta: React.FC<CartaImagen> = ({ imagenCarta }) => {

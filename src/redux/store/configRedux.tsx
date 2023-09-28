@@ -4,6 +4,9 @@ import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { RootReducer } from "../rootReducer";
 
+/**
+ * configuracion del store
+ */
 export const userStore = configureStore({
   reducer: {
     root: RootReducer,

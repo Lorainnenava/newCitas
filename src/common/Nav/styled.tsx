@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import img from "../../../public/assets/img/logoNav.png";
 
 export const Header = styled.div`
   width: 100%;
@@ -17,6 +18,18 @@ export const HeaderImagen = styled.div`
   align-items: center;
 `;
 
+export const Image = styled.div`
+  width: 25%;
+  height: 90%;
+  background-image: url(${img.src});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const TituloHeader = styled.h1`
   width: 50%;
   margin: 0;
@@ -33,4 +46,8 @@ export const styles = {
     justifyContent: "space-around",
     alignItems: "center",
   },
+  imagen:{
+    width: "25%",
+    height: "90%",
+  }
 };

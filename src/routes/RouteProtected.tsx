@@ -1,15 +1,22 @@
 import { TProtectedLogin } from "./types";
-import { FC } from "react";
-import { useRouter } from "next/router";
+import { FC, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/redux/hooks";
 
 export const ProtectedRoute: FC<TProtectedLogin> = ({
-  isAllowed,
   children,
-  redirectTo = "/",
-}) => {
+}): React.ReactNode => {
+  const userSelector = useAppSelector((state) => state.root.userLogin);
   const router = useRouter();
-  if (!isAllowed) {
-    return router.push(redirectTo);
-  }
+
+  useEffect(() => {
+    if (!userSelector?.data?.token) {
+      console.log("primero debes logearte");
+      router.push("/Login");
+    }
+  }, [userSelector, router]);
+
   return children;
 };
+
+export default ProtectedRoute;

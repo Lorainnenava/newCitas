@@ -42,7 +42,7 @@ export const Carta = styled.button<CartaProps>`
   border: none;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #8ab3cf;
+    background-color: #7ba7ea;
     cursor: pointer;
   }
 `;
@@ -51,10 +51,11 @@ export const IconoCarta = styled.div<CartaImagen>`
   width: 100%;
   height: 70%;
   border-bottom: 1px dashed white;
-  background-image: url(${(props) => props.imagenCarta});
-  background-size: 75% 90%;
+  background-image: ${(props) => `url(${props.imagenCarta})`};
+  background-size: 70% 75%;
   background-repeat: no-repeat;
   background-position: center;
+  margin-bottom: 10px;
 `;
 export const TituloCarta = styled.h4`
   width: 100%;

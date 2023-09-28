@@ -17,8 +17,9 @@ import { AlertGeneral } from "../../common/alert/alert";
 import { validateRequired } from "../../utils";
 import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { SerializedError } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+
 
 const Login = () => {
   /**
@@ -88,7 +89,7 @@ const Login = () => {
           router.push("/user");
         }
       }
-      toast(user.data?.msg, {
+      toast(user?.data?.msg, {
         autoClose: 1500,
         type: "success",
         hideProgressBar: false,

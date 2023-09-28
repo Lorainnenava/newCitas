@@ -3,7 +3,7 @@ export interface UserLoginState {
   error: string | undefined;
   success: boolean;
   data: {
-    msg: string;
+    msg:string;
     token: string;
     user: {
       email: string;

@@ -5,7 +5,7 @@ export const initialStateUserLogin: UserLoginState = {
     error: undefined,
     success: false,
     data: {
-      msg: "",
+      msg:"",
       token: "",
       user: {
         email: "",
