@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { userLogin } from "@/redux/features/login/request";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Box1, Container, ContenedorForm, Contents, Form } from "./styled";
@@ -15,20 +15,18 @@ import { CssTextField } from "../../utils/styles";
 import { TypeAlertT } from "../../common/alert/types";
 import { AlertGeneral } from "../../common/alert/alert";
 import { validateRequired } from "../../utils";
-import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { SerializedError } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { signIn } from "next-auth/react";
 
-
-const Login = () => {
+const SignIn = () => {
   /**
    * useStates
    */
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const user= useAppSelector((state)=> state.root.userLogin)
-  const { login } = useContext(AuthContext);
+  const user = useAppSelector((state) => state.root.userLogin);
   const [loading, setLoading] = useState(false);
   const [required, setRequired] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<TypeAlertT>({
@@ -40,6 +38,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   /**
    * handleChangue
    */
@@ -69,7 +68,18 @@ const Login = () => {
     } else {
       setLoading(true);
       dispatch(userLogin(dataForm));
-      setRequired(false);
+      try {
+        const result = await signIn("credentials", {
+          redirect: false,
+          email: dataForm.email,
+          password: dataForm.password,
+        });
+        if (result?.error) {
+          setLoading(false);
+        }
+      } catch (error) {
+        setLoading(false);
+      }
     }
   };
 
@@ -80,13 +90,27 @@ const Login = () => {
         user?.data?.user?.role === "doctor"
       ) {
         setLoading(false);
-        login(user?.data);
         router.push("/admin");
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            email: user?.data?.user?.email,
+            role: user?.data?.user?.role,
+            token: user?.data?.token,
+          })
+        );
       } else {
-        if ( user?.data?.user?.role === "usuario") {
+        if (user?.data?.user?.role === "usuario") {
           setLoading(false);
-          login(user.data);
           router.push("/user");
+          localStorage.setItem(
+            "auth",
+            JSON.stringify({
+              email: user?.data?.user?.email,
+              role: user?.data?.user?.role,
+              token: user?.data?.token,
+            })
+          );
         }
       }
       toast(user?.data?.msg, {
@@ -101,10 +125,10 @@ const Login = () => {
       toast(errorMessage, {
         autoClose: 1500,
         type: "error",
-        hideProgressBar: false, 
+        hideProgressBar: false,
       });
     }
-  }, [router, login, user]);
+  }, [router, user]);
 
   return (
     <Container>
@@ -178,4 +202,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;

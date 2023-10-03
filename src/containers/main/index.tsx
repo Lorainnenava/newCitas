@@ -14,7 +14,7 @@ const PaginaPrincipal = () => {
             <Carta
               backgroundColor="#669CE1"
               onClick={() => {
-                router.push("/Login");
+                router.push("/SignIn");
               }}
             >
               <IconoCarta imagenCarta={iniciarSesion.src} />
