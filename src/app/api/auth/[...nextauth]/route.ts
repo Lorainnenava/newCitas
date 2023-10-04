@@ -1,6 +1,5 @@
 import axios from "axios";
-import NextAuth, { Session } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
@@ -52,25 +51,27 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account}) {
+    async jwt({ token, user, account }) {
       return token;
     },
-    async session({ session, token }): Promise<any> {
-      console.log(session)
+    async session({ session, token }) {
       if (session) {
         return session;
       } else {
-        return {};
+        return session;
       }
     },
   },
   pages: {
-    signIn: "SignIn",
+    signIn: "/SignIn",
+    signOut: "/SignIn",
+    error: "/404",
   },
   session: {
     strategy: "jwt",
+    maxAge: 30,
   },
-  secret: "secretKey",
+  secret: process.env.JWT_SECRET,
 });
 
 export { handler as GET, handler as PATCH, handler as POST };

@@ -1,27 +1,15 @@
-"use client";
-import React from "react";
+"use client"
 
-export default function User() {
-  return (
-    <>
-      <div>Page</div> 
-    </>
-  );
+import ProtectRoutes from "../routes/ProtectRoutes"
+
+function User(){
+  return(
+    <ProtectRoutes>
+      <div>
+        holaaaaaaaa soy protegidaa
+      </div>
+    </ProtectRoutes>
+  )
 }
-// "use client"
 
-// import { useSession } from "next-auth/react";
-
-// function MiComponente() {
-//   const { data: session } = useSession();
-
-//   console.log(session)
-
-//   if (session) {
-//     return <div>Bienvenido, {session.user.name}!</div>;
-//   } else {
-//     return <div>Por favor, inicia sesión.</div>;
-//   }
-// }
-
-// export default MiComponente;
+export default User
