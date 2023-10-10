@@ -1,5 +1,5 @@
 import axios from "axios";
-import NextAuth from "next-auth";
+import NextAuth, { SessionStrategy } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
@@ -37,6 +37,7 @@ const handler = NextAuth({
                 name: res.data.user.name,
                 email: res.data.user.email,
                 id: res.data.user._id as string,
+                token: res.data.token as string
               };
             } else {
               throw new Error(
@@ -50,28 +51,31 @@ const handler = NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: "/SignIn",
+  },
+  session: {
+    strategy: "jwt" as SessionStrategy,
+    maxAge: 30,
+  },
+  jwt: {
+    maxAge: 30,
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user, account }) {
+      if (user) token.user = user;
       return token;
     },
     async session({ session, token }) {
       if (session) {
-        return session;
-      } else {
-        return session;
+        session.expires = token.exp as any;
+        session.user = token.user as any;
+        return session
       }
+      return session;
     },
   },
-  pages: {
-    signIn: "/SignIn",
-    signOut: "/SignIn",
-    error: "/404",
-  },
-  session: {
-    strategy: "jwt",
-    maxAge: 30,
-  },
-  secret: process.env.JWT_SECRET,
 });
 
 export { handler as GET, handler as PATCH, handler as POST };
