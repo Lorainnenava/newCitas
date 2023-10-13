@@ -1,7 +1,10 @@
 import axios from "axios";
-import NextAuth, { SessionStrategy } from "next-auth";
+import NextAuth, { Session, SessionStrategy } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+/**
+ * función para autenticar rutas
+ */
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
@@ -63,14 +66,14 @@ const handler = NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) token.user = user;
       return token;
     },
     async session({ session, token }) {
       if (session) {
-        session.expires = token.exp as any;
-        session.user = token.user as any;
+        session.expires = token.exp as Session["expires"];
+        session.user = token.user as Session["user"];
         return session
       }
       return session;

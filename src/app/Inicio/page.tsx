@@ -1,9 +1,8 @@
 import { Box } from "@mui/material";
 import React, { FC } from "react";
-import { TAdmin } from "./types";
 import img from "../../../public/assets/img/imgMain.jpg";
 
-const PrincipalView: FC<TAdmin> = () => {
+const PrincipalView: FC = () => {
   return (
     <Box
       sx={{

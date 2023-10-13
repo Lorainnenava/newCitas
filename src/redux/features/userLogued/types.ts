@@ -2,5 +2,5 @@ export interface UserLoguedState {
   loading: boolean;
   error: string | undefined;
   success: boolean;
-  data: any;
+  data: { _id: string };
 }

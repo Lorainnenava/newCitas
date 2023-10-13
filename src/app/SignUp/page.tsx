@@ -2,7 +2,7 @@
 import React from "react";
 import ProtectRoutes from "../routes/ProtectRoutes";
 
-export const register = () => {
+export const SignUp = () => {
 
   return (
     <ProtectRoutes>
@@ -11,4 +11,4 @@ export const register = () => {
   );
 };
 
-export default register
+export default SignUp

@@ -2,14 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 /**
- * Request userLogued
+ * Request userSessión
  */
-export const userLogued = createAsyncThunk(
-  "/usuario/userLogued",
+export const userSession = createAsyncThunk(
+  "/usuario/userSession",
   async (token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_URL}/usuario/userLogueado`,
+        `${process.env.BASE_URL}/usuario/userSession`,
         {
           headers: {
             "Content-type": "application/json",

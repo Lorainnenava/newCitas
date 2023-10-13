@@ -4,6 +4,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { userLogin } from "./request";
 import { initialStateUserLogin } from "./initialState";
 
+/**
+ * Slice userLoguin
+ */
 const userLoginSlice = createSlice({
   name: "login",
   initialState: initialStateUserLogin,

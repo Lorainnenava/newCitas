@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import { Header, HeaderImagen, TituloHeader, styles, Image} from "./styled";
 import { useRouter } from "next/navigation";
-import { TNavBar } from "./types";
 import {
   Box,
   Menu,

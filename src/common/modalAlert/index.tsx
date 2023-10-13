@@ -1,19 +1,20 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { Box, Button, Fade, Modal, Typography, useTheme } from "@mui/material";
 import { styleSheet } from "./styled";
 import WarningIcon from "@mui/icons-material/Warning";
+import { TModalAlertConfirmation } from "./types";
 
-export const ModalAlertConfirmation = ({
+export const ModalAlertConfirmation: FC<TModalAlertConfirmation> = ({
   title,
   subTitle,
   nameAccept,
   nameDecline,
   confirmation,
-  state = false,
+  state,
   onClickAccept,
   disabledLoading,
   handleCloseModal,
-}: any) => {
+}) => {
   const theme = useTheme();
   const styles = styleSheet(theme);
   const [open, setOpen] = useState(state);

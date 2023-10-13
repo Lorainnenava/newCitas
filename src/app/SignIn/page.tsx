@@ -16,8 +16,6 @@ import { TypeAlertT } from "../../common/alert/types";
 import { AlertGeneral } from "../../common/alert/alert";
 import { validateRequired } from "../../utils";
 import { useRouter } from "next/navigation";
-import { SerializedError } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 
 const SignIn = () => {
@@ -80,57 +78,26 @@ const SignIn = () => {
       } catch (error) {
         setLoading(false);
       }
-      router.push("/user");
 
     }
   };
 
-  // useEffect(() => {
-  //   if (user?.data) {
-  //     if (
-  //       user?.data?.user?.role === "Admi" ||
-  //       user?.data?.user?.role === "doctor"
-  //     ) {
-  //       setLoading(false);
-  //       router.push("/admin");
-  //       localStorage.setItem(
-  //         "auth",
-  //         JSON.stringify({
-  //           email: user?.data?.user?.email,
-  //           role: user?.data?.user?.role,
-  //           token: user?.data?.token,
-  //         })
-  //       );
-  //     } else {
-  //       if (user?.data?.user?.role === "usuario") {
-  //         setLoading(false);
-  //         router.push("/user");
-  //         localStorage.setItem(
-  //           "auth",
-  //           JSON.stringify({
-  //             email: user?.data?.user?.email,
-  //             role: user?.data?.user?.role,
-  //             token: user?.data?.token,
-  //           })
-  //         );
-  //       }
-  //     }
-  //     toast(user?.data?.msg, {
-  //       autoClose: 1500,
-  //       type: "success",
-  //       hideProgressBar: false,
-  //     });
-  //   }
-  //   if (user.error !== undefined) {
-  //     const errorMessage = (user.error as SerializedError)?.message;
-  //     setLoading(false);
-  //     toast(errorMessage, {
-  //       autoClose: 1500,
-  //       type: "error",
-  //       hideProgressBar: false,
-  //     });
-  //   }
-  // }, [router, user]);
+
+  useEffect(() => {
+    if (user?.data) {
+      if (user?.data?.user?.role === "usuario") {
+        setLoading(false);
+        router.push("/user");
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            email: user?.data?.user?.email,
+            role: user?.data?.user?.role,
+            token: user?.data?.token,
+          }))
+      }
+    }
+  }, [user, router])
 
   return (
     <Container>

@@ -1,5 +1,8 @@
-import { ArgVal } from "./types.d";
+import { ArgVal } from "@/types/types";
 
+/** 
+ * Validación numerica
+ * */
 export const isNumericValidation = (value: ArgVal): boolean =>
   !!(
     value !== null &&
@@ -10,7 +13,7 @@ export const isNumericValidation = (value: ArgVal): boolean =>
   );
 
 /**
- * Validad campos requeridos
+ * Validar campos requeridos
  */
 export const validateRequired = (field?: boolean, required?: boolean) => {
   let color: string = "";
@@ -23,7 +26,7 @@ export const validateRequired = (field?: boolean, required?: boolean) => {
 };
 
 /**
- * validar selects requeridos
+ * Validar selects requeridos
  */
 export const validateRequiredSelect = (field?: boolean, required?: boolean) => {
   let color: boolean = false;

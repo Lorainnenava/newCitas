@@ -2,20 +2,22 @@ import NextAuth from "next-auth";
 import { User as NextAuthUser } from "next-auth";
 
 declare module "next-auth" {
-  interface Session {
-    user: {
-      name: string;
-      email: string;
-      token?: any
-    };
+  /**
+   * tipeado Session
+   */
+  export interface Session {
+    user: User;
+    expires: string;
     accessToken: string;
     error?: string
-    token?: any
-
+    token?: string
   }
-  interface User extends NextAuthUser {
-    token?: string;
+  /**
+   * tipeado User
+   */
+  export interface User extends NextAuthUser {
     name: string;
     email: string;
+    token?: string;
   }
 }

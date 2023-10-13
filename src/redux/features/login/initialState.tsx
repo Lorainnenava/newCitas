@@ -1,5 +1,8 @@
 import { UserLoginState } from "./types";
 
+/**
+ * State initial userLogin
+ */
 export const initialStateUserLogin: UserLoginState = {
     loading: false,
     error: undefined,

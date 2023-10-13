@@ -4,8 +4,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { userLogued } from "./request";
 import { initialStateUserLogued } from "./initialState";
 
+/**
+ * Slice userLogued
+ */
 const userLoguedSlice = createSlice({
-  name: "login",
+  name: "logued",
   initialState: initialStateUserLogued,
   reducers: {},
   extraReducers: (builder) => {

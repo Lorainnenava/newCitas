@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 /**
- * usuario que se esta intentando loguear
+ * Request userLoguin
  */
 export const userLogin = createAsyncThunk(
   "/usuario/userLogin",

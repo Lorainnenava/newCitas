@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 /**
- * registro de usuario
+ * Request userCreated
  */
 export const userCreated = createAsyncThunk(
   "/usuario/signUp",

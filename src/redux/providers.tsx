@@ -1,5 +1,4 @@
 "use client";
-
 import { Provider } from "react-redux";
 import { userStore } from "./store/configRedux";
 import { SessionProvider } from "next-auth/react";

@@ -1,5 +1,8 @@
 import { UserSignUpState } from "./types";
 
+/**
+ * State initial signUp
+ */
 export const initialStateSignUp: UserSignUpState = {
   loading: false,
   error: undefined,
