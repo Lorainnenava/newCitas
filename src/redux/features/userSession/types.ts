@@ -8,5 +8,5 @@ export interface UserSessionState {
         token: string;
         role: string;
         _idUser: string;
-    }
+    };
 }

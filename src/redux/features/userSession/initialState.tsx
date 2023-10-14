@@ -1,4 +1,4 @@
-import { UserSessionState } from "./types";
+import { UserSessionState } from './types';
 
 /**
  * State initial userSession
@@ -8,10 +8,10 @@ export const initialStateUserSession: UserSessionState = {
     error: undefined,
     success: false,
     data: {
-      email: "",
-      password: "",
-      token: "",
-      role: "",
-      _idUser: "",
-  }
-  };
+        email: '',
+        password: '',
+        token: '',
+        role: '',
+        _idUser: '',
+    },
+};

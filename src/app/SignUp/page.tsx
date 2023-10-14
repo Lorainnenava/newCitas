@@ -1,14 +1,13 @@
-"use client"
-import React from "react";
-import ProtectRoutes from "../routes/ProtectRoutes";
+'use client';
+import React from 'react';
+import ProtectRoutes from '../routes/ProtectRoutes';
 
 export const SignUp = () => {
-
-  return (
-    <ProtectRoutes>
-      <div>register</div>
-      </ProtectRoutes>
-  );
+    return (
+        <ProtectRoutes>
+            <div>register</div>
+        </ProtectRoutes>
+    );
 };
 
-export default SignUp
+export default SignUp;

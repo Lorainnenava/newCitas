@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import PaginaPrincipal from "@/containers/main";
+import PaginaPrincipal from '@/containers/main';
 
 export default function Home() {
-  return (
-    <>
-      <PaginaPrincipal/>
-    </>
-  );
+    return (
+        <>
+            <PaginaPrincipal />
+        </>
+    );
 }

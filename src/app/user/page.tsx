@@ -1,16 +1,13 @@
-"use client"
+'use client';
 
-import ProtectRoutes from "../routes/ProtectRoutes"
+import ProtectRoutes from '../routes/ProtectRoutes';
 
-function User(){
-  return(
-    <ProtectRoutes>
-      <div>
-        holaaaaaaaa soy protegidaa
-      </div>
-    </ProtectRoutes>
-  )
+function User() {
+    return (
+        <ProtectRoutes>
+            <div>holaaaaaaaa soy protegidaa</div>
+        </ProtectRoutes>
+    );
 }
 
-
-export default User
+export default User;

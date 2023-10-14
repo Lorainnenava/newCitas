@@ -1,4 +1,4 @@
-import { UserLoginState } from "./types";
+import { UserLoginState } from './types';
 
 /**
  * State initial userLogin
@@ -8,15 +8,15 @@ export const initialStateUserLogin: UserLoginState = {
     error: undefined,
     success: false,
     data: {
-      msg:"",
-      token: "",
-      user: {
-        email: "",
-        identification: "",
-        mobileNumber: "",
-        name: "",
-        password: "",
-        role: "",
-      },
+        msg: '',
+        token: '',
+        user: {
+            email: '',
+            identification: '',
+            mobileNumber: '',
+            name: '',
+            password: '',
+            role: '',
+        },
     },
-  };
+};

@@ -1,5 +1,5 @@
-import { TDataProfileAuth } from "@/utils/types.d";
+import { TDataProfileAuth } from '@/utils/types.d';
 
 export type TLayout = {
-  profileAuth?: TDataProfileAuth;
+    profileAuth?: TDataProfileAuth;
 };

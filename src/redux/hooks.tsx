@@ -1,6 +1,6 @@
-"use client"
-import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./store/configRedux";
+'use client';
+import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from './store/configRedux';
 
 /**
  * Definicion de los hooks usados en nuestra applicación
