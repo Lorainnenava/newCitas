@@ -37,3 +37,9 @@ export const validateRequiredSelect = (field?: boolean, required?: boolean) => {
     }
     return color;
 };
+
+export const alertInitialState = {
+    message: '',
+    type: 'success' as "success",
+    active: false,
+  };

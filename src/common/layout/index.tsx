@@ -17,12 +17,12 @@ export const Layout: FC<TLayout> = ({ profileAuth }) => {
         <>
             {profileAuth?.user?.role === 'Admi' ? (
                 <Box>
-                    <Accordion sx={{ backgroundcolor: '#C5DFF8' }}>
+                    <Accordion sx={{ backgroundColor: '#C5DFF8' }}>
                         <AccordionSummary
                             expandIcon={<GridExpandMoreIcon />}
                             aria-controls="panel2a-content"
                             id="panel2a-header"
-                            sx={{ backgroundcolor: '#5A96E3' }}
+                            sx={{ backgroundColor: '#5A96E3' }}
                         >
                             <Diversity1Icon sx={{ marginRight: '5px' }} />
                             <Typography>PACIENTES</Typography>
@@ -44,12 +44,12 @@ export const Layout: FC<TLayout> = ({ profileAuth }) => {
                             </AccordionDetails>
                         </Link>
                     </Accordion>
-                    <Accordion sx={{ backgroundcolor: '#C5DFF8' }}>
+                    <Accordion sx={{ backgroundColor: '#C5DFF8' }}>
                         <AccordionSummary
                             expandIcon={<GridExpandMoreIcon />}
                             aria-controls="panel2a-content"
                             id="panel2a-header"
-                            sx={{ backgroundcolor: '#5A96E3' }}
+                            sx={{ backgroundColor: '#5A96E3' }}
                         >
                             <EditCalendarIcon sx={{ marginRight: '5px' }} />
                             <Typography>CITAS</Typography>
@@ -66,12 +66,12 @@ export const Layout: FC<TLayout> = ({ profileAuth }) => {
                 </Box>
             ) : (
                 <Box>
-                    <Accordion sx={{ backgroundcolor: '#C5DFF8' }}>
+                    <Accordion sx={{ backgroundColor: '#C5DFF8' }}>
                         <AccordionSummary
                             expandIcon={<GridExpandMoreIcon />}
                             aria-controls="panel2a-content"
                             id="panel2a-header"
-                            sx={{ backgroundcolor: '#5A96E3' }}
+                            sx={{ backgroundColor: '#5A96E3' }}
                         >
                             <Diversity1Icon sx={{ marginRight: '5px' }} />
                             <Typography>USUARIO</Typography>
@@ -85,12 +85,12 @@ export const Layout: FC<TLayout> = ({ profileAuth }) => {
                             </AccordionDetails>
                         </Link>
                     </Accordion>
-                    <Accordion sx={{ backgroundcolor: '#C5DFF8' }}>
+                    <Accordion sx={{ backgroundColor: '#C5DFF8' }}>
                         <AccordionSummary
                             expandIcon={<GridExpandMoreIcon />}
                             aria-controls="panel2a-content"
                             id="panel2a-header"
-                            sx={{ backgroundcolor: '#5A96E3' }}
+                            sx={{ backgroundColor: '#5A96E3' }}
                         >
                             <EditCalendarIcon sx={{ marginRight: '5px' }} />
                             <Typography>CITAS</Typography>

@@ -11,8 +11,6 @@ export default async function getData({ token }: { token: string }) {
         next: { revalidate: 30 },
     });
 
-    console.log(res);
-
     if (!res.ok) {
         throw new Error('La sesión ha expirado');
     }
