@@ -19,23 +19,23 @@ const PaginaPrincipal = () => {
             <Portada>
                 <Box>
                     <Carta
-                        backgroundColor="#669CE1"
+                        backgroundcolor="#669CE1"
                         onClick={() => {
                             router.push('/SignIn');
                         }}
                     >
-                        <IconoCarta imagenCarta={iniciarSesion.src} />
+                        <IconoCarta imagencarta={iniciarSesion.src} />
                         <TituloCarta>INGRESAR AL PORTAL</TituloCarta>
                     </Carta>
                     <Carta
-                        backgroundColor="#669CE1"
+                        backgroundcolor="#669CE1"
                         onClick={() => router.push('/SignUp')}
                     >
-                        <IconoCarta imagenCarta={registrar.src} />
+                        <IconoCarta imagencarta={registrar.src} />
                         <TituloCarta>REGISTRARSE</TituloCarta>
                     </Carta>
-                    <Carta backgroundColor="#669CE1">
-                        <IconoCarta imagenCarta={pregunta.src} />
+                    <Carta backgroundcolor="#669CE1">
+                        <IconoCarta imagencarta={pregunta.src} />
                         <TituloCarta>PREGUNTAS FRECUENTES</TituloCarta>
                     </Carta>
                 </Box>

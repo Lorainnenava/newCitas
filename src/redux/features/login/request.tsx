@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 /**
  * Request userLoguin
@@ -8,16 +7,25 @@ export const userLogin = createAsyncThunk(
     '/usuario/userLogin',
     async (dataForm: object) => {
         try {
-            const response = await axios.patch(
+            const response = await fetch(
                 `${process.env.BASE_URL}/usuario`,
-                dataForm,
+
                 {
+                    method: 'PATCH',
+                    body: JSON.stringify(dataForm),
                     headers: {
                         'Content-type': 'application/json',
                     },
                 }
             );
-            return response.data;
+
+            if (!response.ok) {
+                throw new Error('ha ocurrido algun error');
+            }
+
+            console.log(response.json(), 'gggg');
+
+            return response.json();
         } catch (error) {
             throw error;
         }

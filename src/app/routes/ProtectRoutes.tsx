@@ -2,8 +2,7 @@
 import Loading from '@/common/loading/Loading';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-import getData from './getData';
+import React, { useEffect, useState } from 'react';
 
 /**
  * Función para proteger las rutas
@@ -13,37 +12,50 @@ export const ProtectRoutes = async ({
 }: {
     children: React.ReactNode;
 }) => {
-    const { data: session, status } = useSession({ required: true });
     const router = useRouter();
+    const [mySession, setMySession] = useState<any>();
     const [sessionDeleted, setSessionDeleted] = useState(false);
-    const token =
-        typeof window !== 'undefined' ? localStorage.getItem('auth') : null;
-    const authorization = token ? JSON.parse(token) : null;
+    const { data: session, status } = useSession({
+        required: true,
+    });
 
-    try {
-        if (authorization) {
-            const data = await getData(authorization);
-            console.log(data);
-        }
+    /**
+     * useEffect para verificar si el usuario tiene una sesión
+     */
+    useEffect(() => {
+        const protecter = async () => {
+            try {
+                await fetch('/api/Session', {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                })
+                    .then((data) => data.json())
+                    .then((data) => {
+                        setMySession(data);
+                    })
+                    .catch((error) => {
+                        if (
+                            (status !== 'authenticated' &&
+                                status !== 'loading' &&
+                                !session &&
+                                !sessionDeleted) ||
+                            !mySession?.token
+                        ) {
+                            console.log('Debes iniciar sesión');
+                            router.replace('/SignIn');
+                        }
+                    });
+            } catch (error) {
+                setSessionDeleted(true);
+            }
+        };
+        protecter();
+    }, [session, status, router]);
 
-        if (status === 'loading') {
-            return <Loading />;
-        }
-
-        if (
-            (status !== 'authenticated' &&
-                status !== 'loading' &&
-                !session &&
-                !sessionDeleted) ||
-            Date.now() < Number(session?.expires) * 1000
-        ) {
-            console.log('Debes iniciar sesión');
-            router.push('/SignIn');
-        }
-    } catch (error) {
-        typeof window !== 'undefined' ? localStorage.clear() : null;
-        console.log(error);
-        setSessionDeleted(true);
+    if (status === 'loading') {
+        return <Loading />;
     }
 
     return <>{children}</>;

@@ -1,11 +1,10 @@
-import axios from 'axios';
-import NextAuth, { Session, SessionStrategy } from 'next-auth';
+import NextAuth, { NextAuthOptions, Session, SessionStrategy } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 /**
  * Función para autenticar rutas
  */
-const handler = NextAuth({
+const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -25,38 +24,31 @@ const handler = NextAuth({
                         email: credentials?.email,
                         password: credentials?.password,
                     };
-                    try {
-                        const res = await axios.patch(
-                            `${process.env.BASE_URL}/usuario`,
-                            payload,
-                            {
-                                headers: {
-                                    'Content-type': 'application/json',
-                                },
-                            }
-                        );
-                        if (res.data) {
-                            return {
-                                name: res.data.user.name,
-                                email: res.data.user.email,
-                                id: res.data.user._id,
-                                token: res.data.token,
-                            };
-                        } else {
-                            throw new Error(
-                                'Error al iniciar sesión con las credenciales proporcionadas'
-                            );
-                        }
-                    } catch (error) {
-                        throw new Error(
-                            'Las credenciales proporcionadas no son válidas'
-                        );
+                    const res = await fetch(`${process.env.BASE_URL}/usuario`, {
+                        method: 'PATCH',
+                        body: JSON.stringify(payload),
+                        headers: {
+                            'Content-type': 'application/json',
+                        },
+                    });
+
+                    const user = await res.json();
+                    if (res.ok && user) {
+                        return {
+                            name: user.user.name,
+                            email: user.user.email,
+                            id: user.user._id,
+                            token: user.token,
+                        };
+                    } else {
+                        throw new Error(user.message);
                     }
                 }
                 return null;
             },
         }),
     ],
+    secret: process.env.NEXTAUTH_SECRET,
     pages: {
         signIn: '/SignIn',
     },
@@ -67,7 +59,6 @@ const handler = NextAuth({
     jwt: {
         maxAge: 30,
     },
-    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user }) {
             if (user) token.user = user;
@@ -82,6 +73,8 @@ const handler = NextAuth({
             return session;
         },
     },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as PATCH, handler as POST };

@@ -1,12 +1,12 @@
 'use client';
 import { Provider } from 'react-redux';
 import { userStore } from './store/configRedux';
-import { SessionProvider } from 'next-auth/react';
+import { NextAuthProvider } from '@/context/providers';
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
         <Provider store={userStore}>
-            <SessionProvider>{children}</SessionProvider>
+            <NextAuthProvider>{children}</NextAuthProvider>
         </Provider>
     );
 }

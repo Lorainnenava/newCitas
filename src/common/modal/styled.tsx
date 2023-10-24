@@ -18,7 +18,7 @@ export const BoxContainer = styled.div<{ width: string; height?: string }>`
     display: flex;
     flex-direction: column;
     width: ${({ width }) => (width ? width : 'auto')};
-    background: white;
+    background-color: white;
     padding: 20px;
     height: ${({ height }) => (height ? height : 'auto')};
 `;

@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 /**
  * Request userCreated
@@ -8,16 +7,23 @@ export const userCreated = createAsyncThunk(
     '/usuario/signUp',
     async (dataForm: object) => {
         try {
-            const response = await axios.post(
+            const response = await fetch(
                 `${process.env.BASE_URL}/usuario/signUp`,
-                dataForm,
+
                 {
+                    method: 'POST',
+                    body: JSON.stringify(dataForm),
                     headers: {
                         'Content-type': 'application/json',
                     },
                 }
             );
-            return response.data;
+
+            if (!response.ok) {
+                throw new Error('ha ocurrido algun error');
+            }
+
+            return response.json();
         } catch (error) {
             throw error;
         }

@@ -64,7 +64,7 @@ export const AlertGeneral: FC<TAlert> = ({ showAlert, setShowAlert }) => {
                                         active: false,
                                     })
                                 }
-                                sx={{ ...style.alert, background: bgColor }}
+                                sx={{ ...style.alert, backgroundColor: bgColor }}
                             >
                                 <Box sx={style.box}>
                                     {type === 'success' && (

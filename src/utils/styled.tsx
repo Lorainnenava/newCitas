@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PortadaImagen from '../../../public/assets/img/logIn/cover.jpg';
+import PortadaImagen from '../../public/assets/img/logIn/cover.jpg';
 
 interface CartaProps {
     backgroundColor: string;

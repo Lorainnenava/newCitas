@@ -51,3 +51,19 @@ export const Contents = styled.div`
     border-radius: 20px 0px 0px 20px;
     margin: 7px 7px;
 `;
+
+export const styles = {
+    box2: {
+        width: '50%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '0px 20px 20px 0px',
+    },
+    link: {
+        color: '#ce0a31',
+        textDecoration: 'none',
+        cursor: 'pointer',
+    },
+}
