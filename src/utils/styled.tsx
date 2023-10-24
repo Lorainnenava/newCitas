@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import PortadaImagen from '../../public/assets/img/logIn/cover.jpg';
 
 interface CartaProps {
-    backgroundColor: string;
+    backgroundcolor: string;
 }
 
 interface CartaImagen {
-    imagenCarta: string;
+    imagencarta: string;
 }
 
 export const Container = styled.div`
@@ -36,7 +36,7 @@ export const Box = styled.div`
 export const Carta = styled.button<CartaProps>`
     width: 28%;
     height: 100%;
-    background-color: ${(props) => props.backgroundColor};
+    background-color: ${(props) => props.backgroundcolor};
     box-shadow: 0px 5px 5px gray;
     padding: 15px;
     border: none;
@@ -51,7 +51,7 @@ export const IconoCarta = styled.div<CartaImagen>`
     width: 100%;
     height: 70%;
     border-bottom: 1px dashed white;
-    background-image: ${(props) => `url(${props.imagenCarta})`};
+    background-image: ${(props) => `url(${props.imagencarta})`};
     background-size: 70% 75%;
     background-repeat: no-repeat;
     background-position: center;

@@ -29,7 +29,6 @@ const ViewLogin: FC<TLogin> = ({
     handleSubmit,
     handleChangue,
 }) => {
-
     return (
         <Container>
             <Box1>
