@@ -11,7 +11,7 @@ import { SignInModule } from './infrastructure/module/signIn/signIn.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    MongooseModule.forRoot(`${process.env.MONGODB_URI}`),
+    MongooseModule.forRoot(`${process.env.MONGODB_URI}`), // connection dataBase
     UserModule,
     SessionModule,
     SignInModule,

@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { SessionService } from '../session/session.service';
-import { comparePassword } from 'src/utils';
-import { ISignInApplication } from 'src/domain/inferface/signIn/ISignInApplication';
-import { SignInRequestDto } from 'src/domain/collections/signIn/dto/signIn.dto';
 import { JwtService } from '@nestjs/jwt';
+import { ISignInApplication } from '../../domain/inferface/signIn/ISignInApplication';
+import { SignInRequestDto } from '../../domain/collections/signIn/dto/signIn.dto';
+import { comparePassword } from '../../utils';
 
 @Injectable()
 export class SignInService implements ISignInApplication {

@@ -1,7 +1,8 @@
 import * as bcrypt from 'bcrypt';
+import { SetMetadata } from '@nestjs/common';
 
 /**
- * encryptPassword
+ * EncryptPassword
  * @param password
  */
 export const encryptPassword = async (password: string): Promise<string> => {
@@ -12,7 +13,7 @@ export const encryptPassword = async (password: string): Promise<string> => {
 };
 
 /**
- * comparePassword
+ * ComparePassword
  * @param password
  * @param passwordReceived
  */
@@ -22,3 +23,9 @@ export const comparePassword = async (
 ): Promise<boolean> => {
   return await bcrypt.compare(password, passwordReceived);
 };
+
+/**
+ * Build a public route
+ */
+export const IS_PUBLIC_KEY = 'isPublic';
+export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);

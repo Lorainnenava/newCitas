@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 import { Types } from 'mongoose';
 
 /**
- * class SessionRequestDto
+ * Class SessionRequestDto
  */
 export class SessionRequestDto {
   @ApiProperty()

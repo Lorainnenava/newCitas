@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Document, Types } from 'mongoose';
 
 /**
- * class SessionDto
+ * Class SessionResponseDto
  */
 export class SessionResponseDto extends Document {
   @ApiProperty()

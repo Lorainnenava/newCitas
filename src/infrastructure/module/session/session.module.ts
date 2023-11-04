@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { SessionController } from 'src/infrastructure/controller/session/session.controller';
-import { SessionService } from 'src/application/session/session.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
   Session,
   SessionSchema,
-} from 'src/domain/collections/session/schema/session.entity';
+} from '../../../domain/collections/session/schema/session.entity';
+import { SessionController } from '../../controller/session/session.controller';
+import { SessionService } from '../../../application/session/session.service';
 
 @Module({
   imports: [

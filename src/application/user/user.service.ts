@@ -1,10 +1,10 @@
 import { Body, Injectable, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserRequestDto } from 'src/domain/collections/user/dto/request/userRequest.dto';
-import { UserResponseDto } from 'src/domain/collections/user/dto/response/userResponse.dto';
-import { User } from 'src/domain/collections/user/schemas/user.entity';
-import { IUserApplication } from 'src/domain/inferface/user/IUserApplication';
+import { IUserApplication } from '../../domain/inferface/user/IUserApplication';
+import { User } from '../../domain/collections/user/schemas/user.entity';
+import { UserRequestDto } from '../../domain/collections/user/dto/request/userRequest.dto';
+import { UserResponseDto } from '../../domain/collections/user/dto/response/userResponse.dto';
 
 /**
  * Controller User
@@ -39,5 +39,13 @@ export class UserService implements IUserApplication {
    */
   async findOne(email: string): Promise<UserResponseDto> {
     return await this.userModel.findOne({ email: email });
+  }
+
+  /**
+   * GetAll
+   * @returns
+   */
+  async getAll(): Promise<UserResponseDto[]> {
+    return await this.userModel.find();
   }
 }

@@ -1,7 +1,7 @@
 import { Controller, Delete, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { SessionService } from 'src/application/session/session.service';
-import { SessionResponseDto } from 'src/domain/collections/session/dto/response/sessionResponse.dto';
+import { SessionService } from '../../../application/session/session.service';
+import { SessionResponseDto } from '../../../domain/collections/session/dto/response/sessionResponse.dto';
 
 @ApiTags('Session')
 @Controller()
