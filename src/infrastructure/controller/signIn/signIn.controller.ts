@@ -2,21 +2,21 @@ import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body } from '@nestjs/common';
 import { SignInService } from '../../../application/signIn/signIn.service';
 import { Public } from '../../../utils';
-import { SignInRequestDto } from '../../../domain/collections/signIn/dto/signIn.dto';
+import { SignInRequestDto } from '../../../domain/collections/signIn/dto/request/signIn.dto';
 
 @ApiTags('SignIn')
-@Controller()
+@Controller('/SignIn')
 export class SignInController {
   constructor(private readonly signInService: SignInService) {}
 
   /**
    * SignIn
-   * @param data
+   * @param request
    * @returns
    */
   @Public()
-  @Post('/SignIn')
-  async signIn(@Body() data: SignInRequestDto): Promise<object> {
-    return this.signInService.signIn(data);
+  @Post()
+  async signIn(@Body() request: SignInRequestDto): Promise<object> {
+    return this.signInService.signIn(request);
   }
 }

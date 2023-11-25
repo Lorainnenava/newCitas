@@ -5,13 +5,16 @@ import {
   BadRequestException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { comparePassword } from '../../utils';
 import { UserService } from '../user/user.service';
 import { SessionService } from '../session/session.service';
-import { JwtService } from '@nestjs/jwt';
+import { SignInRequestDto } from '../../domain/collections/signIn/dto/request/signIn.dto';
 import { ISignInApplication } from '../../domain/inferface/signIn/ISignInApplication';
-import { SignInRequestDto } from '../../domain/collections/signIn/dto/signIn.dto';
-import { comparePassword } from '../../utils';
 
+/**
+ * SignInService
+ */
 @Injectable()
 export class SignInService implements ISignInApplication {
   constructor(
@@ -20,12 +23,17 @@ export class SignInService implements ISignInApplication {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(@Body() data: SignInRequestDto): Promise<object> {
-    const searchUser = await this.userService.findOne(data.email);
+  /**
+   * signIn
+   * @param request
+   * @returns
+   */
+  async signIn(@Body() request: SignInRequestDto): Promise<object> {
+    const searchUser = await this.userService.findOne(request.email);
     if (!searchUser) throw new NotFoundException('User not found');
 
     const passwordCorrect = await comparePassword(
-      data.password,
+      request.password,
       searchUser.password,
     );
     if (!passwordCorrect || !searchUser) {
@@ -35,24 +43,23 @@ export class SignInService implements ISignInApplication {
     /**
      * verify if the session exists
      */
-    const exitedSession = await this.sessionService.findOne(searchUser._id);
+    const exitedSession = await this.sessionService.findOne(request.email);
     if (exitedSession)
       throw new BadRequestException('This session already exists');
     const accessToken = await this.jwtService.signAsync({
-      name: searchUser.name,
       sub: searchUser._id,
+      name: searchUser.name,
+      email: searchUser.email,
+      typeDocument: searchUser.documentInfo.typeDocument,
+      documentNumber: searchUser.documentInfo.documentNumber,
     });
-    const newSession = await this.sessionService.create({
-      email: data.email,
-      password: data.password,
-      role: searchUser.role,
+    await this.sessionService.create({
+      ...request,
       token: accessToken,
-      _idUser: searchUser._id,
+      userInfo: searchUser,
     });
     return {
-      newSession,
-      msg: 'You have successfully logged in',
-      token: accessToken,
+      access_token: accessToken,
     };
   }
 }

@@ -1,19 +1,26 @@
 import {
+  Injectable,
   CanActivate,
   ExecutionContext,
-  Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { IS_PUBLIC_KEY } from '../../../utils';
+import { RequestUser } from '../../../utils/types';
+import { SessionService } from '../session.service';
+import { TokenExpiredError } from 'jsonwebtoken';
 
+/**
+ * AuthGuard
+ */
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
-    private reflector: Reflector,
+    private sessionService: SessionService,
+    private reflector: Reflector, // recover custom metadata
   ) {}
 
   /**
@@ -25,6 +32,7 @@ export class AuthGuard implements CanActivate {
     /**
      * return data if the route is public
      */
+    // getAllAndOverride try to recover metadata IS_PUBLIC_KEY
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
@@ -41,14 +49,22 @@ export class AuthGuard implements CanActivate {
     if (!token) {
       throw new UnauthorizedException();
     }
-    try {
-      const payload = await this.jwtService.verifyAsync(token, {
-        secret: `${process.env.SECRET_KEY}`,
-      });
 
-      request['user'] = payload;
-    } catch {
-      throw new UnauthorizedException();
+    try {
+      const payload = await this.jwtService
+        .verifyAsync(token, {
+          secret: 'MY_SECRET_KEY',
+        })
+        .catch(async (error) => {
+          if (error instanceof TokenExpiredError) {
+            await this.sessionService.delete(token);
+            throw new UnauthorizedException('This session expired');
+          }
+        });
+
+      request['user'] = payload as RequestUser;
+    } catch (error) {
+      throw new UnauthorizedException(error.response);
     }
     return true;
   }

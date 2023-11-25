@@ -1,7 +1,8 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { DocumentInfoRequestDto } from '../dto/request/document/documentInfoRequest.dto';
 
-export type UserDocument = HydratedDocument<User>;
+export type userDocument = HydratedDocument<User>;
 
 /**
  * Schema User
@@ -15,16 +16,10 @@ export class User {
   name: string;
 
   /**
-   * _idtypeOfDocument
+   * documentInfo
    */
-  @Prop({ type: String })
-  _idtypeOfDocument: string;
-
-  /**
-   * identificacion
-   */
-  @Prop({ type: Number })
-  identificacion: number;
+  @Prop({ type: DocumentInfoRequestDto })
+  documentInfo: DocumentInfoRequestDto;
 
   /**
    * mobileNumber
@@ -47,7 +42,7 @@ export class User {
   /**
    * role
    */
-  @Prop({ type: String })
+  @Prop({ type: String, default: 'user' })
   role: string;
 }
 

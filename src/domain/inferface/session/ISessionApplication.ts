@@ -1,23 +1,28 @@
-import { Types } from 'mongoose';
 import { SessionRequestDto } from '../../collections/session/dto/request/sessionRequest.dto';
 import { SessionResponseDto } from '../../collections/session/dto/response/sessionResponse.dto';
 
 export interface ISessionApplication {
   /**
    * method create
-   * @param data
+   * @param request
    */
-  create(data: SessionRequestDto): Promise<object>;
+  create(request: SessionRequestDto): Promise<object>;
 
   /**
    * method delete
-   * @param id
+   * @param token
    */
-  delete?(id: string): Promise<SessionResponseDto>;
+  delete?(token: string): Promise<SessionResponseDto>;
 
   /**
    * method findOne
-   * @param id
+   * @param email
    */
-  findOne(id: Types.ObjectId): Promise<SessionResponseDto>;
+  findOne(email: string): Promise<SessionResponseDto>;
+
+  /**
+   * method findSession
+   * @param email
+   */
+  findSession(email: string): Promise<SessionResponseDto | object>;
 }

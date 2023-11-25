@@ -5,7 +5,7 @@ import { UserModule } from '../user/user.module';
 import { SessionModule } from '../session/session.module';
 import { SignInController } from '../../controller/signIn/signIn.controller';
 import { SignInService } from '../../../application/signIn/signIn.service';
-import { AuthGuard } from '../../../application/signIn/protectRoute/auth.guard';
+import { AuthGuard } from '../../../application/session/protectRoute/auth.guard';
 
 @Module({
   imports: [
@@ -14,8 +14,8 @@ import { AuthGuard } from '../../../application/signIn/protectRoute/auth.guard';
     JwtModule.register({
       // jwt setting
       global: true,
-      secret: `${process.env.SECRET_KEY}`,
-      signOptions: { expiresIn: '60s' },
+      secret: 'MY_SECRET_KEY',
+      signOptions: { expiresIn: '30s' },
     }),
   ],
   controllers: [SignInController],
@@ -27,5 +27,6 @@ import { AuthGuard } from '../../../application/signIn/protectRoute/auth.guard';
       useClass: AuthGuard,
     },
   ],
+  exports: [SignInService],
 })
 export class SignInModule {}

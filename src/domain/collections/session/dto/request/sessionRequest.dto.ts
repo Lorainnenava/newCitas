@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
-import { Types } from 'mongoose';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+  Length,
+} from 'class-validator';
+import { UserRequestDto } from '../../../user/dto/request/user/userRequest.dto';
 
 /**
  * Class SessionRequestDto
@@ -20,15 +26,10 @@ export class SessionRequestDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  token?: string;
+  token: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  role: string;
-
-  @ApiProperty({ type: String })
-  @IsNotEmpty()
-  @IsString()
-  _idUser: Types.ObjectId;
+  @IsObject()
+  userInfo: UserRequestDto;
 }

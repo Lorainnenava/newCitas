@@ -1,11 +1,14 @@
+import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
-import { Body, Injectable } from '@nestjs/common';
-import { ISessionApplication } from '../../domain/inferface/session/ISessionApplication';
+import { NotFoundException, Body, Injectable } from '@nestjs/common';
 import { Session } from '../../domain/collections/session/schema/session.entity';
+import { ISessionApplication } from '../../domain/inferface/session/ISessionApplication';
 import { SessionRequestDto } from '../../domain/collections/session/dto/request/sessionRequest.dto';
 import { SessionResponseDto } from '../../domain/collections/session/dto/response/sessionResponse.dto';
 
+/**
+ * SessionService
+ */
 @Injectable()
 export class SessionService implements ISessionApplication {
   constructor(
@@ -15,35 +18,64 @@ export class SessionService implements ISessionApplication {
 
   /**
    * Create session
-   * @param data
-   * @param idUser
+   * @param request
    * @returns
    */
-  async create(@Body() data: SessionRequestDto): Promise<object> {
-    return await new this.sessionModel({
-      email: data.email,
-      password: data.password,
-      token: data.token,
-      role: data.role,
-      _idUser: data._idUser,
-    }).save();
+  async create(@Body() request: SessionRequestDto): Promise<object> {
+    try {
+      return await new this.sessionModel(request).save();
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
    * Delete session
-   * @param id
+   * @param token
    * @returns
    */
-  async delete(id: string): Promise<SessionResponseDto> {
-    return await this.sessionModel.findByIdAndRemove({ _idUser: id });
+  async delete(token: string): Promise<SessionResponseDto> {
+    try {
+      const deleteSession = await this.sessionModel.findOneAndRemove({
+        token,
+      });
+      if (deleteSession === null)
+        throw new NotFoundException('This sesion does not exist');
+      return deleteSession.toObject();
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
    * Search session
-   * @param id
+   * @param email
    * @returns
    */
-  async findOne(id: Types.ObjectId): Promise<SessionResponseDto> {
-    return await this.sessionModel.findOne({ _idUser: id });
+  async findOne(email: string): Promise<SessionResponseDto> {
+    try {
+      return await this.sessionModel.findOne({ email });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * findSession
+   * @param email
+   * @returns
+   */
+  async findSession(email: string): Promise<SessionResponseDto | object> {
+    try {
+      if (email) {
+        const findSession = await this.sessionModel.findOne({ email });
+        if (findSession === null)
+          throw new NotFoundException('This sesion does not exist');
+        return findSession.toObject();
+      }
+      return { msg: 'You must provide an email' };
+    } catch (error) {
+      throw error;
+    }
   }
 }

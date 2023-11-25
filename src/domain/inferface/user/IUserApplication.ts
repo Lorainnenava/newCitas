@@ -1,12 +1,12 @@
-import { UserRequestDto } from '../../collections/user/dto/request/userRequest.dto';
-import { UserResponseDto } from '../../collections/user/dto/response/userResponse.dto';
+import { UserRequestDto } from '../../collections/user/dto/request/user/userRequest.dto';
+import { UserResponseDto } from '../../collections/user/dto/response/user/userResponse.dto';
 
 export interface IUserApplication {
   /**
    * method signUp
-   * @param userDto
+   * @param request
    */
-  signUp(userDto: UserRequestDto): Promise<UserResponseDto>;
+  signUp(request: UserRequestDto): Promise<UserResponseDto>;
 
   /**
    * method findOne
@@ -16,9 +16,9 @@ export interface IUserApplication {
 
   /**
    * method findById
-   * @param id
+   * @param _id
    */
-  findById?(id: string): Promise<UserResponseDto>;
+  findById?(_id: string): Promise<UserResponseDto>;
 
   /**
    * method getAll

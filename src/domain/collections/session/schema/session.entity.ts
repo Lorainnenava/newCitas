@@ -1,9 +1,8 @@
+import { HydratedDocument } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
-import { User } from '../../user/schemas/user.entity';
+import { UserRequestDto } from '../../user/dto/request/user/userRequest.dto';
 
 export type sessionDocument = HydratedDocument<Session>;
-const mySchema = mongoose.Schema;
 
 /**
  * Schema Session
@@ -29,16 +28,10 @@ export class Session {
   token: string;
 
   /**
-   * role
+   * userInfo
    */
-  @Prop({ type: String })
-  role: string;
-
-  /**
-   * _idUser
-   */
-  @Prop({ type: mySchema.Types.ObjectId, ref: 'User' })
-  _idUser: User;
+  @Prop({ type: UserRequestDto })
+  userInfo: UserRequestDto;
 }
 
 export const SessionSchema = SchemaFactory.createForClass(Session);

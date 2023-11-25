@@ -1,9 +1,9 @@
-import { SignInRequestDto } from '../../collections/signIn/dto/signIn.dto';
+import { SignInRequestDto } from '../../collections/signIn/dto/request/signIn.dto';
 
 export interface ISignInApplication {
   /**
    * method signIn
-   * @param data
+   * @param request
    */
-  signIn(data: SignInRequestDto): Promise<object>;
+  signIn(request: SignInRequestDto): Promise<object>;
 }

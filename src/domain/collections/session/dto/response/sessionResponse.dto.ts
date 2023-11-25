@@ -1,10 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Document, Types } from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
+import { UserResponseDto } from '../../../user/dto/response/user/userResponse.dto';
 
 /**
  * Class SessionResponseDto
  */
 export class SessionResponseDto extends Document {
+  @ApiProperty({ type: String })
+  _id?: Types.ObjectId;
+
   @ApiProperty()
   email: string;
 
@@ -15,8 +19,5 @@ export class SessionResponseDto extends Document {
   token: string;
 
   @ApiProperty()
-  role: string;
-
-  @ApiProperty({ type: String })
-  _idUser: Types.ObjectId;
+  userInfo: UserResponseDto;
 }

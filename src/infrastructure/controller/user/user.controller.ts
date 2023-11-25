@@ -1,9 +1,9 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { UserService } from '../../../application/user/user.service';
 import { Public } from '../../../utils';
-import { UserRequestDto } from '../../../domain/collections/user/dto/request/userRequest.dto';
-import { UserResponseDto } from '../../../domain/collections/user/dto/response/userResponse.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Controller, Post, Body, Get } from '@nestjs/common';
+import { UserService } from '../../../application/user/user.service';
+import { UserRequestDto } from '../../../domain/collections/user/dto/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../domain/collections/user/dto/response/user/userResponse.dto';
 
 @ApiTags('SignUp')
 @Controller()
@@ -22,11 +22,11 @@ export class UserController {
   }
 
   /**
-   * GetAll
+   * GetAll users
    * @returns
    */
-  @Public()
-  @Get('/GetAll')
+  @ApiBearerAuth('token')
+  @Get('User/GetAll')
   async getAll(): Promise<UserResponseDto[]> {
     return this.userService.getAll();
   }

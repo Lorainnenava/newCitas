@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, IsInt, Length } from 'class-validator';
+import {
+  IsInt,
+  Length,
+  IsEmail,
+  IsObject,
+  IsString,
+  IsOptional,
+  IsNotEmpty,
+} from 'class-validator';
+import { DocumentInfoRequestDto } from '../document/documentInfoRequest.dto';
 
 /**
  * Class UserRequestDto
@@ -12,13 +21,8 @@ export class UserRequestDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  _idtypeOfDocument: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsInt()
-  identification?: number;
+  @IsObject()
+  documentInfo: DocumentInfoRequestDto;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -37,7 +41,7 @@ export class UserRequestDto {
   password: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
-  role: string;
+  @IsOptional()
+  role?: string;
 }
