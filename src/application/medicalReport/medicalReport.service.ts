@@ -29,6 +29,18 @@ export class MedicalReportService implements IMedicalReportApplication {
   }
 
   /**
+   * getAll medicalReport
+   * @returns
+   */
+  async getAll(): Promise<MedicalReportResponseDto[]> {
+    try {
+      return await this.medicalReportModel.find();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
    * findById medicalReport
    * @param _id
    * @returns

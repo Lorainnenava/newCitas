@@ -14,6 +14,13 @@ export interface IDoctorApplication {
   getAll(): Promise<DoctorResponseDto[]>;
 
   /**
+   * update doctor
+   * @param request
+   * @param _id
+   */
+  update(request: DoctorRequestDto, _id: string): Promise<DoctorResponseDto>;
+
+  /**
    * delete doctor
    * @param _id
    */

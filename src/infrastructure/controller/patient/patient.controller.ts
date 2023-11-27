@@ -1,14 +1,14 @@
 import { Request } from 'express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
-  Controller,
-  Post,
-  Body,
   Put,
   Get,
-  Delete,
-  Param,
   Req,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Controller,
 } from '@nestjs/common';
 import { PatientService } from '../../../application/patient/patient.service';
 import { PatientRequestDto } from '../../../domain/collections/patients/dto/request/patient/patientRequest.dto';

@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { BadRequestException, Injectable, Param, Body } from '@nestjs/common';
+import { Injectable, Param, Body, NotFoundException } from '@nestjs/common';
 import { Specialty } from '../../domain/collections/specialty/schema/specialties.entity';
 import { ISpecialtyApplication } from '../../domain/inferface/specialty/ISpecialtyApplication';
 import { SpecialtyRequestDto } from '../../domain/collections/specialty/dto/request/specialtiesRequest.dto';
@@ -21,7 +21,9 @@ export class SpecialtyService implements ISpecialtyApplication {
     @Body() request: SpecialtyRequestDto,
   ): Promise<SpecialtyResponseDto> {
     try {
-      return new this.specialtyModel(request).save();
+      return new this.specialtyModel({
+        name: request.name.toLocaleUpperCase(),
+      }).save();
     } catch (error) {
       throw error;
     }
@@ -50,7 +52,7 @@ export class SpecialtyService implements ISpecialtyApplication {
         _id,
       });
       if (deleteSpecialty === null)
-        throw new BadRequestException('This specialty does not exist');
+        throw new NotFoundException('This specialty does not exist');
       return deleteSpecialty;
     } catch (error) {
       throw error;

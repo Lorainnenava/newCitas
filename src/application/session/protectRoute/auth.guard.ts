@@ -4,13 +4,13 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { Request } from 'express';
 import { IS_PUBLIC_KEY } from '../../../utils';
+import { TokenExpiredError } from 'jsonwebtoken';
 import { RequestUser } from '../../../utils/types';
 import { SessionService } from '../session.service';
-import { TokenExpiredError } from 'jsonwebtoken';
 
 /**
  * AuthGuard

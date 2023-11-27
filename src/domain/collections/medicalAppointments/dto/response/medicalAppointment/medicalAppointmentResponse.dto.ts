@@ -1,6 +1,7 @@
+import { Document, Types } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { userInfoResponseDto } from '../user/userInfoResponse.dto';
-import { Document, Types } from 'mongoose';
+import { DoctorResponseDto } from '../../../../doctors/dto/response/doctorResponse.dto';
 
 /**
  * Class MedicalAppointmentResponseDto
@@ -19,13 +20,16 @@ export class MedicalAppointmentResponseDto extends Document {
   timeAppointment: string;
 
   @ApiProperty()
-  doctor: string;
+  doctor: DoctorResponseDto;
 
   @ApiProperty()
   date: Date;
 
   @ApiProperty()
   statusAppointment: boolean;
+
+  @ApiProperty()
+  cancelled: boolean;
 
   @ApiProperty()
   state: boolean;

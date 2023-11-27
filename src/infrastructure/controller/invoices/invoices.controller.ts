@@ -1,5 +1,13 @@
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Get,
+  Put,
+  Body,
+  Post,
+  Param,
+  Delete,
+  Controller,
+} from '@nestjs/common';
 import { InvoiceService } from '../../../application/invoices/invoices.service';
 import { InvoiceRequestDto } from '../../../domain/collections/invoice/dto/request/invoiceRequest.dto';
 import { InvoiceResponseDto } from '../../../domain/collections/invoice/dto/response/invoiceResponse.dto';
@@ -33,6 +41,16 @@ export class InvoicesController {
   }
 
   /**
+   * findById invoice
+   * @returns
+   */
+  @ApiBearerAuth('token')
+  @Post('/:_id')
+  async findById(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
+    return this.invoicesService.findById(_id);
+  }
+
+  /**
    * update invoices
    * @param _id
    * @returns
@@ -44,5 +62,16 @@ export class InvoicesController {
     @Param('_id') _id: string,
   ): Promise<InvoiceResponseDto> {
     return this.invoicesService.update(request, _id);
+  }
+
+  /**
+   * delete invoice
+   * @param _id
+   * @returns
+   */
+  @ApiBearerAuth('token')
+  @Delete('/delete/:_id')
+  async delete(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
+    return this.invoicesService.delete(_id);
   }
 }

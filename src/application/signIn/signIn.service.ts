@@ -1,8 +1,8 @@
 import {
   Body,
   Injectable,
+  ConflictException,
   NotFoundException,
-  BadRequestException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -45,7 +45,7 @@ export class SignInService implements ISignInApplication {
      */
     const exitedSession = await this.sessionService.findOne(request.email);
     if (exitedSession)
-      throw new BadRequestException('This session already exists');
+      throw new ConflictException('This session already exists');
     const accessToken = await this.jwtService.signAsync({
       sub: searchUser._id,
       name: searchUser.name,

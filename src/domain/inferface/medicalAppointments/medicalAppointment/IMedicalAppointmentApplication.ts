@@ -1,6 +1,6 @@
-import { RequestUser } from '../../../utils/types';
-import { MedicalAppointmentRequestDto } from '../../collections/medicalAppointments/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
-import { MedicalAppointmentResponseDto } from '../../collections/medicalAppointments/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { RequestUser } from '../../../../utils/types';
+import { MedicalAppointmentRequestDto } from '../../../collections/medicalAppointments/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentResponseDto } from '../../../collections/medicalAppointments/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 export interface IMedicalAppointmentApplication {
   /**
@@ -13,22 +13,25 @@ export interface IMedicalAppointmentApplication {
   ): Promise<object>;
 
   /**
+   * getAll medicalAppointment
+   */
+  getAll?(): Promise<MedicalAppointmentResponseDto[]>;
+
+  /**
    * getAllById medicalAppointment
    * @param user
    */
   getAllById?(user: RequestUser): Promise<MedicalAppointmentResponseDto[]>;
 
   /**
-   * getAllBySpecialty medicalAppointment
-   * @param specialty
+   * findById medicalAppointment
+   * @param _id
    */
-  getAllBySpecialty?(
-    specialty: string,
-  ): Promise<MedicalAppointmentResponseDto[]>;
+  findById(_id: string): Promise<object>;
 
   /**
    * getAllByDoctor medicalAppointment
-   * @param specialty
+   * @param doctor
    */
   getAllByDoctor?(doctor: string): Promise<MedicalAppointmentResponseDto[]>;
 
@@ -40,4 +43,10 @@ export interface IMedicalAppointmentApplication {
     request: MedicalAppointmentRequestDto,
     _id: string,
   ): Promise<MedicalAppointmentResponseDto>;
+
+  /**
+   * delete medicalAppointment
+   * @param _id
+   */
+  delete?(_id: string): Promise<object>;
 }

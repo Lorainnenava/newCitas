@@ -3,7 +3,7 @@ import {
   Param,
   Injectable,
   NotFoundException,
-  BadRequestException,
+  ConflictException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -33,7 +33,7 @@ export class PatientService implements IPatientApplication {
     try {
       const searchPatient = await this.patientModel.findOne({ _id: user.sub });
       if (searchPatient)
-        throw new BadRequestException('This patient already exists');
+        throw new ConflictException('This patient already exists');
       return await new this.patientModel(requestPatient).save();
     } catch (error) {
       throw error;

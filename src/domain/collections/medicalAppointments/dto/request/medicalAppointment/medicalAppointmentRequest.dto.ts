@@ -1,13 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsBoolean,
   IsDate,
-  IsNotEmpty,
-  IsObject,
-  IsOptional,
   IsString,
+  IsObject,
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
 } from 'class-validator';
 import { userInfoRequestDto } from '../user/userInfoRequest.dto';
+import { DoctorRequestDto } from '../../../../doctors/dto/request/doctorRequest.dto';
 
 /**
  * Class MedicalAppointmentRequestDto
@@ -29,9 +30,9 @@ export class MedicalAppointmentRequestDto {
   timeAppointment: string;
 
   @ApiProperty()
-  @IsString()
+  @IsObject()
   @IsNotEmpty()
-  doctor: string;
+  doctor: DoctorRequestDto;
 
   @ApiProperty()
   @IsDate()
@@ -42,6 +43,12 @@ export class MedicalAppointmentRequestDto {
   @IsBoolean()
   @IsNotEmpty()
   statusAppointment: boolean;
+
+  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @IsNotEmpty()
+  cancelled?: boolean;
 
   @ApiProperty()
   @IsBoolean()

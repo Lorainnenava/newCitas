@@ -1,5 +1,6 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { DoctorRequestDto } from '../../doctors/dto/request/doctorRequest.dto';
 
 export type medicalAppointmentDocument = HydratedDocument<MedicalAppointment>;
 
@@ -29,8 +30,8 @@ export class MedicalAppointment {
   /**
    * doctor
    */
-  @Prop({ type: String })
-  doctor: string;
+  @Prop({ type: DoctorRequestDto })
+  doctor: DoctorRequestDto;
 
   /**
    * date
@@ -43,6 +44,12 @@ export class MedicalAppointment {
    */
   @Prop({ type: Boolean })
   statusAppointment: boolean;
+
+  /**
+   * cancelled
+   */
+  @Prop({ type: Boolean, default: false })
+  cancelled: boolean;
 
   /**
    * state

@@ -14,6 +14,18 @@ export interface IInvoicesApplication {
   getAll(): Promise<InvoiceResponseDto[]>;
 
   /**
+   * findById invoice
+   * @param _id
+   */
+  findById(_id: string): Promise<InvoiceResponseDto>;
+
+  /**
+   * delete invoice
+   * @param _id
+   */
+  delete(_id: string): Promise<InvoiceResponseDto>;
+
+  /**
    * update invoice
    * @param _id
    */

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsObject, IsString } from 'class-validator';
+import { DocumentInfoRequestDto } from '../../../user/dto/request/document/documentInfoRequest.dto';
 
 /**
  * Class DoctorRequestDto
@@ -9,6 +10,11 @@ export class DoctorRequestDto {
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsObject()
+  documentInfo: DocumentInfoRequestDto;
 
   @ApiProperty()
   @IsNotEmpty()

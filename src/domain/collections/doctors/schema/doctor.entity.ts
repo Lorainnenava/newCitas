@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { DocumentInfoRequestDto } from '../../user/dto/request/document/documentInfoRequest.dto';
 
 export type doctorDocument = HydratedDocument<Doctor>;
 
@@ -13,6 +14,12 @@ export class Doctor {
    */
   @Prop({ type: String })
   name: string;
+
+  /**
+   * documentInfo
+   */
+  @Prop({ type: DocumentInfoRequestDto })
+  documentInfo: DocumentInfoRequestDto;
 
   /**
    * specialty

@@ -1,10 +1,16 @@
-import { BadRequestException, Injectable, Body, Param } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import {
+  Body,
+  Param,
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Model } from 'mongoose';
-import { IRolesApplication } from '../../domain/inferface/roles/IRolesApplication';
+import { InjectModel } from '@nestjs/mongoose';
 import { Roles } from '../../domain/collections/roles/schema/roles.entity';
-import { RolesResponseDto } from '../../domain/collections/roles/dto/response/rolesResponse.dto';
+import { IRolesApplication } from '../../domain/inferface/roles/IRolesApplication';
 import { RolesRequestDto } from '../../domain/collections/roles/dto/request/rolesRequest.dto';
+import { RolesResponseDto } from '../../domain/collections/roles/dto/response/rolesResponse.dto';
 
 /**
  * RoleService
@@ -24,8 +30,10 @@ export class RolesService implements IRolesApplication {
       const searchRole = await this.roleModel.findOne({
         name: request.name,
       });
-      if (searchRole) throw new BadRequestException('This role already exists');
-      return await new this.roleModel(request).save();
+      if (searchRole) throw new ConflictException('This role already exists');
+      return await new this.roleModel({
+        name: request.name.toLocaleUpperCase(),
+      }).save();
     } catch (error) {
       throw error;
     }
@@ -52,7 +60,7 @@ export class RolesService implements IRolesApplication {
     try {
       const deleteRole = await this.roleModel.findByIdAndDelete({ _id });
       if (deleteRole === null)
-        throw new BadRequestException('This specialty does not exist');
+        throw new NotFoundException('This specialty does not exist');
       return deleteRole;
     } catch (error) {
       throw error;

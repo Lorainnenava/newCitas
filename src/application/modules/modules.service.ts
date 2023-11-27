@@ -1,6 +1,6 @@
-import { BadRequestException, Injectable, Param, Body } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Body, Param, Injectable, ConflictException } from '@nestjs/common';
 import { IModuleApplication } from '../../domain/inferface/modules/IModulesApplication';
 import { ModuleRequestDto } from '../../domain/collections/modules/dto/request/modules/moduleRequest.dto';
 import { ModuleResponseDto } from '../../domain/collections/modules/dto/response/modules/moduleResponse.dto';
@@ -25,8 +25,11 @@ export class ModuleService implements IModuleApplication {
         name: request.name,
       });
       if (searchModule)
-        throw new BadRequestException('This module already exists');
-      return await new this.moduleModel(request).save();
+        throw new ConflictException('This module already exists');
+      return await new this.moduleModel({
+        ...request,
+        name: request.name.toLocaleUpperCase(),
+      }).save();
     } catch (error) {
       throw error;
     }

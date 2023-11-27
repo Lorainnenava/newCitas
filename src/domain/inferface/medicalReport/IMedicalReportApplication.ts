@@ -9,6 +9,11 @@ export interface IMedicalReportApplication {
   create(request: MedicalReportRequestDto): Promise<object>;
 
   /**
+   * getAll MedicalReport
+   */
+  getAll(): Promise<MedicalReportResponseDto[]>;
+
+  /**
    * findById MedicalReport
    * @param _id
    */

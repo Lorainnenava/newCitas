@@ -1,10 +1,10 @@
-import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import {
   MedicalAppointment,
   MedicalAppointmentSchema,
 } from '../../../domain/collections/medicalAppointments/schema/medicalAppointment.entity';
-import { MedicalAppointmentService } from '../../../application/medicalAppointment/medicalAppointment.service';
+import { MedicalAppointmentService } from '../../../application/medicalAppointment/medicalAppointment/medicalAppointment.service';
 import { MedicalAppointmentController } from '../../controller/medicalAppointment/medicalAppointment.controller';
 
 @Module({
@@ -14,7 +14,7 @@ import { MedicalAppointmentController } from '../../controller/medicalAppointmen
     ]),
   ],
   providers: [MedicalAppointmentService],
-  exports: [MedicalAppointmentService],
+  exports: [MedicalAppointmentService, MongooseModule],
   controllers: [MedicalAppointmentController],
 })
 export class MedicalAppointmentModule {}

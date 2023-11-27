@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable, BadRequestException, Param } from '@nestjs/common';
+import { Injectable, Param, NotFoundException } from '@nestjs/common';
 import { TypeOfDocument } from '../../domain/collections/typeOfDocument/schemas/typeOfDocument.entity';
 import { ITypeOfDocumentApplication } from '../../domain/inferface/typeOfDocument/ITypeOfDocumentApplication';
 import { TypeOfDocumentRequestDto } from '../../domain/collections/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
@@ -24,7 +24,9 @@ export class TypeOfDocumentService implements ITypeOfDocumentApplication {
     request: TypeOfDocumentRequestDto,
   ): Promise<TypeOfDocumentResponseDto> {
     try {
-      return await new this.typeOfDocumentModel(request).save();
+      return await new this.typeOfDocumentModel({
+        name: request.typeOfDocument.toLocaleUpperCase(),
+      }).save();
     } catch (error) {
       throw error;
     }
@@ -52,7 +54,7 @@ export class TypeOfDocumentService implements ITypeOfDocumentApplication {
       const deleteTypeOfDocument =
         await this.typeOfDocumentModel.findByIdAndDelete({ _id });
       if (deleteTypeOfDocument === null)
-        throw new BadRequestException('This typeOfDocument does not exist');
+        throw new NotFoundException('This typeOfDocument does not exist');
       return deleteTypeOfDocument;
     } catch (error) {
       throw error;

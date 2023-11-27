@@ -1,8 +1,14 @@
-import { BadRequestException, Injectable, Param, Body } from '@nestjs/common';
-import { IDoctorApplication } from '../../domain/inferface/doctors/IDoctorApplication';
-import { InjectModel } from '@nestjs/mongoose';
-import { Doctor } from '../../domain/collections/doctors/schema/doctor.entity';
 import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import {
+  Body,
+  Param,
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
+import { Doctor } from '../../domain/collections/doctors/schema/doctor.entity';
+import { IDoctorApplication } from '../../domain/inferface/doctors/IDoctorApplication';
 import { DoctorRequestDto } from '../../domain/collections/doctors/dto/request/doctorRequest.dto';
 import { DoctorResponseDto } from '../../domain/collections/doctors/dto/response/doctorResponse.dto';
 
@@ -26,8 +32,11 @@ export class DoctorService implements IDoctorApplication {
         specialty: request.specialty,
       });
       if (searchDoctor)
-        throw new BadRequestException('This doctor already exists');
-      return await new this.doctorModel(request).save();
+        throw new ConflictException('This doctor already exists');
+      return await new this.doctorModel({
+        name: request.name.toLocaleUpperCase(),
+        specialty: request.specialty.toLocaleUpperCase(),
+      }).save();
     } catch (error) {
       throw error;
     }
@@ -46,6 +55,25 @@ export class DoctorService implements IDoctorApplication {
   }
 
   /**
+   * update doctor
+   * @param request
+   * @param _id
+   * @returns
+   */
+  async update(
+    @Body() request: DoctorRequestDto,
+    @Param('_id') _id: string,
+  ): Promise<DoctorResponseDto> {
+    try {
+      return await this.doctorModel.findByIdAndUpdate(_id, request, {
+        new: true,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
    * delete doctor
    * @param _id
    * @returns
@@ -54,7 +82,7 @@ export class DoctorService implements IDoctorApplication {
     try {
       const deleteDoctor = await this.doctorModel.findByIdAndDelete(_id);
       if (deleteDoctor === null)
-        throw new BadRequestException('This doctor does not exist');
+        throw new NotFoundException('This doctor does not exist');
       return deleteDoctor;
     } catch (error) {
       throw error;
