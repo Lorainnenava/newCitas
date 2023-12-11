@@ -1,4 +1,3 @@
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   Get,
   Put,
@@ -8,9 +7,12 @@ import {
   Delete,
   Controller,
 } from '@nestjs/common';
+import { Roles } from '../../../utils/roles/roles';
+import { Role } from '../../../utils/roles/role.enum';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { InvoiceService } from '../../../application/invoices/invoices.service';
-import { InvoiceRequestDto } from '../../../domain/collections/invoice/dto/request/invoiceRequest.dto';
-import { InvoiceResponseDto } from '../../../domain/collections/invoice/dto/response/invoiceResponse.dto';
+import { InvoiceRequestDto } from '../../../domain/collections/invoice/dto/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../domain/collections/invoice/dto/response/invoice/invoiceResponse.dto';
 
 @ApiTags('Invoices')
 @Controller('invoices')
@@ -24,6 +26,7 @@ export class InvoicesController {
    */
   @ApiBearerAuth('token')
   @Post('/create')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
   async create(
     @Body() request: InvoiceRequestDto,
   ): Promise<InvoiceResponseDto> {
@@ -36,6 +39,7 @@ export class InvoicesController {
    */
   @ApiBearerAuth('token')
   @Get('/GetAll')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA)
   async getAll(): Promise<InvoiceResponseDto[]> {
     return this.invoicesService.getAll();
   }
@@ -46,6 +50,7 @@ export class InvoicesController {
    */
   @ApiBearerAuth('token')
   @Post('/:_id')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
   async findById(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
     return this.invoicesService.findById(_id);
   }
@@ -55,6 +60,7 @@ export class InvoicesController {
    * @param _id
    * @returns
    */
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
   @ApiBearerAuth('token')
   @Put('/update/:_id')
   async update(
@@ -71,6 +77,7 @@ export class InvoicesController {
    */
   @ApiBearerAuth('token')
   @Delete('/delete/:_id')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
   async delete(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
     return this.invoicesService.delete(_id);
   }

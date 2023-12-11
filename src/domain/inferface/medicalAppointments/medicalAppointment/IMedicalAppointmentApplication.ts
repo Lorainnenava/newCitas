@@ -9,7 +9,6 @@ export interface IMedicalAppointmentApplication {
    */
   create?(
     request: MedicalAppointmentRequestDto,
-    user: RequestUser,
   ): Promise<object>;
 
   /**

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MedicalInformationRequestDto } from '../../../../medicalHistory/dto/request/medicalInformation/medicalInformationRequest.dto';
 import { TreatmentRequestDto } from '../treatment/treatmentRequest.dto';
 import { IsInt, IsNotEmpty, IsObject, IsString } from 'class-validator';
+import { DocumentInfoRequestDto } from '../../../../user/dto/request/document/documentInfoRequest.dto';
 
 /**
  * class MedicalReportRequestDto
@@ -10,12 +10,22 @@ export class MedicalReportRequestDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  patientName: string;
+  patientFisrtName: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  patientMiddleName: string;
+  patientSecondName: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  patientFirstLastName: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  patientSecondLastName: string;
 
   @ApiProperty()
   @IsString()
@@ -28,19 +38,14 @@ export class MedicalReportRequestDto {
   age: number;
 
   @ApiProperty()
+  @IsObject()
+  @IsNotEmpty()
+  documentInfo: DocumentInfoRequestDto
+
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   reasonForVisit: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  weight: string;
-
-  @ApiProperty()
-  @IsObject()
-  @IsNotEmpty()
-  medicalInformation: MedicalInformationRequestDto;
 
   @ApiProperty()
   @IsString()

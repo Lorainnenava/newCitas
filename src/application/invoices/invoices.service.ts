@@ -1,10 +1,10 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, Param, Body, NotFoundException } from '@nestjs/common';
-import { IInvoicesApplication } from '../../domain/inferface/invoices/IInvoicesApplication';
 import { Invoice } from '../../domain/collections/invoice/schema/invoice.entity';
-import { InvoiceRequestDto } from '../../domain/collections/invoice/dto/request/invoiceRequest.dto';
-import { InvoiceResponseDto } from '../../domain/collections/invoice/dto/response/invoiceResponse.dto';
+import { IInvoicesApplication } from '../../domain/inferface/invoices/IInvoicesApplication';
+import { InvoiceRequestDto } from '../../domain/collections/invoice/dto/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../domain/collections/invoice/dto/response/invoice/invoiceResponse.dto';
 
 /**
  * InvoiceService
@@ -13,7 +13,7 @@ import { InvoiceResponseDto } from '../../domain/collections/invoice/dto/respons
 export class InvoiceService implements IInvoicesApplication {
   constructor(
     @InjectModel(Invoice.name) private readonly invoiceModel: Model<Invoice>,
-  ) {}
+  ) { }
 
   /**
    * create Invoice
@@ -48,7 +48,24 @@ export class InvoiceService implements IInvoicesApplication {
    */
   async findById(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
     try {
-      return await this.invoiceModel.findById(_id);
+      const searchInvoice = await this.invoiceModel.findById(_id);
+      if (searchInvoice === null) {
+        throw new NotFoundException('This invoice does not exist');
+      }
+      return searchInvoice
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * findOne invoice
+   * @param code
+   * @returns
+   */
+  async findOne(code: number): Promise<InvoiceResponseDto> {
+    try {
+      return await this.invoiceModel.findOne({ code });
     } catch (error) {
       throw error;
     }

@@ -14,6 +14,12 @@ export interface IDoctorApplication {
   getAll(): Promise<DoctorResponseDto[]>;
 
   /**
+   * findOne doctor
+   * @param documentNumber
+   */
+  findOne(documentNumber: number): Promise<DoctorResponseDto>;
+
+  /**
    * update doctor
    * @param request
    * @param _id

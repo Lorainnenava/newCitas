@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ModuleService } from '../../../application/modules/modules.service';
-import { ModuleController } from '../../controller/modules/modules.controller';
 import {
   ModuleSchema,
   Modules,
 } from '../../../domain/collections/modules/schema/module.entity';
+import { ModuleService } from '../../../application/modules/modules.service';
+import { ModuleController } from '../../controller/modules/modules.controller';
 
 @Module({
   imports: [
@@ -15,4 +15,4 @@ import {
   exports: [ModuleService],
   controllers: [ModuleController],
 })
-export class ModulesModule {}
+export class ModulesModule { }

@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
   IsInt,
   IsString,
@@ -6,10 +5,10 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsOptional,
-  IsDateString,
 } from 'class-validator';
-import { DocumentInfoRequestDto } from '../../../../user/dto/request/document/documentInfoRequest.dto';
+import { ApiProperty } from '@nestjs/swagger';
 import { AddressRequestDto } from '../address/addressRequest.dto';
+import { DocumentInfoRequestDto } from '../../../../user/dto/request/document/documentInfoRequest.dto';
 
 /**
  * Class PatientRequestDto
@@ -29,23 +28,29 @@ export class PatientRequestDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  firstSurname: string;
+  firstLastName: string;
 
   @ApiProperty()
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  secondSurname?: string;
+  secondLastName?: string;
 
   @ApiProperty()
-  @IsDateString()
   @IsNotEmpty()
-  dateOfBirth: Date;
+  @IsObject()
+  documentInfo: DocumentInfoRequestDto;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  placeOfBirth: string;
+  dateOfBirth: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  @IsNotEmpty()
+  placeOfBirth?: string;
 
   @ApiProperty()
   @IsString()
@@ -58,9 +63,9 @@ export class PatientRequestDto {
   age: number;
 
   @ApiProperty()
+  @IsInt()
   @IsNotEmpty()
-  @IsObject()
-  documentInfo: DocumentInfoRequestDto;
+  mobileNumber: number;
 
   @ApiProperty()
   @IsString()
@@ -68,16 +73,18 @@ export class PatientRequestDto {
   email: string;
 
   @ApiProperty()
-  @IsInt()
   @IsNotEmpty()
-  phoneNumber: number;
+  @IsObject()
+  @IsOptional()
+  address?: AddressRequestDto;
 
   @ApiProperty()
   @IsString()
-  @IsObject()
-  address: AddressRequestDto;
+  @IsNotEmpty()
+  regimen: string;
 
   @ApiProperty()
   @IsBoolean()
-  state: boolean;
+  @IsOptional()
+  state?: boolean;
 }

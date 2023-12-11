@@ -1,16 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { TreatmentResponsetDto } from '../treatment/treatmentResponse.sto';
-import { MedicalInformationResponseDto } from '../../../../medicalHistory/dto/response/medicalInformation/medicalInformationResponse.dto';
+import { DocumentInfoResponseDto } from '../../../../user/dto/response/document/documentInfoResponse.dto';
 
 /**
  * class MedicalReportResponseDto
  */
 export class MedicalReportResponseDto {
   @ApiProperty()
-  patientName: string;
+  patientFisrtName: string;
 
   @ApiProperty()
-  patientMiddleName: string;
+  patientSecondName: string;
+
+  @ApiProperty()
+  patientFirstLastName: string;
+
+  @ApiProperty()
+  patientSecondLastName: string;
 
   @ApiProperty()
   gender: string;
@@ -19,13 +25,10 @@ export class MedicalReportResponseDto {
   age: number;
 
   @ApiProperty()
+  documentInfo: DocumentInfoResponseDto;
+
+  @ApiProperty()
   reasonForVisit: string;
-
-  @ApiProperty()
-  weight: string;
-
-  @ApiProperty()
-  medicalInformation: MedicalInformationResponseDto;
 
   @ApiProperty()
   physicalExam: string;

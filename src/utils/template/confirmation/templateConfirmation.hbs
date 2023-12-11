@@ -1,0 +1,92 @@
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <title>Bienvenidos</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0px;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-collapse: collapse;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0,
+                    0.1);
+        }
+
+        td {
+            text-align: center;
+            padding: 10px;
+            color: black;
+        }
+
+        .header img {
+            width: 80%;
+            max-width: 600px;
+            height: 350px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .custom-button {
+            width: 50%;
+            height: 50px;
+            border-radius: 40px;
+            background-color: #b42529;
+            text-decoration: none;
+            margin: 15px 0px;
+            border: 0;
+            color: white;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <tr>
+            <td class='header'>
+                <img src='cid:confirmation' alt='Header' />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p style="margin-bottom: 20px; font-size: 20px;"><b>HOLA {{name}}!</b></p>
+                <p style="color: black; font-size: 15px; margin: auto; width:80%">Nos complace darte la bienvenida a
+
+                    Haz clic en el siguiente botón y confirma tu correo para comenzar a disfrutar de nuestros servicios
+                    en Center Hospital.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href='http://localhost:3000/ConfirmationEmail/{{token}}'><button class='custom-button'
+                        style="box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);"><b>CONFIRMAR EMAIL</b></button></a>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: #5097c7;">
+                <p>Para <b>Center hospital</b>, tu salud es nuestro bienestar.</p>
+
+                <p style="font-size: 10px;">Este mensaje a sido generado automáticamente. Por favor no lo
+                    respondas</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

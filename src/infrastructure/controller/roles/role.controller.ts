@@ -1,14 +1,14 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { RolesService } from '../../../application/roles/role.service';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { RolesRequestDto } from '../../../domain/collections/roles/dto/request/rolesRequest.dto';
 import { RolesResponseDto } from '../../../domain/collections/roles/dto/response/rolesResponse.dto';
 
 @ApiTags('Roles')
 @Controller('Roles')
 export class RolesController {
-  constructor(private readonly roleService: RolesService) {}
+  constructor(private readonly roleService: RolesService) { }
 
   /**
    * create

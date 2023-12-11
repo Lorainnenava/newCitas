@@ -1,10 +1,10 @@
-import { Injectable, Param, Body } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable, Param, Body } from '@nestjs/common';
 import { MedicalReport } from '../../domain/collections/medicalReport/schema/medicalReport.entity';
+import { IMedicalReportApplication } from '../../domain/inferface/medicalReport/IMedicalReportApplication';
 import { MedicalReportRequestDto } from '../../domain/collections/medicalReport/dto/request/medicalReport/medicalReportRequest.dto';
 import { MedicalReportResponseDto } from '../../domain/collections/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
-import { IMedicalReportApplication } from '../../domain/inferface/medicalReport/IMedicalReportApplication';
 
 /**
  * MedicalReportService

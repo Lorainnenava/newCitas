@@ -1,5 +1,3 @@
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
 import {
   Body,
   Param,
@@ -7,6 +5,8 @@ import {
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 import { Doctor } from '../../domain/collections/doctors/schema/doctor.entity';
 import { IDoctorApplication } from '../../domain/inferface/doctors/IDoctorApplication';
 import { DoctorRequestDto } from '../../domain/collections/doctors/dto/request/doctorRequest.dto';
@@ -28,15 +28,11 @@ export class DoctorService implements IDoctorApplication {
   async create(@Body() request: DoctorRequestDto): Promise<DoctorResponseDto> {
     try {
       const searchDoctor = await this.doctorModel.findOne({
-        name: request.name,
-        specialty: request.specialty,
+        'documentInfo.documentNumber': request.documentInfo.documentNumber,
       });
       if (searchDoctor)
         throw new ConflictException('This doctor already exists');
-      return await new this.doctorModel({
-        name: request.name.toLocaleUpperCase(),
-        specialty: request.specialty.toLocaleUpperCase(),
-      }).save();
+      return await new this.doctorModel(request).save();
     } catch (error) {
       throw error;
     }
@@ -49,6 +45,22 @@ export class DoctorService implements IDoctorApplication {
   async getAll(): Promise<DoctorResponseDto[]> {
     try {
       return await this.doctorModel.find();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * findOne doctor
+   * @param documentNumber
+   * @returns
+   */
+  async findOne(documentNumber: number): Promise<DoctorResponseDto> {
+    try {
+      const searchDoctor = await this.doctorModel.findOne({
+        'documentInfo.documentNumber': documentNumber,
+      });
+      return searchDoctor;
     } catch (error) {
       throw error;
     }

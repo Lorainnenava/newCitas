@@ -1,5 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Document, Types } from 'mongoose';
+import { IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 import { DocumentInfoResponseDto } from '../document/documentInfoResponse.dto';
 
 /**
@@ -10,10 +11,27 @@ export class UserResponseDto extends Document {
   _id: Types.ObjectId;
 
   @ApiProperty()
-  name: string;
+  firstName: string;
+
+  @ApiProperty()
+  @IsOptional()
+  secondName: string;
+
+  @ApiProperty()
+  firstLastName: string;
+
+  @ApiProperty()
+  @IsOptional()
+  secondLastName: string;
 
   @ApiProperty()
   documentInfo: DocumentInfoResponseDto;
+
+  @ApiProperty()
+  dateOfBirth: string;
+
+  @ApiProperty()
+  gender: string;
 
   @ApiProperty()
   mobileNumber: number;
@@ -25,5 +43,11 @@ export class UserResponseDto extends Document {
   password: string;
 
   @ApiProperty()
+  token: string;
+
+  @ApiProperty()
   role: string;
+
+  @ApiProperty()
+  state: boolean;
 }

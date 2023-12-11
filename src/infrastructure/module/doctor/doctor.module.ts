@@ -12,7 +12,7 @@ import { DoctorController } from '../../controller/doctor/doctor.controller';
     MongooseModule.forFeature([{ name: Doctor.name, schema: DoctorSchema }]),
   ],
   providers: [DoctorService],
-  exports: [DoctorService],
+  exports: [DoctorService, MongooseModule],
   controllers: [DoctorController],
 })
-export class DoctorModule {}
+export class DoctorModule { }

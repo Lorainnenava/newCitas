@@ -1,8 +1,8 @@
-import { Injectable, Body, Param, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { IMedicalHistoryApplication } from '../../domain/inferface/medicalHistory/IMedicalHistoryApplication';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable, Body, Param, NotFoundException } from '@nestjs/common';
 import { MedicalHistory } from '../../domain/collections/medicalHistory/schema/medicalHistory.entity';
+import { IMedicalHistoryApplication } from '../../domain/inferface/medicalHistory/IMedicalHistoryApplication';
 import { MedicalHistoryRequestDto } from '../../domain/collections/medicalHistory/dto/request/medicalHistory/medicalHistoryRequest.dto';
 import { MedicalHistoryResponseDto } from '../../domain/collections/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
 
@@ -45,9 +45,7 @@ export class MedicalHistoryService implements IMedicalHistoryApplication {
    * @param _id
    * @returns
    */
-  async findById(
-    @Param('_id') _id: string,
-  ): Promise<object> {
+  async findById(@Param('_id') _id: string): Promise<object> {
     try {
       const searchMedicalHistory = await this.medicalHistoryModel.findById({
         _id,

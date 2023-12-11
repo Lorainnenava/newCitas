@@ -1,24 +1,24 @@
 import { Request } from 'express';
+import { RequestUser } from '../../../utils/types';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Delete, Param, Get, Req } from '@nestjs/common';
 import { SessionService } from '../../../application/session/session.service';
 import { SessionResponseDto } from '../../../domain/collections/session/dto/response/sessionResponse.dto';
-import { RequestUser } from '../../../utils/types';
 
 @ApiTags('Session')
 @Controller('Session')
 export class SessionController {
-  constructor(private readonly sessionService: SessionService) {}
+  constructor(private readonly sessionService: SessionService) { }
 
   /**
    * Delete sessions
-   * @param _id
+   * @param token
    * @returns
    */
-  @Delete('/:_id')
+  @Delete('/:token')
   @ApiBearerAuth('token')
-  async delete(@Param('_id') _id: string): Promise<SessionResponseDto> {
-    return await this.sessionService.delete(_id);
+  async delete(@Param('token') token: string): Promise<SessionResponseDto> {
+    return await this.sessionService.delete(token);
   }
 
   /**

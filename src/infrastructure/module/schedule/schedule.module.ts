@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ScheduleController } from '../../controller/schedule/schedule.controller';
-import { ScheduleService } from '../../../application/medicalAppointment/schedule/schedule.service';
-import { MedicalAppointmentModule } from '../medicalAppointment/medicalAppointment.module';
 import { DateService } from '../../../utils/date/date.service';
+import { ScheduleController } from '../../controller/schedule/schedule.controller';
+import { MedicalAppointmentModule } from '../medicalAppointment/medicalAppointment.module';
+import { ScheduleService } from '../../../application/medicalAppointment/schedule/schedule.service';
 
 @Module({
   imports: [MedicalAppointmentModule],

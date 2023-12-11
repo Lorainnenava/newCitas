@@ -1,13 +1,13 @@
+import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body } from '@nestjs/common';
 import { SignInService } from '../../../application/signIn/signIn.service';
-import { Public } from '../../../utils';
 import { SignInRequestDto } from '../../../domain/collections/signIn/dto/request/signIn.dto';
 
 @ApiTags('SignIn')
 @Controller('/SignIn')
 export class SignInController {
-  constructor(private readonly signInService: SignInService) {}
+  constructor(private readonly signInService: SignInService) { }
 
   /**
    * SignIn

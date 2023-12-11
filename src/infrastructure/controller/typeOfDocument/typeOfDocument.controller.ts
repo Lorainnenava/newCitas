@@ -1,6 +1,6 @@
-import { Get, Post, Body, Param, Delete, Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { Public } from '../../../utils';
+import { ApiTags } from '@nestjs/swagger';
+import { Get, Post, Body, Param, Delete, Controller } from '@nestjs/common';
 import { TypeOfDocumentService } from '../../../application/typeOfDocument/typeOfDocument.service';
 import { TypeOfDocumentRequestDto } from '../../../domain/collections/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
 import { TypeOfDocumentResponseDto } from '../../../domain/collections/typeOfDocument/dto/response/typeOfDocumentResponsedto';
@@ -8,7 +8,7 @@ import { TypeOfDocumentResponseDto } from '../../../domain/collections/typeOfDoc
 @ApiTags('TypeOfDocument')
 @Controller('TypeOfDocument')
 export class TypeOfDocumentController {
-  constructor(private readonly typeOfDocumentService: TypeOfDocumentService) {}
+  constructor(private readonly typeOfDocumentService: TypeOfDocumentService) { }
 
   /**
    * create typeOfDocument

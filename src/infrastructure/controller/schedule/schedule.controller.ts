@@ -1,5 +1,7 @@
 import { Request } from 'express';
+import { Roles } from '../../../utils/roles/roles';
 import { RequestUser } from '../../../utils/types';
+import { Role } from '../../../utils/roles/role.enum';
 import { Controller, Post, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ScheduleService } from '../../../application/medicalAppointment/schedule/schedule.service';
@@ -17,6 +19,7 @@ export class ScheduleController {
    */
   @ApiBearerAuth('token')
   @Post('/filterByDay')
+  @Roles(Role.DOCTOR)
   async filterByDay(
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
@@ -30,6 +33,7 @@ export class ScheduleController {
    */
   @ApiBearerAuth('token')
   @Post('/futureAppointments')
+  @Roles(Role.DOCTOR)
   async futureAppointments(
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
@@ -44,6 +48,7 @@ export class ScheduleController {
    */
   @ApiBearerAuth('token')
   @Post('/cancelledAppointments')
+  @Roles(Role.DOCTOR)
   async cancelledAppointments(
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
@@ -58,6 +63,7 @@ export class ScheduleController {
    */
   @ApiBearerAuth('token')
   @Post('/appointmentHistory')
+  @Roles(Role.DOCTOR)
   async appointmentHistory(
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {

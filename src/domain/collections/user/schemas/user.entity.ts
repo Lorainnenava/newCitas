@@ -1,5 +1,5 @@
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { DocumentInfoRequestDto } from '../dto/request/document/documentInfoRequest.dto';
 
 export type userDocument = HydratedDocument<User>;
@@ -10,16 +10,46 @@ export type userDocument = HydratedDocument<User>;
 @Schema({ timestamps: true, collection: 'users' })
 export class User {
   /**
-   * name
+   * firstName
    */
   @Prop({ type: String })
-  name: string;
+  firstName: string;
+
+  /**
+   * secondName
+   */
+  @Prop({ type: String })
+  secondName: string;
+
+  /**
+   * firstSurname
+   */
+  @Prop({ type: String })
+  firstLastName: string;
+
+  /**
+   * secondLastName
+   */
+  @Prop({ type: String })
+  secondLastName: string;
 
   /**
    * documentInfo
    */
   @Prop({ type: DocumentInfoRequestDto })
   documentInfo: DocumentInfoRequestDto;
+
+  /**
+   * dateOfBirth
+   */
+  @Prop({ type: String })
+  dateOfBirth: string;
+
+  /**
+   * gender
+   */
+  @Prop({ type: String })
+  gender: string;
 
   /**
    * mobileNumber
@@ -40,10 +70,22 @@ export class User {
   password: string;
 
   /**
+   * token
+   */
+  @Prop({ type: String })
+  token: string;
+
+  /**
    * role
    */
-  @Prop({ type: String, default: 'user' })
+  @Prop({ type: String, default: 'USER' })
   role: string;
+
+  /**
+   * state
+   */
+  @Prop({ type: Boolean, default: false })
+  state: boolean;
 }
 
 export const userSchema = SchemaFactory.createForClass(User);

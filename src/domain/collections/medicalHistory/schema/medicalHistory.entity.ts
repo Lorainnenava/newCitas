@@ -1,8 +1,8 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { PatientRequestDto } from '../../patients/dto/request/patient/patientRequest.dto';
-import { MedicalInformationRequestDto } from '../dto/request/medicalInformation/medicalInformationRequest.dto';
 import { FamilyHistoryRequestDto } from '../dto/request/familyHistory/familyHistoryRequest.dto';
+import { MedicalInformationRequestDto } from '../dto/request/medicalInformation/medicalInformationRequest.dto';
 
 export type medicalHistoryDocument = HydratedDocument<MedicalHistory>;
 
@@ -28,6 +28,18 @@ export class MedicalHistory {
    */
   @Prop({ type: FamilyHistoryRequestDto })
   familyHistory: FamilyHistoryRequestDto;
+
+  /**
+   * weight
+   */
+  @Prop({ type: Number })
+  weight: number;
+
+  /**
+   * height
+   */
+  @Prop({ type: Number })
+  height: number;
 }
 
 export const MedicalHistorySchema =

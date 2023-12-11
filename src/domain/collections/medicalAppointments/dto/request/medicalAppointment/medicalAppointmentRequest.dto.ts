@@ -1,14 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsDate,
   IsString,
   IsObject,
   IsBoolean,
   IsNotEmpty,
   IsOptional,
 } from 'class-validator';
-import { userInfoRequestDto } from '../user/userInfoRequest.dto';
+import { ApiProperty } from '@nestjs/swagger';
 import { DoctorRequestDto } from '../../../../doctors/dto/request/doctorRequest.dto';
+import { PatientInformationRequestDto } from '../../../../invoice/dto/request/patientInformation/patientInformationRequest.dto';
 
 /**
  * Class MedicalAppointmentRequestDto
@@ -17,42 +16,35 @@ export class MedicalAppointmentRequestDto {
   @ApiProperty()
   @IsObject()
   @IsNotEmpty()
-  userInfo: userInfoRequestDto;
+  @IsOptional()
+  userInfo?: PatientInformationRequestDto;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  specialty: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   timeAppointment: string;
 
   @ApiProperty()
   @IsObject()
   @IsNotEmpty()
-  doctor: DoctorRequestDto;
+  @IsOptional()
+  doctor?: DoctorRequestDto;
 
   @ApiProperty()
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
-  date: Date;
-
-  @ApiProperty()
-  @IsBoolean()
-  @IsNotEmpty()
-  statusAppointment: boolean;
+  date: string;
 
   @ApiProperty()
   @IsBoolean()
   @IsOptional()
   @IsNotEmpty()
-  cancelled?: boolean;
+  cancelled: boolean;
 
   @ApiProperty()
   @IsBoolean()
   @IsOptional()
   @IsNotEmpty()
-  state?: boolean;
+  state: boolean;
 }

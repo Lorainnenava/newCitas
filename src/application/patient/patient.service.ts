@@ -7,11 +7,11 @@ import {
 } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { WelcomeEmailService } from '../welcomeEmail/welcomeEmail.service';
 import { Patients } from '../../domain/collections/patients/schema/patiensts.entity';
 import { IPatientApplication } from '../../domain/inferface/patients/IPatientApplication';
 import { PatientRequestDto } from '../../domain/collections/patients/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../domain/collections/patients/dto/response/patient/patientResponse.dto';
-import { RequestUser } from '../../utils/types';
 
 /**
  * PatientService
@@ -20,6 +20,7 @@ import { RequestUser } from '../../utils/types';
 export class PatientService implements IPatientApplication {
   constructor(
     @InjectModel(Patients.name) private readonly patientModel: Model<Patients>,
+    private welcomeEmailService: WelcomeEmailService,
   ) {}
 
   /**
@@ -28,13 +29,35 @@ export class PatientService implements IPatientApplication {
    */
   async create(
     @Body() requestPatient: PatientRequestDto,
-    user: RequestUser,
   ): Promise<PatientResponseDto> {
     try {
-      const searchPatient = await this.patientModel.findOne({ _id: user.sub });
+      const searchPatient = await this.patientModel.findOne({
+        firstName: requestPatient.firstName,
+        firstLastName: requestPatient.firstLastName,
+        'documentInfo.documentNumber':
+          requestPatient.documentInfo.documentNumber,
+      });
       if (searchPatient)
         throw new ConflictException('This patient already exists');
-      return await new this.patientModel(requestPatient).save();
+
+      // createPatient
+      const createPatient = await new this.patientModel(requestPatient).save();
+
+      // if the patient was created so you must send a email
+      if (createPatient) {
+        await this.welcomeEmailService.sendEmailWelcome(
+          {
+            email: createPatient.email,
+            firstName: createPatient.firstName,
+            fisrtLastName: createPatient.firstLastName,
+            secondName: createPatient?.secondName,
+            secondLastName: createPatient?.secondLastName,
+          },
+          `${process.env.URL}`,
+        );
+      }
+
+      return createPatient.toObject();
     } catch (error) {
       throw error;
     }
@@ -45,10 +68,31 @@ export class PatientService implements IPatientApplication {
    * @param _id
    */
   async findById(@Param('_id') _id: string): Promise<PatientResponseDto> {
-    const searchPatient = await this.patientModel.findById(_id);
-    if (!searchPatient)
-      throw new NotFoundException('This patient does not exist');
-    return searchPatient;
+    try {
+      const searchPatient = await this.patientModel.findById(_id);
+      if (!searchPatient)
+        throw new NotFoundException('This patient does not exist');
+      return searchPatient.toObject();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * findOne
+   * @param documentNumber
+   */
+  async findOne(documentNumber: number): Promise<PatientResponseDto> {
+    try {
+      const searchPatient = await this.patientModel.findOne({
+        'documentInfo.documentNumber': documentNumber,
+      });
+      if (!searchPatient)
+        throw new NotFoundException('This patient does not exist');
+      return searchPatient.toObject();
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
@@ -69,7 +113,7 @@ export class PatientService implements IPatientApplication {
       );
       if (!searchPatient)
         throw new NotFoundException('This patient does not exist');
-      return searchPatient;
+      return searchPatient.toObject();
     } catch (error) {
       throw error;
     }
@@ -81,11 +125,7 @@ export class PatientService implements IPatientApplication {
    */
   async getAll(): Promise<PatientResponseDto[]> {
     try {
-      const searchAllPatient = await this.patientModel.find();
-      if (!searchAllPatient) {
-        return [];
-      }
-      return searchAllPatient;
+      return await this.patientModel.find();
     } catch (error) {
       throw error;
     }

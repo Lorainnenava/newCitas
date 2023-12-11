@@ -14,7 +14,7 @@ export class SessionService implements ISessionApplication {
   constructor(
     @InjectModel(Session.name)
     private readonly sessionModel: Model<Session>,
-  ) {}
+  ) { }
 
   /**
    * Create session

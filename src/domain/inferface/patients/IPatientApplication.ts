@@ -1,4 +1,4 @@
-import { RequestUser } from '../../../utils/types';
+
 import { PatientRequestDto } from '../../collections/patients/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../collections/patients/dto/response/patient/patientResponse.dto';
 
@@ -9,7 +9,6 @@ export interface IPatientApplication {
    */
   create(
     requestPatient: PatientRequestDto,
-    user: RequestUser,
   ): Promise<PatientResponseDto>;
 
   /**
@@ -17,6 +16,12 @@ export interface IPatientApplication {
    * @param _id
    */
   findById?(_id: string): Promise<PatientResponseDto>;
+
+  /**
+   * findOne patient
+   * @param _id
+   */
+  findOne?(documentNumber: number): Promise<PatientResponseDto>;
 
   /**
    * update patient

@@ -25,7 +25,7 @@ export class TypeOfDocumentService implements ITypeOfDocumentApplication {
   ): Promise<TypeOfDocumentResponseDto> {
     try {
       return await new this.typeOfDocumentModel({
-        name: request.typeOfDocument.toLocaleUpperCase(),
+        typeOfDocument: request.typeOfDocument.toLocaleUpperCase(),
       }).save();
     } catch (error) {
       throw error;

@@ -3,11 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RequestUser } from '../../../utils/types';
 import { DateService } from '../../../utils/date/date.service';
-import { ISchedule } from '../../../domain/inferface/medicalAppointments/schedule/IScheduleApplication';
 import {
   MedicalAppointment,
   medicalAppointmentDocument,
 } from '../../../domain/collections/medicalAppointments/schema/medicalAppointment.entity';
+import { ISchedule } from '../../../domain/inferface/medicalAppointments/schedule/IScheduleApplication';
 import { MedicalAppointmentResponseDto } from '../../../domain/collections/medicalAppointments/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 /**
@@ -19,7 +19,7 @@ export class ScheduleService implements ISchedule {
     @InjectModel(MedicalAppointment.name)
     private readonly medicalAppointmentModel: Model<medicalAppointmentDocument>,
     private dateService: DateService,
-  ) {}
+  ) { }
 
   /**
    * filter medicalAppointment by day
@@ -30,10 +30,8 @@ export class ScheduleService implements ISchedule {
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
     return await this.medicalAppointmentModel.find({
-      $and: [
-        { date: dateAppointment },
-        { 'doctor.documentInfo.documentNumber': user.documentNumber },
-      ],
+      date: dateAppointment,
+      'doctor.documentInfo.documentNumber': user.documentNumber,
     });
   }
 
@@ -46,12 +44,9 @@ export class ScheduleService implements ISchedule {
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
     return await this.medicalAppointmentModel.find({
-      $and: [
-        {
-          date: { $gt: dateAppointment },
-        },
-        { 'doctor.documentInfo.documentNumber': user.documentNumber },
-      ],
+      date: { $gt: dateAppointment },
+      'doctor.documentInfo.documentNumber': user.documentNumber,
+      cancelled: false
     });
   }
 
@@ -63,14 +58,8 @@ export class ScheduleService implements ISchedule {
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     return await this.medicalAppointmentModel.find({
-      $and: [
-        {
-          cancelled: true,
-        },
-        {
-          'doctor.documentInfo.documentNumber': user.documentNumber,
-        },
-      ],
+      cancelled: true,
+      'doctor.documentInfo.documentNumber': user.documentNumber,
     });
   }
 
@@ -83,14 +72,9 @@ export class ScheduleService implements ISchedule {
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
     return await this.medicalAppointmentModel.find({
-      $and: [
-        {
-          date: { $lt: dateAppointment },
-        },
-        {
-          'doctor.documentInfo.documentNumber': user.documentNumber,
-        },
-      ],
+      date: { $lt: dateAppointment },
+      cancelled: false,
+      'doctor.documentInfo.documentNumber': user.documentNumber,
     });
   }
 }

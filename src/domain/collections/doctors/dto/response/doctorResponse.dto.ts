@@ -6,7 +6,16 @@ import { DocumentInfoResponseDto } from '../../../user/dto/response/document/doc
  */
 export class DoctorResponseDto {
   @ApiProperty()
-  name: string;
+  firstName: string;
+
+  @ApiProperty()
+  secondName: string;
+
+  @ApiProperty()
+  firstLastName: string;
+
+  @ApiProperty()
+  secondLastName: string;
 
   @ApiProperty()
   documentInfo: DocumentInfoResponseDto;

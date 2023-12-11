@@ -1,5 +1,3 @@
-import { Request } from 'express';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   Req,
   Get,
@@ -10,10 +8,14 @@ import {
   Delete,
   Controller,
 } from '@nestjs/common';
+import { Request } from 'express';
+import { RequestUser } from '../../../utils/types';
+import { Roles } from '../../../utils/roles/roles';
+import { Role } from '../../../utils/roles/role.enum';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { MedicalAppointmentService } from '../../../application/medicalAppointment/medicalAppointment/medicalAppointment.service';
 import { MedicalAppointmentRequestDto } from '../../../domain/collections/medicalAppointments/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
 import { MedicalAppointmentResponseDto } from '../../../domain/collections/medicalAppointments/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { RequestUser } from '../../../utils/types';
 
 @ApiTags('MedicalAppointment')
 @Controller('medicalAppointment')
@@ -30,39 +32,50 @@ export class MedicalAppointmentController {
    */
   @ApiBearerAuth('token')
   @Post('/create')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
   async create(
     @Body() requestMedicalAppointment: MedicalAppointmentRequestDto,
-    @Req() request: Request,
   ): Promise<object> {
-    const user = request['user'] as RequestUser;
-    return this.medicalAppointmentService.create(
-      requestMedicalAppointment,
-      user,
-    );
+    return this.medicalAppointmentService.create(requestMedicalAppointment);
   }
 
   /**
-   * getAll medicalAppointment
+   * getAll medicalAppointments
    * @returns
    */
   @ApiBearerAuth('token')
   @Get('/getAll')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE || Role.DOCTOR)
   async getAll(): Promise<MedicalAppointmentResponseDto[]> {
     return this.medicalAppointmentService.getAll();
   }
 
   /**
-   * getAllById medicalAppointment
+   * getAllById medicalAppointments
    * @param request
    * @returns
    */
   @ApiBearerAuth('token')
-  @Get('/getAllById/:_id')
+  @Get('/getAllById')
+  @Roles(Role.ADMIN || Role.PACIENTE)
   async getAllById(
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const user = request['user'] as RequestUser;
     return this.medicalAppointmentService.getAllById(user);
+  }
+
+  /**
+   * findById medicalAppointment
+   * @param request
+   * @returns
+   */
+  @ApiBearerAuth('token')
+  @Post('/findById/:_id')
+  async findById(
+    @Param('_id') _id: string,
+  ): Promise<MedicalAppointmentResponseDto> {
+    return this.medicalAppointmentService.findById(_id);
   }
 
   /**

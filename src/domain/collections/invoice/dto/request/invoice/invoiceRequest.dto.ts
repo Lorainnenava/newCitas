@@ -1,14 +1,14 @@
 import {
+  IsInt,
   IsObject,
   IsString,
-  IsNotEmpty,
-  IsDate,
-  IsInt,
-  IsOptional,
   IsBoolean,
+  IsNotEmpty,
+  IsOptional,
 } from 'class-validator';
+import { Types } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { PatientRequestDto } from '../../../patients/dto/request/patient/patientRequest.dto';
+import { PatientInformationRequestDto } from '../patientInformation/patientInformationRequest.dto';
 
 /**
  * class InvoiceRequestDto
@@ -22,17 +22,23 @@ export class InvoiceRequestDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  hospital: string;
+  description: string;
 
   @ApiProperty()
   @IsObject()
   @IsNotEmpty()
-  patientInformation: PatientRequestDto;
+  @IsOptional()
+  patientInformation?: PatientInformationRequestDto;
+
+  @ApiProperty({ type: String })
+  @IsString()
+  @IsNotEmpty()
+  _idMedicalAppointment: Types.ObjectId;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsDate()
-  date: Date;
+  @IsString()
+  date: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -42,5 +48,10 @@ export class InvoiceRequestDto {
   @ApiProperty()
   @IsOptional()
   @IsBoolean()
-  state: boolean;
+  paid?: boolean;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsBoolean()
+  state?: boolean;
 }

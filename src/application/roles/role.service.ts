@@ -19,7 +19,7 @@ import { RolesResponseDto } from '../../domain/collections/roles/dto/response/ro
 export class RolesService implements IRolesApplication {
   constructor(
     @InjectModel(Roles.name) private readonly roleModel: Model<Roles>,
-  ) {}
+  ) { }
 
   /**
    * create role
@@ -31,9 +31,7 @@ export class RolesService implements IRolesApplication {
         name: request.name,
       });
       if (searchRole) throw new ConflictException('This role already exists');
-      return await new this.roleModel({
-        name: request.name.toLocaleUpperCase(),
-      }).save();
+      return await new this.roleModel(request).save();
     } catch (error) {
       throw error;
     }

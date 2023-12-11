@@ -1,7 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { DocumentInfoResponseDto } from '../../../../user/dto/response/document/documentInfoResponse.dto';
 import { IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 import { AddressResponseDto } from '../address/addressResponse.dto';
+import { DocumentInfoResponseDto } from '../../../../user/dto/response/document/documentInfoResponse.dto';
 
 /**
  * Class PatientResponseDto
@@ -12,19 +12,20 @@ export class PatientResponseDto {
 
   @ApiProperty()
   @IsOptional()
-  secondName?: string;
+  secondName: string;
 
   @ApiProperty()
-  firstSurname: string;
+  firstLastName: string;
 
   @ApiProperty()
   @IsOptional()
-  secondSurname?: string;
+  secondLastName: string;
 
   @ApiProperty()
-  dateOfBirth: Date;
+  dateOfBirth: string;
 
   @ApiProperty()
+  @IsOptional()
   placeOfBirth: string;
 
   @ApiProperty()
@@ -40,10 +41,14 @@ export class PatientResponseDto {
   email: string;
 
   @ApiProperty()
-  phoneNumber: number;
+  mobileNumber: number;
 
   @ApiProperty()
+  @IsOptional()
   address: AddressResponseDto;
+
+  @ApiProperty()
+  regimen: string;
 
   @ApiProperty()
   state: boolean;

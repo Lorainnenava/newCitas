@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PatientRequestDto } from '../../../../patients/dto/request/patient/patientRequest.dto';
+import { IsNotEmpty, IsObject, IsString } from 'class-validator';
 import { FamilyHistoryRequestDto } from '../../request/familyHistory/familyHistoryRequest.dto';
+import { PatientRequestDto } from '../../../../patients/dto/request/patient/patientRequest.dto';
 import { MedicalInformationRequestDto } from '../../request/medicalInformation/medicalInformationRequest.dto';
-import { IsNotEmpty, IsObject } from 'class-validator';
 
 /**
  * class MedicalHistoryRequestDto
@@ -22,4 +22,14 @@ export class MedicalHistoryRequestDto {
   @IsNotEmpty()
   @IsObject()
   familyHistory: FamilyHistoryRequestDto;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  weight: number;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  height: number;
 }

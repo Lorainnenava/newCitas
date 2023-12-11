@@ -1,6 +1,15 @@
+import {
+  Get,
+  Put,
+  Body,
+  Post,
+  Param,
+  Controller,
+  NotFoundException,
+} from '@nestjs/common';
 import { Public } from '../../../utils';
+import { UpdateWriteOpResult } from 'mongoose';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Controller, Post, Body, Get } from '@nestjs/common';
 import { UserService } from '../../../application/user/user.service';
 import { UserRequestDto } from '../../../domain/collections/user/dto/request/user/userRequest.dto';
 import { UserResponseDto } from '../../../domain/collections/user/dto/response/user/userResponse.dto';
@@ -29,5 +38,17 @@ export class UserController {
   @Get('User/GetAll')
   async getAll(): Promise<UserResponseDto[]> {
     return this.userService.getAll();
+  }
+
+  /**
+   * Delete token from users
+   * @returns
+   */
+  @Public()
+  @Put('User/ActivateCount/:token')
+  async deleteToken(
+    @Param('token') token: string,
+  ): Promise<NotFoundException | UpdateWriteOpResult> {
+    return await this.userService.deleteToken(token);
   }
 }

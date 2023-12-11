@@ -1,6 +1,7 @@
 import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { DoctorRequestDto } from '../../doctors/dto/request/doctorRequest.dto';
+import { PatientInformationRequestDto } from '../../invoice/dto/request/patientInformation/patientInformationRequest.dto';
 
 export type medicalAppointmentDocument = HydratedDocument<MedicalAppointment>;
 
@@ -12,14 +13,8 @@ export class MedicalAppointment {
   /**
    * userInfo
    */
-  @Prop({ type: Object })
-  userInfo: object;
-
-  /**
-   * specialty
-   */
-  @Prop({ type: String })
-  specialty: string;
+  @Prop({ type: PatientInformationRequestDto })
+  userInfo: PatientInformationRequestDto;
 
   /**
    * timeAppointment
@@ -36,14 +31,8 @@ export class MedicalAppointment {
   /**
    * date
    */
-  @Prop({ type: Date })
-  date: Date;
-
-  /**
-   * statusAppointment
-   */
-  @Prop({ type: Boolean })
-  statusAppointment: boolean;
+  @Prop({ type: String })
+  date: string;
 
   /**
    * cancelled
@@ -54,7 +43,7 @@ export class MedicalAppointment {
   /**
    * state
    */
-  @Prop({ type: Boolean, default: false })
+  @Prop({ type: Boolean, default: true })
   state: boolean;
 }
 

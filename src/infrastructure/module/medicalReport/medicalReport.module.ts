@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MedicalReportController } from '../../controller/medicalReport/medicalReport.controller';
 import {
   MedicalReport,
   MedicalReportSchema,
 } from '../../../domain/collections/medicalReport/schema/medicalReport.entity';
 import { MedicalReportService } from '../../../application/medicalReport/medicalReport.service';
+import { MedicalReportController } from '../../controller/medicalReport/medicalReport.controller';
 
 @Module({
   imports: [
@@ -17,4 +17,4 @@ import { MedicalReportService } from '../../../application/medicalReport/medical
   exports: [MedicalReportService],
   controllers: [MedicalReportController],
 })
-export class MedicalReportModule {}
+export class MedicalReportModule { }

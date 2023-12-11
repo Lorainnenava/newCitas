@@ -1,10 +1,10 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Body, Param, Injectable, ConflictException } from '@nestjs/common';
+import { Modules } from '../../domain/collections/modules/schema/module.entity';
 import { IModuleApplication } from '../../domain/inferface/modules/IModulesApplication';
 import { ModuleRequestDto } from '../../domain/collections/modules/dto/request/modules/moduleRequest.dto';
 import { ModuleResponseDto } from '../../domain/collections/modules/dto/response/modules/moduleResponse.dto';
-import { Modules } from '../../domain/collections/modules/schema/module.entity';
 
 /**
  * ModuleService

@@ -1,5 +1,5 @@
-import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import {
   Roles,
   RolesSchema,
@@ -15,4 +15,4 @@ import { RolesController } from '../../controller/roles/role.controller';
   exports: [RolesService],
   controllers: [RolesController],
 })
-export class RolesModule {}
+export class RolesModule { }

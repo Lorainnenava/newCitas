@@ -4,8 +4,8 @@ import {
   Session,
   SessionSchema,
 } from '../../../domain/collections/session/schema/session.entity';
-import { SessionController } from '../../controller/session/session.controller';
 import { SessionService } from '../../../application/session/session.service';
+import { SessionController } from '../../controller/session/session.controller';
 
 @Module({
   imports: [
@@ -15,4 +15,4 @@ import { SessionService } from '../../../application/session/session.service';
   providers: [SessionService],
   exports: [SessionService],
 })
-export class SessionModule {}
+export class SessionModule { }

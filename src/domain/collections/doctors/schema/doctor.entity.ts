@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { DocumentInfoRequestDto } from '../../user/dto/request/document/documentInfoRequest.dto';
 
 export type doctorDocument = HydratedDocument<Doctor>;
@@ -10,10 +10,28 @@ export type doctorDocument = HydratedDocument<Doctor>;
 @Schema({ timestamps: true, collection: 'doctors' })
 export class Doctor {
   /**
-   * name
+   * firstName
    */
   @Prop({ type: String })
-  name: string;
+  firstName: string;
+
+  /**
+   * secondName
+   */
+  @Prop({ type: String })
+  secondName: string;
+
+  /**
+   * firstLastName
+   */
+  @Prop({ type: String })
+  firstLastName: string;
+  
+  /**
+   * secondLastName
+   */
+  @Prop({ type: String })
+  secondLastName: string;
 
   /**
    * documentInfo

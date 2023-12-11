@@ -1,5 +1,5 @@
-import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import {
   TypeOfDocument,
   typeOfDocumentSchema,
@@ -17,4 +17,4 @@ import { TypeOfDocumentController } from '../../controller/typeOfDocument/typeOf
   exports: [TypeOfDocumentService],
   controllers: [TypeOfDocumentController],
 })
-export class TypeOfDocumentModule {}
+export class TypeOfDocumentModule { }

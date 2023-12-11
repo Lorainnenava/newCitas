@@ -1,8 +1,10 @@
-import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
 import { MedicalHistoryService } from '../../../application/medicalHistory/medicalHistory.service';
 import { MedicalHistoryRequestDto } from '../../../domain/collections/medicalHistory/dto/request/medicalHistory/medicalHistoryRequest.dto';
 import { MedicalHistoryResponseDto } from '../../../domain/collections/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
+import { Role } from '../../../utils/roles/role.enum';
+import { Roles } from '../../../utils/roles/roles';
 
 @ApiTags('MedicalHistory')
 @Controller('MedicalHistory')
@@ -16,6 +18,7 @@ export class MedicalHistoryController {
    */
   @ApiBearerAuth('token')
   @Post('/create')
+  @Roles(Role.ADMIN || Role.DOCTOR)
   async create(@Body() request: MedicalHistoryRequestDto): Promise<object> {
     return this.medicalHistoryService.create(request);
   }
@@ -26,6 +29,7 @@ export class MedicalHistoryController {
    */
   @ApiBearerAuth('token')
   @Get('/GetAll')
+  @Roles(Role.ADMIN || Role.DOCTOR || Role.RECEPCIONISTA)
   async getAll(): Promise<MedicalHistoryResponseDto[]> {
     return this.medicalHistoryService.getAll();
   }
@@ -37,6 +41,7 @@ export class MedicalHistoryController {
    */
   @ApiBearerAuth('token')
   @Post('/:_id')
+  @Roles(Role.ADMIN || Role.DOCTOR || Role.RECEPCIONISTA)
   async findById(@Param('_id') _id: string): Promise<object> {
     return this.medicalHistoryService.findById(_id);
   }
@@ -46,6 +51,7 @@ export class MedicalHistoryController {
    * @param _id
    * @returns
    */
+  @Roles(Role.ADMIN || Role.DOCTOR)
   @ApiBearerAuth('token')
   @Put('/update/:_id')
   async update(

@@ -1,5 +1,5 @@
-import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import {
   MedicalHistory,
   MedicalHistorySchema,
@@ -17,4 +17,4 @@ import { MedicalHistoryController } from '../../controller/medicalHistory/medica
   exports: [MedicalHistoryService],
   controllers: [MedicalHistoryController],
 })
-export class MedicalHistoryModule {}
+export class MedicalHistoryModule { }

@@ -1,7 +1,7 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { DocumentInfoRequestDto } from '../../user/dto/request/document/documentInfoRequest.dto';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AddressRequestDto } from '../dto/request/address/addressRequest.dto';
+import { DocumentInfoRequestDto } from '../../user/dto/request/document/documentInfoRequest.dto';
 
 export type patientDocument = HydratedDocument<Patients>;
 
@@ -19,26 +19,26 @@ export class Patients {
   /**
    * secondName
    */
-  @Prop({ type: String })
-  secondName?: string;
+  @Prop({ type: String, required: false })
+  secondName: string;
 
   /**
    * firstSurname
    */
   @Prop({ type: String })
-  firstSurname: string;
+  firstLastName: string;
 
   /**
    * secondSurname
    */
-  @Prop({ type: String })
-  secondSurname?: string;
+  @Prop({ type: String, required: false })
+  secondLastName: string;
 
   /**
    * dateOfBirth
    */
-  @Prop({ type: Date })
-  dateOfBirth: Date;
+  @Prop({ type: String })
+  dateOfBirth: string;
 
   /**
    * placeOfBirth
@@ -71,10 +71,10 @@ export class Patients {
   email: string;
 
   /**
-   * phoneNumber
+   * mobileNumber
    */
   @Prop({ type: Number })
-  phoneNumber: number;
+  mobileNumber: number;
 
   /**
    * address
@@ -83,9 +83,15 @@ export class Patients {
   address: AddressRequestDto;
 
   /**
+   * regimen
+   */
+  @Prop({ type: String })
+  regimen: string;
+
+  /**
    * state
    */
-  @Prop({ type: Boolean, default: false })
+  @Prop({ type: Boolean, default: true })
   state: boolean;
 }
 

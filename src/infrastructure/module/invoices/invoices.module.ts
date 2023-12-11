@@ -12,7 +12,7 @@ import { InvoicesController } from '../../controller/invoices/invoices.controlle
     MongooseModule.forFeature([{ name: Invoice.name, schema: InvoiceSchema }]),
   ],
   providers: [InvoiceService],
-  exports: [InvoiceService],
+  exports: [InvoiceService, MongooseModule],
   controllers: [InvoicesController],
 })
-export class InvoiceModule {}
+export class InvoiceModule { }

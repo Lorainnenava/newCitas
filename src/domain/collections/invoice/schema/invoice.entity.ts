@@ -1,8 +1,9 @@
+import { HydratedDocument, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
-import { PatientRequestDto } from '../../patients/dto/request/patient/patientRequest.dto';
+import { MedicalAppointment } from '../../medicalAppointments/schema/medicalAppointment.entity';
+import { PatientInformationRequestDto } from '../dto/request/patientInformation/patientInformationRequest.dto';
 
-export type doctorDocument = HydratedDocument<Invoice>;
+export type invoiceDocument = HydratedDocument<Invoice>;
 
 /**
  * Schema Invoice
@@ -16,28 +17,40 @@ export class Invoice {
   code: number;
 
   /**
-   * hospital
+   * description
    */
-  @Prop({ type: String, default: 'Center hospital' })
-  hospital: string;
+  @Prop({ type: String })
+  description: string;
 
   /**
    * patientInformation
    */
-  @Prop({ type: PatientRequestDto })
-  patientInformation: PatientRequestDto;
+  @Prop({ type: PatientInformationRequestDto })
+  patientInformation: PatientInformationRequestDto;
+
+  /**
+   * _idMedicalAppointment
+   */
+  @Prop({ type: Types.ObjectId, ref: MedicalAppointment.name })
+  _idMedicalAppointment: Types.ObjectId;
 
   /**
    * date
    */
-  @Prop({ type: Date })
-  date: Date;
+  @Prop({ type: String })
+  date: string;
 
   /**
    * cost
    */
   @Prop({ type: Number })
   cost: Number;
+
+  /**
+   * paid
+   */
+  @Prop({ type: Boolean, default: false })
+  paid: boolean;
 
   /**
    * state

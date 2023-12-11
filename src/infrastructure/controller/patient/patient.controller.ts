@@ -1,5 +1,3 @@
-import { Request } from 'express';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   Put,
   Get,
@@ -10,10 +8,12 @@ import {
   Delete,
   Controller,
 } from '@nestjs/common';
+import { Roles } from '../../../utils/roles/roles';
+import { Role } from '../../../utils/roles/role.enum';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PatientService } from '../../../application/patient/patient.service';
 import { PatientRequestDto } from '../../../domain/collections/patients/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../../domain/collections/patients/dto/response/patient/patientResponse.dto';
-import { RequestUser } from '../../../utils/types';
 
 @ApiTags('Patient')
 @Controller('patient')
@@ -27,12 +27,11 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Post('/create')
+  @Roles(Role.ADMIN)
   async create(
     @Body() requestPatient: PatientRequestDto,
-    @Req() request: Request,
   ): Promise<PatientResponseDto> {
-    const user = request['user'] as RequestUser;
-    return this.patientDocumentService.create(requestPatient, user);
+    return this.patientDocumentService.create(requestPatient);
   }
 
   /**
@@ -43,6 +42,7 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Put('/update/:_id')
+  @Roles(Role.ADMIN || Role.PACIENTE)
   async update(
     @Body() request: PatientRequestDto,
     @Param('_id') _id: string,
@@ -57,6 +57,7 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Post('/:_id')
+  @Roles(Role.ADMIN || Role.PACIENTE)
   async findById(@Param('_id') _id: string): Promise<PatientResponseDto> {
     return this.patientDocumentService.findById(_id);
   }
@@ -67,6 +68,7 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Get('/getAll')
+  @Roles(Role.ADMIN)
   async getAll(): Promise<PatientResponseDto[]> {
     return this.patientDocumentService.getAll();
   }
@@ -78,6 +80,7 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Delete('/delete/:_id')
+  @Roles(Role.ADMIN)
   async delete(@Param('_id') _id: string): Promise<boolean> {
     return this.patientDocumentService.delete(_id);
   }

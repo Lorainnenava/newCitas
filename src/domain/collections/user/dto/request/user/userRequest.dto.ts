@@ -7,6 +7,7 @@ import {
   IsString,
   IsOptional,
   IsNotEmpty,
+  IsBoolean,
 } from 'class-validator';
 import { DocumentInfoRequestDto } from '../document/documentInfoRequest.dto';
 
@@ -17,12 +18,39 @@ export class UserRequestDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  name: string;
+  firstName: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @IsOptional()
+  secondName: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  firstLastName: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @IsOptional()
+  secondLastName: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsObject()
   documentInfo: DocumentInfoRequestDto;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  dateOfBirth: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  gender: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -41,7 +69,18 @@ export class UserRequestDto {
   password: string;
 
   @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @IsOptional()
+  token?: string;
+
+  @ApiProperty()
   @IsString()
   @IsOptional()
   role?: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  state?: boolean;
 }

@@ -1,8 +1,8 @@
 import { Document, Types } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
+import { FamilyHistoryResponseDto } from '../familyHistory/familyHistoryResponse.dto';
 import { PatientResponseDto } from '../../../../patients/dto/response/patient/patientResponse.dto';
 import { MedicalInformationResponseDto } from '../medicalInformation/medicalInformationResponse.dto';
-import { FamilyHistoryResponseDto } from '../familyHistory/familyHistoryResponse.dto';
 
 /**
  * class MedicalHistoryResponseDto
@@ -19,4 +19,10 @@ export class MedicalHistoryResponseDto extends Document {
 
   @ApiProperty()
   familyHistory: FamilyHistoryResponseDto;
+
+  @ApiProperty()
+  weight: number;
+
+  @ApiProperty()
+  height: number;
 }

@@ -1,5 +1,5 @@
-import { InvoiceRequestDto } from '../../collections/invoice/dto/request/invoiceRequest.dto';
-import { InvoiceResponseDto } from '../../collections/invoice/dto/response/invoiceResponse.dto';
+import { InvoiceRequestDto } from '../../collections/invoice/dto/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../collections/invoice/dto/response/invoice/invoiceResponse.dto';
 
 export interface IInvoicesApplication {
   /**
@@ -18,6 +18,12 @@ export interface IInvoicesApplication {
    * @param _id
    */
   findById(_id: string): Promise<InvoiceResponseDto>;
+
+  /**
+   * findOne invoice
+   * @param code
+   */
+  findOne(code: number): Promise<InvoiceResponseDto>;
 
   /**
    * delete invoice

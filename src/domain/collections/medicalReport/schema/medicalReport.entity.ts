@@ -1,7 +1,7 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { MedicalInformationRequestDto } from '../../medicalHistory/dto/request/medicalInformation/medicalInformationRequest.dto';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TreatmentRequestDto } from '../dto/request/treatment/treatmentRequest.dto';
+import { DocumentInfoRequestDto } from '../../user/dto/request/document/documentInfoRequest.dto';
 
 export type medicalReportDocument = HydratedDocument<MedicalReport>;
 
@@ -11,16 +11,28 @@ export type medicalReportDocument = HydratedDocument<MedicalReport>;
 @Schema({ timestamps: true, collection: 'medicalReports' })
 export class MedicalReport {
   /**
-   * patientName
+   * patientFisrtName
    */
   @Prop({ type: String })
-  patientName: string;
+  patientFisrtName: string;
 
   /**
-   * patientMiddleName
+   * patientSecondName
    */
   @Prop({ type: String })
-  patientMiddleName: string;
+  patientSecondName: string;
+
+  /**
+   * patientFirstLastName
+   */
+  @Prop({ type: String })
+  patientFirstLastName: string;
+
+  /**
+   * patientSecondLastName
+   */
+  @Prop({ type: String })
+  patientSecondLastName: string;
 
   /**
    * gender
@@ -35,22 +47,16 @@ export class MedicalReport {
   age: number;
 
   /**
+   *   documentInfo
+   */
+  @Prop({ type: DocumentInfoRequestDto })
+  documentInfo: DocumentInfoRequestDto
+
+  /**
    * reasonForVisit
    */
   @Prop({ type: String })
   reasonForVisit: string;
-
-  /**
-   * weight
-   */
-  @Prop({ type: String })
-  weight: string;
-
-  /**
-   * medicalInformation
-   */
-  @Prop({ type: MedicalInformationRequestDto })
-  medicalInformation: MedicalInformationRequestDto;
 
   /**
    * physicalExam
