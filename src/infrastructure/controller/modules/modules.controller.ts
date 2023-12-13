@@ -1,9 +1,9 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { ModuleService } from '../../../application/modules/modules.service';
-import { ModuleRequestDto } from '../../../domain/collections/modules/dto/request/modules/moduleRequest.dto';
-import { ModuleResponseDto } from '../../../domain/collections/modules/dto/response/modules/moduleResponse.dto';
+import { ModuleService } from '../../../application/services/modules/modules.service';
+import { ModuleRequestDto } from '../../../application/dtos/modules/request/modules/moduleRequest.dto';
+import { ModuleResponseDto } from '../../../application/dtos/modules/response/modules/moduleResponse.dto';
 
 @ApiTags('Modules')
 @Controller('Modules')

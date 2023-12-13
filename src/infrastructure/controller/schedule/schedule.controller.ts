@@ -4,8 +4,8 @@ import { RequestUser } from '../../../utils/types';
 import { Role } from '../../../utils/roles/role.enum';
 import { Controller, Post, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ScheduleService } from '../../../application/medicalAppointment/schedule/schedule.service';
-import { MedicalAppointmentResponseDto } from '../../../domain/collections/medicalAppointments/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { ScheduleService } from '../../../application/services/medicalAppointment/schedule/schedule.service';
+import { MedicalAppointmentResponseDto } from '../../../application/dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @ApiTags('Schedule')
 @Controller('Schedule')

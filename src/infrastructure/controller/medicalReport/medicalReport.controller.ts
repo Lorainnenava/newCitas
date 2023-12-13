@@ -2,9 +2,9 @@ import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Param, Post } from '@nestjs/common';
-import { MedicalReportService } from '../../../application/medicalReport/medicalReport.service';
-import { MedicalReportRequestDto } from '../../../domain/collections/medicalReport/dto/request/medicalReport/medicalReportRequest.dto';
-import { MedicalReportResponseDto } from '../../../domain/collections/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
+import { MedicalReportService } from '../../../application/services/medicalReport/medicalReport.service';
+import { MedicalReportRequestDto } from '../../../application/dtos/medicalReport/request/medicalReport/medicalReportRequest.dto';
+import { MedicalReportResponseDto } from '../../../application/dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
 
 @ApiTags('MedicalReport')
 @Controller('MedicalReport')

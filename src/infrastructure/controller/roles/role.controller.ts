@@ -1,9 +1,9 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
-import { RolesService } from '../../../application/roles/role.service';
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { RolesRequestDto } from '../../../domain/collections/roles/dto/request/rolesRequest.dto';
-import { RolesResponseDto } from '../../../domain/collections/roles/dto/response/rolesResponse.dto';
+import { RolesService } from '../../../application/services/roles/role.service';
+import { RolesRequestDto } from '../../../application/dtos/roles/request/rolesRequest.dto';
+import { RolesResponseDto } from '../../../application/dtos/roles/response/rolesResponse.dto';
 
 @ApiTags('Roles')
 @Controller('Roles')

@@ -1,8 +1,9 @@
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { RolesGuard } from './utils/roles/roles.guard';
-import { Module, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from './utils/validation/validation.pipe';
 import { UserModule } from './infrastructure/module/user/user.module';
 import { RolesModule } from './infrastructure/module/roles/roles.module';
 import { SignInModule } from './infrastructure/module/signIn/signIn.module';
@@ -13,6 +14,7 @@ import { SessionModule } from './infrastructure/module/session/session.module';
 import { InvoiceModule } from './infrastructure/module/invoices/invoices.module';
 import { ScheduleModule } from './infrastructure/module/schedule/schedule.module';
 import { SpecialtyModule } from './infrastructure/module/specialty/specialty.module';
+import { PermissionModule } from './infrastructure/module/permissions/permissions.module';
 import { WelcomeEmailModule } from './infrastructure/module/welcomeEmail/welcomeEmail.module';
 import { MedicalReportModule } from './infrastructure/module/medicalReport/medicalReport.module';
 import { TypeOfDocumentModule } from './infrastructure/module/typeOfDocument/typeOfDocument.module';
@@ -45,6 +47,7 @@ import { ConfirmationMedicalAppointmentModule } from './infrastructure/module/co
     WelcomeEmailModule,
     ConfirmationEmailModule,
     ConfirmationMedicalAppointmentModule,
+    PermissionModule,
   ],
   controllers: [],
   providers: [

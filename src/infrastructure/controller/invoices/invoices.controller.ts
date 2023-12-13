@@ -10,9 +10,9 @@ import {
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { InvoiceService } from '../../../application/invoices/invoices.service';
-import { InvoiceRequestDto } from '../../../domain/collections/invoice/dto/request/invoice/invoiceRequest.dto';
-import { InvoiceResponseDto } from '../../../domain/collections/invoice/dto/response/invoice/invoiceResponse.dto';
+import { InvoiceService } from '../../../application/services/invoices/invoices.service';
+import { InvoiceRequestDto } from '../../../application/dtos/invoice/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../application/dtos/invoice/response/invoice/invoiceResponse.dto';
 
 @ApiTags('Invoices')
 @Controller('invoices')

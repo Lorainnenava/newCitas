@@ -10,11 +10,11 @@ import {
 import { Public } from '../../../utils';
 import { UpdateWriteOpResult } from 'mongoose';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { UserService } from '../../../application/user/user.service';
-import { UserRequestDto } from '../../../domain/collections/user/dto/request/user/userRequest.dto';
-import { UserResponseDto } from '../../../domain/collections/user/dto/response/user/userResponse.dto';
+import { UserService } from '../../../application/services/user/user.service';
+import { UserRequestDto } from '../../../application/dtos/user/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../application/dtos/user/response/user/userResponse.dto';
 
-@ApiTags('SignUp')
+@ApiTags('User')
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}

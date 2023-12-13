@@ -1,10 +1,10 @@
+import { Roles } from '../../../utils/roles/roles';
+import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
-import { MedicalHistoryService } from '../../../application/medicalHistory/medicalHistory.service';
-import { MedicalHistoryRequestDto } from '../../../domain/collections/medicalHistory/dto/request/medicalHistory/medicalHistoryRequest.dto';
-import { MedicalHistoryResponseDto } from '../../../domain/collections/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
-import { Role } from '../../../utils/roles/role.enum';
-import { Roles } from '../../../utils/roles/roles';
+import { MedicalHistoryService } from '../../../application/services/medicalHistory/medicalHistory.service';
+import { MedicalHistoryRequestDto } from '../../../application/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
+import { MedicalHistoryResponseDto } from '../../../application/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 
 @ApiTags('MedicalHistory')
 @Controller('MedicalHistory')

@@ -1,10 +1,10 @@
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { DoctorService } from '../../../application/doctor/doctor.service';
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { DoctorRequestDto } from '../../../domain/collections/doctors/dto/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../domain/collections/doctors/dto/response/doctorResponse.dto';
+import { DoctorService } from '../../../application/services/doctor/doctor.service';
+import { DoctorRequestDto } from '../../../application/dtos/doctor/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../application/dtos/doctor/response/doctorResponse.dto';
 
 @ApiTags('Doctor')
 @Controller('Doctor')

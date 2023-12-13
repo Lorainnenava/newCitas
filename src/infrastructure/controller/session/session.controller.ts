@@ -2,8 +2,8 @@ import { Request } from 'express';
 import { RequestUser } from '../../../utils/types';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Delete, Param, Get, Req } from '@nestjs/common';
-import { SessionService } from '../../../application/session/session.service';
-import { SessionResponseDto } from '../../../domain/collections/session/dto/response/sessionResponse.dto';
+import { SessionService } from '../../../application/services/session/session.service';
+import { SessionResponseDto } from '../../../application/dtos/session/response/sessionResponse.dto';
 
 @ApiTags('Session')
 @Controller('Session')

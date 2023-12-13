@@ -1,9 +1,9 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body, Delete, Param, Get } from '@nestjs/common';
-import { SpecialtyService } from '../../../application/specialty/specialty.service';
-import { SpecialtyRequestDto } from '../../../domain/collections/specialty/dto/request/specialtiesRequest.dto';
-import { SpecialtyResponseDto } from '../../../domain/collections/specialty/dto/response/specialtiesResponse.dto';
+import { SpecialtyService } from '../../../application/services/specialty/specialty.service';
+import { SpecialtyRequestDto } from '../../../application/dtos/specialty/request/specialtiesRequest.dto';
+import { SpecialtyResponseDto } from '../../../application/dtos/specialty/response/specialtiesResponse.dto';
 
 @ApiTags('Specialty')
 @Controller('Specialty')

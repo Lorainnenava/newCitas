@@ -11,9 +11,9 @@ import {
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PatientService } from '../../../application/patient/patient.service';
-import { PatientRequestDto } from '../../../domain/collections/patients/dto/request/patient/patientRequest.dto';
-import { PatientResponseDto } from '../../../domain/collections/patients/dto/response/patient/patientResponse.dto';
+import { PatientService } from '../../../application/services/patient/patient.service';
+import { PatientRequestDto } from '../../../application/dtos/patients/request/patient/patientRequest.dto';
+import { PatientResponseDto } from '../../../application/dtos/patients/response/patient/patientResponse.dto';
 
 @ApiTags('Patient')
 @Controller('patient')

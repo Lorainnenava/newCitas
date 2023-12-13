@@ -1,8 +1,8 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body } from '@nestjs/common';
-import { SignInService } from '../../../application/signIn/signIn.service';
-import { SignInRequestDto } from '../../../domain/collections/signIn/dto/request/signIn.dto';
+import { SignInService } from '../../../application/services/signIn/signIn.service';
+import { SignInRequestDto } from '../../../application/dtos/signIn/request/signIn.dto';
 
 @ApiTags('SignIn')
 @Controller('/SignIn')
