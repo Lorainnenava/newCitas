@@ -1,5 +1,5 @@
-'use server';
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
 /**
  * Función para borrar sesion del usuario
@@ -24,12 +24,9 @@ export async function POST() {
             }
             const data = await response.json();
             cookieStore.delete('my-token');
-            return Response.json({ data });
+            return NextResponse.json(data);
         }
     } catch (error) {
-        return Response.json({
-            message: error,
-            success: false,
-        });
+        throw error
     }
 }

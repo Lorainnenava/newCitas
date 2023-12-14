@@ -40,6 +40,16 @@ export const validateRequiredSelect = (field?: boolean, required?: boolean) => {
 
 export const alertInitialState = {
     message: '',
-    type: 'success' as "success",
+    type: 'success' as 'success',
     active: false,
-  };
+};
+
+export const validateEmail = (value: string): boolean | undefined => {
+    const expression = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
+    if (value) {
+        if (expression.test(value)) {
+            return true;
+        }
+        return false;
+    }
+};

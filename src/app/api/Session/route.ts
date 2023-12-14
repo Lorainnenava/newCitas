@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
 /**
  * Función para obtener la sesión
@@ -24,11 +25,9 @@ export async function GET(request: Request, res: Response) {
             }
 
             const data = await res.json();
-            return Response.json({ data });
+            return NextResponse.json(data);
         }
     } catch (error) {
-        return Response.json({
-            message: error,
-        });
+        return NextResponse.json(error);
     }
 }

@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import React, { FC } from 'react';
-import img from '../../../public/assets/img/imgMain.jpg';
+import img from '../../../public/assets/img/main/imgMain.jpg';
 
 const PrincipalView: FC = () => {
     return (

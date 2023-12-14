@@ -3,6 +3,9 @@ import './globals.css';
 import Providers from '@/redux/providers';
 import { Suspense } from 'react';
 import Loading from '@/common/loading/Loading';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import StyledComponentsRegistry from '../common/style/stylesGlobal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,8 +22,13 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
+                <ToastContainer />
                 <Providers>
-                    <Suspense fallback={<Loading />}>{children}</Suspense>
+                    <Suspense fallback={<Loading />}>
+                        <StyledComponentsRegistry>
+                            {children}
+                        </StyledComponentsRegistry>
+                    </Suspense>
                 </Providers>
             </body>
         </html>

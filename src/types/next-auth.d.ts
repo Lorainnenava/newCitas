@@ -20,8 +20,4 @@ declare module 'next-auth' {
         email: string;
         token?: string;
     }
-
-    export type CustomAppProps = AppProps & {
-        Component: NextComponentType & { auth?: boolean };
-    };
 }

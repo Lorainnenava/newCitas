@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
-import { Header, HeaderImagen, TituloHeader, styles, Image } from './styled';
+import { Header, HeaderImagen, TituloHeader, styles } from './styled';
 import { useRouter } from 'next/navigation';
+import logoNav from '../../../public/assets/img/main/logoNav.png';
 import {
     Box,
     Menu,
@@ -11,10 +12,14 @@ import {
     IconButton,
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-
 import ModalComponent from '../modal';
 import { CloseSession } from './ContentModal/closeSession';
-const Nav: FC<TNavBar> = ({ profileAuth }) => {
+import Image from 'next/image';
+import { TNavBar } from './types';
+import { useSession } from 'next-auth/react';
+
+const Nav: FC<TNavBar> = () => {
+    const { data: session } = useSession();
     const router = useRouter();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [openModal, setOpenModal] = useState(false);
@@ -42,11 +47,11 @@ const Nav: FC<TNavBar> = ({ profileAuth }) => {
 
     return (
         <>
-            {profileAuth === null ? (
+            {session === null ? (
                 <Header>
                     <HeaderImagen>
                         <Image
-                            src={img}
+                            src={logoNav}
                             alt="logo"
                             onClick={() => {
                                 router.push('/');
@@ -59,8 +64,10 @@ const Nav: FC<TNavBar> = ({ profileAuth }) => {
                 <Header>
                     <HeaderImagen>
                         <Image
+                            src={logoNav}
+                            alt="logo"
                             onClick={() => {
-                                router.push('/');
+                                router.push('/Dashboard');
                             }}
                         />
                     </HeaderImagen>
@@ -93,14 +100,9 @@ const Nav: FC<TNavBar> = ({ profileAuth }) => {
                                 onClose={handleClose}
                                 onClick={handleClose}
                             >
+                                <Box sx={styles.box}>{session?.user?.name}</Box>
                                 <Box sx={styles.box}>
-                                    {profileAuth?.user?.name}
-                                </Box>
-                                <Box sx={styles.box}>
-                                    {profileAuth?.user?.mobileNumber}
-                                </Box>
-                                <Box sx={styles.box}>
-                                    {profileAuth?.user?.email}
+                                    {session?.user?.email}
                                 </Box>
                                 <Box sx={styles.box}>
                                     <Button onClick={handleOpen}>

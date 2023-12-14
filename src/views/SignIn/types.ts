@@ -1,20 +1,24 @@
-import { FormEvent, ChangeEvent } from 'react';
 import { TypeAlertT } from '@/common/alert/types';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
+import {
+    FieldErrors,
+    FieldValues,
+    UseFormHandleSubmit,
+    Control,
+} from 'react-hook-form';
+import { AnySchema } from 'yup';
 
 export type TLogin = {
-    router: AppRouterInstance;
+    errors?: FieldErrors<{
+        email: string;
+        password: string;
+    }>;
+    control: Control<any>;
+    handleSubmit: UseFormHandleSubmit<FieldValues>;
+    schema: AnySchema;
     loading: boolean;
-    dataForm: typeof loginInitialState;
-    required: boolean;
     showAlert: TypeAlertT;
     setShowAlert: React.Dispatch<React.SetStateAction<TypeAlertT>>;
-    handleSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
-    handleChangue: (
-        e: ChangeEvent<
-            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-        >
-    ) => void;
+    handleSubmitLogin: () => void;
 };
 
 export const loginInitialState = {

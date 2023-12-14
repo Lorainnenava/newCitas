@@ -14,27 +14,29 @@ import {
     Typography,
     CircularProgress,
 } from '@mui/material';
-import { CssTextField } from '../../utils/styles';
 import { AlertGeneral } from '../../common/alert/alert';
-import { validateRequired } from '../../utils';
 import { TLogin } from './types';
 import Link from 'next/link';
+import CustomerInput from '@/common/input/input';
 
 const ViewLogin: FC<TLogin> = ({
+    errors,
+    schema,
+    control,
     loading,
-    dataForm,
-    required,
     showAlert,
     setShowAlert,
     handleSubmit,
-    handleChangue,
+    handleSubmitLogin,
 }) => {
     return (
         <Container>
             <Box1>
                 <Contents />
                 <Box sx={styles.box2}>
-                    <Form onSubmit={handleSubmit}>
+                    <Form
+                        onSubmit={handleSubmit(handleSubmitLogin)}
+                    >
                         <Typography
                             align="center"
                             variant="h5"
@@ -45,35 +47,19 @@ const ViewLogin: FC<TLogin> = ({
                         </Typography>
                         <Stack spacing={2}>
                             <ContenedorForm>
-                                <CssTextField
+                                <CustomerInput
                                     label="Email"
                                     name="email"
-                                    id="outlined-basic"
-                                    size="small"
-                                    onChange={handleChangue}
-                                    colors={validateRequired(
-                                        !dataForm?.email,
-                                        required
-                                    )}
-                                    border={validateRequired(
-                                        !dataForm?.email,
-                                        required
-                                    )}
+                                    errors={errors?.email}
+                                    control={control}
+                                    schema={schema}
                                 />
-                                <CssTextField
+                                <CustomerInput
                                     label="Password"
                                     name="password"
-                                    id="outlined-basic"
-                                    size="small"
-                                    onChange={handleChangue}
-                                    colors={validateRequired(
-                                        !dataForm?.password,
-                                        required
-                                    )}
-                                    border={validateRequired(
-                                        !dataForm?.password,
-                                        required
-                                    )}
+                                    errors={errors?.password}
+                                    control={control}
+                                    schema={schema}
                                 />
                             </ContenedorForm>
                         </Stack>

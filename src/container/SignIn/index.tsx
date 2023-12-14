@@ -1,122 +1,114 @@
 'use client';
 import React from 'react';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { userLogin } from '@/redux/features/login/request';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { alertInitialState } from '@/utils';
+import { alertInitialState, validateEmail } from '@/utils';
 import ViewLogin from '@/views/SignIn';
-import { loginInitialState } from '@/views/SignIn/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TypeAlertT } from '@/common/alert/types';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     /**
      * useStates
      */
     const router = useRouter();
-    const dispatch = useAppDispatch();
     const [loading, setLoading] = useState(false);
-    const [required, setRequired] = useState<boolean>(false);
-    const [dataForm, setDataForm] = useState(loginInitialState);
     const [showAlert, setShowAlert] = useState<TypeAlertT>(alertInitialState);
 
     /**
-     * userLoguinSelector
+     * schema de validación
      */
-    const userLoguinSelector = useAppSelector((state) => state.root.userLogin);
-
     const schema = yup.object().shape({
-        email: yup.string().required("El correo es requerido"),
-        password: yup.string().min(4, "").max(10).required("la contraseña es requerida"),
+        email: yup
+            .string()
+            .required('El correo es requerido')
+            .test('validar-email', 'El correo no es válido', (value) =>
+                validateEmail(value)
+            ),
+        password: yup
+            .string()
+            .min(4, 'La contraseña debe tener minimo 4 caracteres')
+            .max(10, 'La contraseña debe tener maximo 10 caracteres')
+            .required('la contraseña es requerida'),
     });
-    const {
-        register,
-        handleSubmit: onSubmit,
-        formState: { errors },
-        reset,
-    } = useForm({resolver: yupResolver(schema)});
 
     /**
-     * handleChangue
+     * useForm
      */
-    const handleChangue = (
-        e: ChangeEvent<
-            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-        >
-    ) => {
-        e.preventDefault();
-        setDataForm({
-            ...dataForm,
-            [e.target.name]: e.target.value,
+    const {
+        handleSubmit,
+        formState: { errors },
+        getValues,
+        control,
+    } = useForm({ resolver: yupResolver(schema), mode: 'onBlur' });
+
+    /**
+     * crear credenciales de acceso y consultar ruta api SignIn
+     */
+    const credential = async (data: { email: string; password: string }) => {
+        try {
+            const signInPromise = signIn('credentials', {
+                redirect: false,
+                email: data.email,
+                password: data.password,
+            });
+            const fetchPromise = fetch('/api/SignIn', {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    email: data.email,
+                    password: data.password,
+                }),
+            });
+            const [result, response] = await Promise.all([
+                signInPromise,
+                fetchPromise,
+            ]);
+            if (!result?.ok && !response.ok) {
+                setLoading(false);
+                toast('El usuario no existe.', {
+                    autoClose: 2000,
+                    type: 'error',
+                    hideProgressBar: false,
+                });
+            } else {
+                router.push('/Dashboard');
+                setLoading(true);
+                toast('Se inicio sesion correctamente.', {
+                    autoClose: 2000,
+                    type: 'success',
+                    hideProgressBar: false,
+                });
+                router.refresh();
+            }
+        } catch (error) {
+            setLoading(false);
+        }
+    };
+
+    /**
+     * handleSubmitLogin
+     */
+    const handleSubmitLogin = () => {
+        credential({
+            email: getValues().email,
+            password: getValues().password,
         });
     };
 
-    /**
-     * handleSubmit
-     */
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (!dataForm?.email || !dataForm?.password) {
-            setRequired(true);
-            setShowAlert({
-                active: true,
-                message: 'Ha ocurrido una incidencia.',
-                type: 'danger',
-                time: 2000,
-            });
-        } else {
-            setLoading(true);
-            dispatch(userLogin(dataForm));
-            try {
-                const result = await signIn('credentials', {
-                    redirect: false,
-                    email: dataForm.email,
-                    password: dataForm.password,
-                });
-                if (result?.error) {
-                    setLoading(false);
-                }
-            } catch (error) {
-                setLoading(false);
-            }
-            router.push('/User');
-        }
-    };
-
-    /**
-     * useEffect para redirigir segun el rol y guardar en el localStorage
-     */
-    /*     useEffect(() => {
-        if (userLoguinSelector?.data) {
-            if (userLoguinSelector?.data?.user?.role === 'usuario') {
-                setLoading(false);
-                router.push('/User');
-                localStorage.setItem(
-                    'auth',
-                    JSON.stringify({
-                        email: userLoguinSelector?.data?.user?.email,
-                        role: userLoguinSelector?.data?.user?.role,
-                        token: userLoguinSelector?.data?.token,
-                    })
-                );
-            }
-        }
-    }, [userLoguinSelector, router]); */
-
     return (
         <ViewLogin
-            router={router}
+            schema={schema}
+            errors={errors}
+            control={control}
             loading={loading}
-            dataForm={dataForm}
-            required={required}
             showAlert={showAlert}
             setShowAlert={setShowAlert}
             handleSubmit={handleSubmit}
-            handleChangue={handleChangue}
+            handleSubmitLogin={handleSubmitLogin}
         />
     );
 };
