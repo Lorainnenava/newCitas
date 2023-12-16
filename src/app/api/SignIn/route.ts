@@ -1,32 +1,22 @@
+'use server';
 import { cookies } from 'next/headers';
-import { NextRequest, NextResponse } from 'next/server';
 
 /**
- * Función para loguear el usuario
+ * Función para crear una cookie
  */
-export async function PATCH(request: NextRequest, res: NextResponse) {
+export async function handler(token?: string) {
     const cookieStore = cookies();
-    const dataForm = await request.json();
     try {
-        const response = await fetch('http://localhost:8000/usuario', {
-            method: 'PATCH',
-            body: JSON.stringify(dataForm),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (!response?.ok) {
-            throw new Error('Failed to fetch data');
+        if (token) {
+            cookieStore.set({
+                name: 'my-token',
+                value: token,
+                httpOnly: true,
+                path: '/',
+            });
+            return true;
         }
-        const data = await response.json();
-        cookieStore.set({
-            name: 'my-token',
-            value: data?.token,
-            httpOnly: true,
-            path: '/',
-        });
-        return NextResponse.json(data);
     } catch (error) {
-        throw error
+        throw error;
     }
 }

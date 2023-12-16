@@ -14,7 +14,6 @@ import {
     Typography,
     CircularProgress,
 } from '@mui/material';
-import { AlertGeneral } from '../../common/alert/alert';
 import { TLogin } from './types';
 import Link from 'next/link';
 import CustomerInput from '@/common/input/input';
@@ -34,9 +33,7 @@ const ViewLogin: FC<TLogin> = ({
             <Box1>
                 <Contents />
                 <Box sx={styles.box2}>
-                    <Form
-                        onSubmit={handleSubmit(handleSubmitLogin)}
-                    >
+                    <Form onSubmit={handleSubmit(handleSubmitLogin)}>
                         <Typography
                             align="center"
                             variant="h5"
@@ -88,10 +85,6 @@ const ViewLogin: FC<TLogin> = ({
                         </Box>
                     </Form>
                 </Box>
-                <AlertGeneral
-                    setShowAlert={setShowAlert}
-                    showAlert={showAlert}
-                />
             </Box1>
         </Container>
     );

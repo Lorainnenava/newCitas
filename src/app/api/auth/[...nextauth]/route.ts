@@ -1,5 +1,5 @@
-import NextAuth, { NextAuthOptions, Session, SessionStrategy } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth, { NextAuthOptions, Session, SessionStrategy } from 'next-auth';
 
 /**
  * Función para autenticar rutas
@@ -24,24 +24,21 @@ const authOptions: NextAuthOptions = {
                         email: credentials?.email,
                         password: credentials?.password,
                     };
-                    const res = await fetch(`${process.env.BASE_URL}/usuario`, {
-                        method: 'PATCH',
-                        body: JSON.stringify(payload),
-                        headers: {
-                            'Content-type': 'application/json',
-                        },
-                    });
-
+                    const res = await fetch(
+                        `${process.env.NEXT_PUBLIC_BASE_URL}/SignIn`,
+                        {
+                            method: 'POST',
+                            body: JSON.stringify(payload),
+                            headers: {
+                                'Content-type': 'application/json',
+                            },
+                        }
+                    );
                     const user = await res.json();
                     if (res.ok && user) {
-                        return {
-                            name: user.user.name,
-                            email: user.user.email,
-                            id: user.user._id,
-                            token: user.token,
-                        };
+                        return user;
                     } else {
-                        throw new Error(user.message);
+                        throw new Error('Error');
                     }
                 }
                 return null;
@@ -54,10 +51,10 @@ const authOptions: NextAuthOptions = {
     },
     session: {
         strategy: 'jwt' as SessionStrategy,
-        maxAge: 30,
+        maxAge: 2 * 60 * 60,
     },
     jwt: {
-        maxAge: 30,
+        maxAge: 2 * 60 * 60,
     },
     callbacks: {
         async jwt({ token, user }) {
@@ -77,4 +74,4 @@ const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as PATCH, handler as POST };
+export { handler as GET, handler as POST };

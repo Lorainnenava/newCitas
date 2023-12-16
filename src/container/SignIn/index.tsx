@@ -1,15 +1,16 @@
 'use client';
 import React from 'react';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { alertInitialState, validateEmail } from '@/utils';
-import ViewLogin from '@/views/SignIn';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { TypeAlertT } from '@/common/alert/types';
-import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useState } from 'react';
+import ViewLogin from '@/views/SignIn';
 import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { TypeAlertT } from '@/common/alert/types';
+import { getSession, signIn } from 'next-auth/react';
+import { handler } from '../../app/api/SignIn/route';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { alertInitialState, validateEmail } from '@/utils';
 
 const Login = () => {
     /**
@@ -51,23 +52,12 @@ const Login = () => {
      */
     const credential = async (data: { email: string; password: string }) => {
         try {
-            const signInPromise = signIn('credentials', {
+            const signInPromise = await signIn('credentials', {
                 redirect: false,
                 email: data.email,
                 password: data.password,
             });
-            const fetchPromise = fetch('/api/SignIn', {
-                method: 'PATCH',
-                body: JSON.stringify({
-                    email: data.email,
-                    password: data.password,
-                }),
-            });
-            const [result, response] = await Promise.all([
-                signInPromise,
-                fetchPromise,
-            ]);
-            if (!result?.ok && !response.ok) {
+            if (signInPromise?.ok !== true) {
                 setLoading(false);
                 toast('El usuario no existe.', {
                     autoClose: 2000,
@@ -75,13 +65,17 @@ const Login = () => {
                     hideProgressBar: false,
                 });
             } else {
-                router.push('/Dashboard');
-                setLoading(true);
-                toast('Se inicio sesion correctamente.', {
-                    autoClose: 2000,
-                    type: 'success',
-                    hideProgressBar: false,
-                });
+                const session = await getSession();
+                const fetchPromise = await handler(session?.user.token);
+                if (fetchPromise === true) {
+                    router.push('/Dashboard');
+                    setLoading(true);
+                    toast('Se inicio sesion correctamente.', {
+                        autoClose: 2000,
+                        type: 'success',
+                        hideProgressBar: false,
+                    });
+                }
                 router.refresh();
             }
         } catch (error) {

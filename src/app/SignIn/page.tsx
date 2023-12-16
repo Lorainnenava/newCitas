@@ -7,7 +7,7 @@ async function handle() {
     if (myToken) redirect('/Dashboard');
 }
 const SignIn = async () => {
-    // await handle();
+    await handle();
     return <Login />;
 };
 

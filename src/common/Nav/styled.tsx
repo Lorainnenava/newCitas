@@ -43,7 +43,7 @@ export const styles = {
     box: {
         padding: '10px',
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
     },
     imagen: {

@@ -1,9 +1,9 @@
 'use client';
-import Loading from '@/common/loading/Loading';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import Loading from '@/common/loading/Loading';
 
 /**
  * Función para proteger las rutas

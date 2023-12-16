@@ -6,11 +6,11 @@ import {
     AccordionDetails,
     AccordionSummary,
 } from '@mui/material';
-import { GridExpandMoreIcon } from '@mui/x-data-grid';
-import EditCalendarIcon from '@mui/icons-material/EditCalendar';
-import Diversity1Icon from '@mui/icons-material/Diversity1';
 import Link from 'next/link';
 import { TLayout } from './types';
+import { GridExpandMoreIcon } from '@mui/x-data-grid';
+import Diversity1Icon from '@mui/icons-material/Diversity1';
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 
 export const Layout: FC<TLayout> = ({ profileAuth }) => {
     return (

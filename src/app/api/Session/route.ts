@@ -9,16 +9,13 @@ export async function GET(request: Request, res: Response) {
     const token = cookieStore.get('my-token');
     try {
         if (token) {
-            const res = await fetch(
-                `${process.env.BASE_URL}/usuario/userSession`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-type': 'application/json',
-                        authorization: token?.value,
-                    },
-                }
-            );
+            const res = await fetch(`${process.env.BASE_URL}/session`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    authorization: token?.value,
+                },
+            });
             if (!res.ok) {
                 cookieStore.delete('my-token');
                 throw new Error('La sesión ha expirado');
