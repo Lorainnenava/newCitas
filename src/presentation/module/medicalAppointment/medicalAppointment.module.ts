@@ -13,8 +13,14 @@ import {
 import { ObjectEntriesService } from '../../../utils/objectEntries/objectEntries';
 import { ConfirmationMedicalAppointmentModule } from '../confirmationMedicalAppointment/confirmationMedicalAppointment.module';
 import { MedicalAppointmentController } from '../../../infrastructure/controller/medicalAppointment/medicalAppointment.controller';
-import { MedicalAppointmentService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointment.service';
+import { MedicalAppointmentRepository } from '../../../infrastructure/repository/medicalAppointments/medicalAppointments.repository';
+import { MedicalAppointmentCreateService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentCreate.service';
+import { MedicalAppointmentDeleteService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentDelete.service';
+import { MedicalAppointmentGetAllService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentGetAll.service';
+import { MedicalAppointmentUpdateService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentUpdate.service';
+import { MedicalAppointmentFindByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentFindById.service';
 import { ConfirmationMedicalAppointmentService } from '../../../application/services/confirmationMedicalAppointment/confirmationMedicalAppointment.service';
+import { MedicalAppointmentGetAllByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentGetAllById.service';
 
 @Module({
   imports: [
@@ -28,13 +34,27 @@ import { ConfirmationMedicalAppointmentService } from '../../../application/serv
   ],
   controllers: [MedicalAppointmentController],
   providers: [
-    MedicalAppointmentService,
+    MedicalAppointmentRepository,
+    MedicalAppointmentCreateService,
+    MedicalAppointmentDeleteService,
+    MedicalAppointmentFindByIdService,
+    MedicalAppointmentGetAllService,
+    MedicalAppointmentUpdateService,
+    MedicalAppointmentGetAllByIdService,
     CodeRandomService,
     DescriptionService,
     DateService,
     ObjectEntriesService,
     ConfirmationMedicalAppointmentService,
   ],
-  exports: [MedicalAppointmentService, MongooseModule],
+  exports: [
+    MedicalAppointmentCreateService,
+    MedicalAppointmentDeleteService,
+    MedicalAppointmentFindByIdService,
+    MedicalAppointmentGetAllService,
+    MedicalAppointmentUpdateService,
+    MedicalAppointmentGetAllByIdService,
+    MongooseModule,
+  ],
 })
 export class MedicalAppointmentModule {}

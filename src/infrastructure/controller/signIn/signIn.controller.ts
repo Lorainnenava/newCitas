@@ -5,7 +5,7 @@ import { SignInService } from '../../../application/services/signIn/signIn.servi
 import { SignInRequestDto } from '../../../application/dtos/signIn/request/signIn.dto';
 
 @ApiTags('SignIn')
-@Controller('/SignIn')
+@Controller('/signIn')
 export class SignInController {
   constructor(private readonly signInService: SignInService) { }
 

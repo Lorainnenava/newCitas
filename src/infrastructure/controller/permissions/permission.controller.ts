@@ -2,14 +2,20 @@ import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PermissionService } from '../../../application/services/permissions/permissions.service';
 import { PermissionsRequestDto } from '../../../application/dtos/permissions/request/permissionsRequest.dto';
+import { PermissionUpdateService } from './../../../application/services/permissions/permissionsUpdate.service';
 import { PermissionsResponseDto } from '../../../application/dtos/permissions/response/permissionsResponse.dto';
+import { PermissionCreateService } from './../../../application/services/permissions/permissionsCreate.service';
+import { PermissionGetAllByRoleService } from './../../../application/services/permissions/permissionsGetAllByRole.service';
 
 @ApiTags('Permissions')
-@Controller('Permissions')
+@Controller('permissions')
 export class PermissionController {
-  constructor(private readonly permissionService: PermissionService) {}
+  constructor(
+    private readonly permissionCreateService: PermissionCreateService,
+    private readonly permissionUpdateService: PermissionUpdateService,
+    private readonly permissionGetAllByRoleService: PermissionGetAllByRoleService,
+  ) {}
 
   /**
    * create
@@ -22,7 +28,7 @@ export class PermissionController {
   async create(
     @Body() request: PermissionsRequestDto,
   ): Promise<PermissionsResponseDto[]> {
-    return this.permissionService.create(request);
+    return this.permissionCreateService.create(request);
   }
 
   /**
@@ -34,7 +40,7 @@ export class PermissionController {
   @Post('/getAllByRole')
   @Roles(Role.ADMIN)
   async getAllByRole(@Body() role: string): Promise<PermissionsResponseDto[]> {
-    return this.permissionService.getAllByRole(role);
+    return this.permissionGetAllByRoleService.getAllByRole(role);
   }
   /**
    * update
@@ -47,6 +53,6 @@ export class PermissionController {
   async update(
     @Body() request: PermissionsRequestDto,
   ): Promise<PermissionsResponseDto[]> {
-    return this.permissionService.update(request);
+    return this.permissionUpdateService.update(request);
   }
 }

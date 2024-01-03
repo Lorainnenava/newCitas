@@ -1,14 +1,20 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body, Delete, Param, Get } from '@nestjs/common';
-import { SpecialtyService } from '../../../application/services/specialty/specialty.service';
 import { SpecialtyRequestDto } from '../../../application/dtos/specialty/request/specialtiesRequest.dto';
+import { SpecialtyGetAllService } from './../../../application/services/specialty/specialtyGetAll.service';
+import { SpecialtyDeleteService } from './../../../application/services/specialty/specialtyDelete.service';
+import { SpecialtyCreateService } from './../../../application/services/specialty/specialtyCreate.service';
 import { SpecialtyResponseDto } from '../../../application/dtos/specialty/response/specialtiesResponse.dto';
 
 @ApiTags('Specialty')
-@Controller('Specialty')
+@Controller('specialty')
 export class SpecialtyController {
-  constructor(private readonly specialtyService: SpecialtyService) {}
+  constructor(
+    private readonly specialtyCreateService: SpecialtyCreateService,
+    private readonly specialtyDeleteService: SpecialtyDeleteService,
+    private readonly specialtyGetAllService: SpecialtyGetAllService,
+  ) {}
 
   /**
    * create specialty
@@ -20,7 +26,7 @@ export class SpecialtyController {
   async create(
     @Body() request: SpecialtyRequestDto,
   ): Promise<SpecialtyResponseDto> {
-    return this.specialtyService.create(request);
+    return this.specialtyCreateService.create(request);
   }
 
   /**
@@ -28,9 +34,9 @@ export class SpecialtyController {
    * @returns
    */
   @Public()
-  @Get('/GetAll')
+  @Get('/getAll')
   async getAll(): Promise<SpecialtyResponseDto[]> {
-    return this.specialtyService.getAll();
+    return this.specialtyGetAllService.getAll();
   }
 
   /**
@@ -39,8 +45,8 @@ export class SpecialtyController {
    * @returns
    */
   @Public()
-  @Delete('/Delete/:_id')
+  @Delete('/delete/:_id')
   async delete(@Param('_id') _id: string): Promise<SpecialtyResponseDto> {
-    return await this.specialtyService.delete(_id);
+    return await this.specialtyDeleteService.delete(_id);
   }
 }

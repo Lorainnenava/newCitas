@@ -6,35 +6,35 @@ export interface IPatientRepository {
    * create patient
    * @param request
    */
-  create(requestPatient: PatientRequestDto): Promise<PatientResponseDto>;
+  create(request: PatientRequestDto): Promise<PatientResponseDto>;
 
   /**
    * findById patient
    * @param _id
    */
-  findById?(_id: string): Promise<PatientResponseDto>;
+  findById(_id: string): Promise<PatientResponseDto>;
 
   /**
    * findOne patient
    * @param _id
    */
-  findOne?(documentNumber: number): Promise<PatientResponseDto>;
+  findOne(documentNumber: number): Promise<PatientResponseDto>;
 
   /**
    * update patient
    * @param request
    * @param _id
    */
-  update?(request: PatientRequestDto, _id: string): Promise<PatientResponseDto>;
+  update(request: PatientRequestDto, _id: string): Promise<PatientResponseDto>;
 
   /**
    * delete patient
    * @param _id
    */
-  delete?(_id: string): Promise<boolean>;
+  delete(_id: string): Promise<boolean>;
 
   /**
    * getAll patient
    */
-  getAll?(): Promise<PatientResponseDto[]>;
+  getAll(): Promise<PatientResponseDto[]>;
 }

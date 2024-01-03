@@ -1,14 +1,20 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { ModuleService } from '../../../application/services/modules/modules.service';
+import { ModuleCreateService } from '../../../application/services/modules/modulesCreate.service';
+import { ModuleUpdateService } from './../../../application/services/modules/modulesUpdate.service';
+import { ModuleGetAllService } from './../../../application/services/modules/modulesGetAll.service';
 import { ModuleRequestDto } from '../../../application/dtos/modules/request/modules/moduleRequest.dto';
 import { ModuleResponseDto } from '../../../application/dtos/modules/response/modules/moduleResponse.dto';
 
 @ApiTags('Modules')
-@Controller('Modules')
+@Controller('modules')
 export class ModuleController {
-  constructor(private readonly moduleService: ModuleService) {}
+  constructor(
+    private readonly moduleCreateService: ModuleCreateService,
+    private readonly moduleGetAllService: ModuleGetAllService,
+    private readonly moduleUpdateService: ModuleUpdateService,
+  ) {}
 
   /**
    * create module
@@ -18,7 +24,7 @@ export class ModuleController {
   @Public()
   @Post('/create')
   async create(@Body() request: ModuleRequestDto): Promise<object> {
-    return this.moduleService.create(request);
+    return this.moduleCreateService.create(request);
   }
 
   /**
@@ -26,9 +32,9 @@ export class ModuleController {
    * @returns
    */
   @Public()
-  @Get('/GetAll')
+  @Get('/getAll')
   async getAll(): Promise<ModuleResponseDto[]> {
-    return this.moduleService.getAll();
+    return this.moduleGetAllService.getAll();
   }
 
   /**
@@ -42,6 +48,6 @@ export class ModuleController {
     @Body() request: ModuleRequestDto,
     @Param('_id') _id: string,
   ): Promise<ModuleResponseDto> {
-    return this.moduleService.update(request, _id);
+    return this.moduleUpdateService.update(request, _id);
   }
 }

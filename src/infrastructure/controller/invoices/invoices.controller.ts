@@ -10,14 +10,24 @@ import {
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { InvoiceService } from '../../../application/services/invoices/invoices.service';
+import { InvoiceCreateService } from '../../../application/services/invoices/invoicesCreate.service';
+import { InvoiceDeleteService } from '../../../application/services/invoices/invoicesDelete.service';
+import { InvoiceGetAllService } from '../../../application/services/invoices/invoicesGetAll.service';
+import { InvoiceUpdateService } from '../../../application/services/invoices/invoicesUpdate.service';
+import { InvoiceFindByIdService } from '../../../application/services/invoices/invoicesFindById.service';
 import { InvoiceRequestDto } from '../../../application/dtos/invoice/request/invoice/invoiceRequest.dto';
 import { InvoiceResponseDto } from '../../../application/dtos/invoice/response/invoice/invoiceResponse.dto';
 
 @ApiTags('Invoices')
 @Controller('invoices')
 export class InvoicesController {
-  constructor(private readonly invoicesService: InvoiceService) {}
+  constructor(
+    private readonly invoiceCreateService: InvoiceCreateService,
+    private readonly invoiceDeleteService: InvoiceDeleteService,
+    private readonly invoiceGetAllService: InvoiceGetAllService,
+    private readonly invoiceUpdateService: InvoiceUpdateService,
+    private readonly invoiceFindByIdService: InvoiceFindByIdService,
+  ) {}
 
   /**
    * create invoice
@@ -30,7 +40,7 @@ export class InvoicesController {
   async create(
     @Body() request: InvoiceRequestDto,
   ): Promise<InvoiceResponseDto> {
-    return this.invoicesService.create(request);
+    return this.invoiceCreateService.create(request);
   }
 
   /**
@@ -38,10 +48,10 @@ export class InvoicesController {
    * @returns
    */
   @ApiBearerAuth('token')
-  @Get('/GetAll')
+  @Get('/getAll')
   @Roles(Role.ADMIN || Role.RECEPCIONISTA)
   async getAll(): Promise<InvoiceResponseDto[]> {
-    return this.invoicesService.getAll();
+    return this.invoiceGetAllService.getAll();
   }
 
   /**
@@ -52,7 +62,7 @@ export class InvoicesController {
   @Post('/:_id')
   @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
   async findById(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
-    return this.invoicesService.findById(_id);
+    return this.invoiceFindByIdService.findById(_id);
   }
 
   /**
@@ -67,7 +77,7 @@ export class InvoicesController {
     @Body() request: InvoiceRequestDto,
     @Param('_id') _id: string,
   ): Promise<InvoiceResponseDto> {
-    return this.invoicesService.update(request, _id);
+    return this.invoiceUpdateService.update(request, _id);
   }
 
   /**
@@ -79,6 +89,6 @@ export class InvoicesController {
   @Delete('/delete/:_id')
   @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
   async delete(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
-    return this.invoicesService.delete(_id);
+    return this.invoiceDeleteService.delete(_id);
   }
 }

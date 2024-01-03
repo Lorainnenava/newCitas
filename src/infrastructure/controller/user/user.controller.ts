@@ -10,14 +10,20 @@ import {
 import { Public } from '../../../utils';
 import { UpdateWriteOpResult } from 'mongoose';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { UserService } from '../../../application/services/user/user.service';
+import { UserSignUpService } from '../../../application/services/user/userSignUp.service';
+import { UserGetAllService } from './../../../application/services/user/userGetAll.service';
 import { UserRequestDto } from '../../../application/dtos/user/request/user/userRequest.dto';
 import { UserResponseDto } from '../../../application/dtos/user/response/user/userResponse.dto';
+import { UserDeleteTokenService } from './../../../application/services/user/userDeleteToken.service';
 
 @ApiTags('User')
 @Controller()
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userSignUpService: UserSignUpService,
+    private readonly userGetAllService: UserGetAllService,
+    private readonly userDeleteTokenService: UserDeleteTokenService,
+  ) {}
 
   /**
    * SignUp
@@ -25,9 +31,9 @@ export class UserController {
    * @returns
    */
   @Public()
-  @Post('/SignUp')
+  @Post('/signUp')
   async signUp(@Body() userDto: UserRequestDto): Promise<UserResponseDto> {
-    return this.userService.signUp(userDto);
+    return this.userSignUpService.signUp(userDto);
   }
 
   /**
@@ -35,9 +41,9 @@ export class UserController {
    * @returns
    */
   @ApiBearerAuth('token')
-  @Get('User/GetAll')
+  @Get('user/getAll')
   async getAll(): Promise<UserResponseDto[]> {
-    return this.userService.getAll();
+    return this.userGetAllService.getAll();
   }
 
   /**
@@ -45,10 +51,10 @@ export class UserController {
    * @returns
    */
   @Public()
-  @Put('User/ActivateCount/:token')
+  @Put('user/activateCount/:token')
   async deleteToken(
     @Param('token') token: string,
   ): Promise<NotFoundException | UpdateWriteOpResult> {
-    return await this.userService.deleteToken(token);
+    return await this.userDeleteTokenService.deleteToken(token);
   }
 }

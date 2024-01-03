@@ -4,8 +4,11 @@ import {
   MedicalReport,
   MedicalReportSchema,
 } from '../../../domain/entities/medicalReport/medicalReport.entity';
-import { MedicalReportService } from '../../../application/services/medicalReport/medicalReport.service';
+import { MedicalReportRepository } from '../../../infrastructure/repository/medicalReport/medicalReport.repository';
 import { MedicalReportController } from '../../../infrastructure/controller/medicalReport/medicalReport.controller';
+import { MedicalReportCreateService } from '../../../application/services/medicalReport/medicalReportCreate.service';
+import { MedicalReportGetAllService } from '../../../application/services/medicalReport/medicalReportGetAll.service';
+import { MedicalReportFindByIdService } from '../../../application/services/medicalReport/medicalReportFindById.service';
 
 @Module({
   imports: [
@@ -13,8 +16,17 @@ import { MedicalReportController } from '../../../infrastructure/controller/medi
       { name: MedicalReport.name, schema: MedicalReportSchema },
     ]),
   ],
-  providers: [MedicalReportService],
-  exports: [MedicalReportService],
+  providers: [
+    MedicalReportRepository,
+    MedicalReportCreateService,
+    MedicalReportFindByIdService,
+    MedicalReportGetAllService,
+  ],
+  exports: [
+    MedicalReportCreateService,
+    MedicalReportFindByIdService,
+    MedicalReportGetAllService,
+  ],
   controllers: [MedicalReportController],
 })
 export class MedicalReportModule {}

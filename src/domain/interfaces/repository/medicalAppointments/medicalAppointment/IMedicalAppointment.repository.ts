@@ -7,20 +7,20 @@ export interface IMedicalAppointmentRepository {
    * create medicalAppointment
    * @param request
    */
-  create?(
+  create(
     request: MedicalAppointmentRequestDto,
   ): Promise<MedicalAppointmentResponseDto>;
 
   /**
    * getAll medicalAppointment
    */
-  getAll?(): Promise<MedicalAppointmentResponseDto[]>;
+  getAll(): Promise<MedicalAppointmentResponseDto[]>;
 
   /**
    * getAllById medicalAppointment
    * @param user
    */
-  getAllById?(user: RequestUser): Promise<MedicalAppointmentResponseDto[]>;
+  getAllById(user: RequestUser): Promise<MedicalAppointmentResponseDto[]>;
 
   /**
    * findById medicalAppointment
@@ -32,13 +32,13 @@ export interface IMedicalAppointmentRepository {
    * getAllByDoctor medicalAppointment
    * @param doctor
    */
-  getAllByDoctor?(doctor: string): Promise<MedicalAppointmentResponseDto[]>;
+  getAllByDoctor(doctor: string): Promise<MedicalAppointmentResponseDto[]>;
 
   /**
    * update medicalAppointment
    * @param request
    */
-  update?(
+  update(
     request: MedicalAppointmentRequestDto,
     _id: string,
   ): Promise<MedicalAppointmentResponseDto>;
@@ -47,5 +47,5 @@ export interface IMedicalAppointmentRepository {
    * delete medicalAppointment
    * @param _id
    */
-  delete?(_id: string): Promise<object>;
+  delete(_id: string): Promise<object>;
 }

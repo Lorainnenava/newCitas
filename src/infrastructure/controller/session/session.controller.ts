@@ -2,13 +2,17 @@ import { Request } from 'express';
 import { RequestUser } from '../../../utils/types';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Delete, Param, Get, Req } from '@nestjs/common';
-import { SessionService } from '../../../application/services/session/session.service';
 import { SessionResponseDto } from '../../../application/dtos/session/response/sessionResponse.dto';
+import { SessionDeleteService } from '../../../application/services/session/sessionDelete.service';
+import { SessionFindSessionService } from '../../../application/services/session/sessionFindSession.service';
 
 @ApiTags('Session')
-@Controller('Session')
+@Controller('session')
 export class SessionController {
-  constructor(private readonly sessionService: SessionService) { }
+  constructor(
+    private readonly sessionDeleteService: SessionDeleteService,
+    private readonly sessionFindSessionService: SessionFindSessionService,
+  ) {}
 
   /**
    * Delete sessions
@@ -18,7 +22,7 @@ export class SessionController {
   @Delete('/:token')
   @ApiBearerAuth('token')
   async delete(@Param('token') token: string): Promise<SessionResponseDto> {
-    return await this.sessionService.delete(token);
+    return await this.sessionDeleteService.delete(token);
   }
 
   /**
@@ -30,6 +34,6 @@ export class SessionController {
   @ApiBearerAuth('token')
   async findOne(@Req() request: Request): Promise<SessionResponseDto | object> {
     const user = request['user'] as RequestUser;
-    return await this.sessionService.findSession(user?.email);
+    return await this.sessionFindSessionService.findSession(user?.email);
   }
 }

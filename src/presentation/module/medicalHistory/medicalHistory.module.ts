@@ -4,8 +4,12 @@ import {
   MedicalHistory,
   MedicalHistorySchema,
 } from '../../../domain/entities/medicalHistory/medicalHistory.entity';
-import { MedicalHistoryService } from '../../../application/services/medicalHistory/medicalHistory.service';
 import { MedicalHistoryController } from '../../../infrastructure/controller/medicalHistory/medicalHistory.controller';
+import { MedicalHistoryRepository } from '../../../infrastructure/repository/medicalHistory/medicalHistory.repository';
+import { MedicalHistoryCreateService } from '../../../application/services/medicalHistory/medicalHistoryCreate.service';
+import { MedicalHistoryGetAllService } from '../../../application/services/medicalHistory/medicalHistoryGetAll.service';
+import { MedicalHistoryUpdateService } from '../../../application/services/medicalHistory/medicalHistoryUpdate.service';
+import { MedicalHistoryFindByIdService } from '../../../application/services/medicalHistory/medicalHistoryFindById.service';
 
 @Module({
   imports: [
@@ -13,8 +17,19 @@ import { MedicalHistoryController } from '../../../infrastructure/controller/med
       { name: MedicalHistory.name, schema: MedicalHistorySchema },
     ]),
   ],
-  providers: [MedicalHistoryService],
-  exports: [MedicalHistoryService],
+  providers: [
+    MedicalHistoryRepository,
+    MedicalHistoryCreateService,
+    MedicalHistoryFindByIdService,
+    MedicalHistoryGetAllService,
+    MedicalHistoryUpdateService,
+  ],
+  exports: [
+    MedicalHistoryCreateService,
+    MedicalHistoryFindByIdService,
+    MedicalHistoryGetAllService,
+    MedicalHistoryUpdateService,
+  ],
   controllers: [MedicalHistoryController],
 })
 export class MedicalHistoryModule {}

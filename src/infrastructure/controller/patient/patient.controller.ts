@@ -11,14 +11,24 @@ import {
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PatientService } from '../../../application/services/patient/patient.service';
+import { PatientDeleteService } from '../../../application/services/patient/patientDelete.service';
+import { PatientUpdateService } from '../../../application/services/patient/patientUpdate.service';
+import { PatientGetAllService } from '../../../application/services/patient/patientGetAll.service';
+import { PatientCreateService } from '../../../application/services/patient/patientCreate.service';
+import { PatientFindByIdService } from '../../../application/services/patient/patientFindById.service';
 import { PatientRequestDto } from '../../../application/dtos/patients/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../../application/dtos/patients/response/patient/patientResponse.dto';
 
 @ApiTags('Patient')
 @Controller('patient')
 export class PatientController {
-  constructor(private readonly patientDocumentService: PatientService) {}
+  constructor(
+    private readonly patientCreateService: PatientCreateService,
+    private readonly patientDeleteService: PatientDeleteService,
+    private readonly patientUpdateService: PatientUpdateService,
+    private readonly patientGetAllService: PatientGetAllService,
+    private readonly patientFindByIdService: PatientFindByIdService,
+  ) {}
 
   /**
    * create patient
@@ -31,7 +41,7 @@ export class PatientController {
   async create(
     @Body() requestPatient: PatientRequestDto,
   ): Promise<PatientResponseDto> {
-    return this.patientDocumentService.create(requestPatient);
+    return this.patientCreateService.create(requestPatient);
   }
 
   /**
@@ -47,7 +57,7 @@ export class PatientController {
     @Body() request: PatientRequestDto,
     @Param('_id') _id: string,
   ): Promise<PatientResponseDto> {
-    return this.patientDocumentService.update(request, _id);
+    return this.patientUpdateService.update(request, _id);
   }
 
   /**
@@ -59,7 +69,7 @@ export class PatientController {
   @Post('/:_id')
   @Roles(Role.ADMIN || Role.PACIENTE)
   async findById(@Param('_id') _id: string): Promise<PatientResponseDto> {
-    return this.patientDocumentService.findById(_id);
+    return this.patientFindByIdService.findById(_id);
   }
 
   /**
@@ -70,7 +80,7 @@ export class PatientController {
   @Get('/getAll')
   @Roles(Role.ADMIN)
   async getAll(): Promise<PatientResponseDto[]> {
-    return this.patientDocumentService.getAll();
+    return this.patientGetAllService.getAll();
   }
 
   /**
@@ -82,6 +92,6 @@ export class PatientController {
   @Delete('/delete/:_id')
   @Roles(Role.ADMIN)
   async delete(@Param('_id') _id: string): Promise<boolean> {
-    return this.patientDocumentService.delete(_id);
+    return this.patientDeleteService.delete(_id);
   }
 }

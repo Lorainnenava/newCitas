@@ -4,16 +4,24 @@ import { RequestUser } from '../../../utils/types';
 import { Role } from '../../../utils/roles/role.enum';
 import { Controller, Post, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ScheduleService } from '../../../application/services/medicalAppointment/schedule/schedule.service';
+import { ScheduleByDayService } from '../../../application/services/medicalAppointment/schedule/scheduleByDay.service';
+import { ScheduleByAppointmentHistoryService } from '../../../application/services/medicalAppointment/schedule/scheduleByHistory.service';
+import { ScheduleByFutureAppointmentsService } from './../../../application/services/medicalAppointment/schedule/scheduleByFuture.service';
+import { ScheduleByCancelledAppointmentsService } from '../../../application/services/medicalAppointment/schedule/scheduleCancelled.service';
 import { MedicalAppointmentResponseDto } from '../../../application/dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @ApiTags('Schedule')
-@Controller('Schedule')
+@Controller('schedule')
 export class ScheduleController {
-  constructor(private readonly scheduleService: ScheduleService) {}
+  constructor(
+    private readonly scheduleByDayService: ScheduleByDayService,
+    private readonly scheduleByFutureAppointmentsService: ScheduleByFutureAppointmentsService,
+    private readonly scheduleByAppointmentHistoryService: ScheduleByAppointmentHistoryService,
+    private readonly scheduleByCancelledAppointmentsService: ScheduleByCancelledAppointmentsService,
+  ) {}
 
   /**
-   * create
+   * filterByDay
    * @param request
    * @returns
    */
@@ -24,7 +32,7 @@ export class ScheduleController {
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const user = request['user'] as RequestUser;
-    return this.scheduleService.filterByDay(user);
+    return this.scheduleByDayService.filterByDay(user);
   }
 
   /**
@@ -38,7 +46,7 @@ export class ScheduleController {
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const user = request['user'] as RequestUser;
-    return this.scheduleService.futureAppointments(user);
+    return this.scheduleByFutureAppointmentsService.getFutureAppointments(user);
   }
 
   /**
@@ -53,7 +61,9 @@ export class ScheduleController {
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const user = request['user'] as RequestUser;
-    return this.scheduleService.cancelledAppointments(user);
+    return this.scheduleByCancelledAppointmentsService.getCancelledAppointments(
+      user,
+    );
   }
 
   /**
@@ -68,6 +78,6 @@ export class ScheduleController {
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const user = request['user'] as RequestUser;
-    return this.scheduleService.appointmentHistory(user);
+    return this.scheduleByAppointmentHistoryService.getAppointmentHistory(user);
   }
 }

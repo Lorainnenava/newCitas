@@ -1,15 +1,33 @@
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { DoctorService } from '../../../application/services/doctor/doctor.service';
+import {
+  Get,
+  Put,
+  Body,
+  Post,
+  Param,
+  Delete,
+  Controller,
+} from '@nestjs/common';
 import { DoctorRequestDto } from '../../../application/dtos/doctor/request/doctorRequest.dto';
+import { DoctorCreateService } from '../../../application/services/doctor/doctorCreate.service';
+import { DoctorDeleteService } from '../../../application/services/doctor/doctorDelete.service';
+import { DoctorGetAllService } from '../../../application/services/doctor/doctorGetAll.service';
+import { DoctorUpdateService } from '../../../application/services/doctor/doctorUpdate.service';
 import { DoctorResponseDto } from '../../../application/dtos/doctor/response/doctorResponse.dto';
+import { DoctorFindOneService } from '../../../application/services/doctor/doctorFindOne.service';
 
 @ApiTags('Doctor')
-@Controller('Doctor')
+@Controller('doctor')
 export class DoctorController {
-  constructor(private readonly doctorService: DoctorService) { }
+  constructor(
+    private readonly doctorCreateService: DoctorCreateService,
+    private readonly doctorDeleteService: DoctorDeleteService,
+    private readonly DoctorGetAllService: DoctorGetAllService,
+    private readonly DoctorUpdateService: DoctorUpdateService,
+    private readonly DoctorFindOneService: DoctorFindOneService,
+  ) {}
 
   /**
    * create
@@ -20,7 +38,7 @@ export class DoctorController {
   @Post('/create')
   @Roles(Role.ADMIN)
   async create(@Body() request: DoctorRequestDto): Promise<DoctorResponseDto> {
-    return this.doctorService.create(request);
+    return this.doctorCreateService.create(request);
   }
 
   /**
@@ -28,21 +46,37 @@ export class DoctorController {
    * @returns
    */
   @ApiBearerAuth('token')
-  @Get('/GetAll')
+  @Get('/getAll')
   @Roles(Role.ADMIN)
   async getAll(): Promise<DoctorResponseDto[]> {
-    return this.doctorService.getAll();
+    return this.DoctorGetAllService.getAll();
   }
 
   /**
-   * findOne doctors
+   * findOne doctor
    * @returns
    */
   @ApiBearerAuth('token')
-  @Post('/FindOne/:documentNumber')
+  @Post('/:documentNumber')
   @Roles(Role.ADMIN)
-  async findOne(@Param('documentNumber') documentNumber: number): Promise<DoctorResponseDto> {
-    return this.doctorService.findOne(documentNumber);
+  async findOne(
+    @Param('documentNumber') documentNumber: number,
+  ): Promise<DoctorResponseDto> {
+    return this.DoctorFindOneService.findOne(documentNumber);
+  }
+
+  /**
+   * update doctor
+   * @returns
+   */
+  @ApiBearerAuth('token')
+  @Put('/update/:_id')
+  @Roles(Role.ADMIN)
+  async update(
+    @Body() request: DoctorRequestDto,
+    @Param('_id') _id: string,
+  ): Promise<DoctorResponseDto> {
+    return this.DoctorUpdateService.update(request, _id);
   }
 
   /**
@@ -51,9 +85,9 @@ export class DoctorController {
    * @returns
    */
   @ApiBearerAuth('token')
-  @Delete('/Delete/:_id')
+  @Delete('/delete/:_id')
   @Roles(Role.ADMIN)
   async delete(@Param('_id') _id: string): Promise<DoctorResponseDto> {
-    return this.doctorService.delete(_id);
+    return this.doctorDeleteService.delete(_id);
   }
 }

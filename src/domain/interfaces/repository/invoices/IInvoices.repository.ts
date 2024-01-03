@@ -26,14 +26,14 @@ export interface IInvoicesRepository {
   findOne(code: number): Promise<InvoiceResponseDto>;
 
   /**
-   * delete invoice
-   * @param _id
-   */
-  delete(_id: string): Promise<InvoiceResponseDto>;
-
-  /**
    * update invoice
    * @param _id
    */
   update(request: InvoiceRequestDto, _id: string): Promise<InvoiceResponseDto>;
+
+  /**
+   * delete invoice
+   * @param _id
+   */
+  delete(_id: string): Promise<InvoiceResponseDto>;
 }

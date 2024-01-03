@@ -6,7 +6,9 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from './utils/validation/validation.pipe';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: { origin: '*', credentials: true },
+  });
   app.useGlobalPipes(new ValidationPipe()); // global class-validator setting
 
   /**

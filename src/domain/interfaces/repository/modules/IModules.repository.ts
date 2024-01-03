@@ -6,12 +6,18 @@ export interface IModuleRepository {
    * create module
    * @param request
    */
-  create(request: ModuleRequestDto): Promise<object>;
+  create(request: ModuleRequestDto): Promise<ModuleResponseDto>;
 
   /**
    * getAll modules
    */
   getAll(): Promise<ModuleResponseDto[]>;
+
+  /**
+   * findOne
+   * @param name 
+   */
+  findOne(name: string): Promise<ModuleResponseDto>
 
   /**
    * delete Module

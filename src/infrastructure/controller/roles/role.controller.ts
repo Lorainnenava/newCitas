@@ -1,14 +1,20 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { RolesService } from '../../../application/services/roles/role.service';
 import { RolesRequestDto } from '../../../application/dtos/roles/request/rolesRequest.dto';
+import { RolesCreateService } from '../../../application/services/roles/roleCreate.service';
+import { RolesGetAllService } from '../../../application/services/roles/roleGetAll.service';
+import { RolesDeleteService } from '../../../application/services/roles/roleDelete.service';
 import { RolesResponseDto } from '../../../application/dtos/roles/response/rolesResponse.dto';
 
 @ApiTags('Roles')
-@Controller('Roles')
+@Controller('roles')
 export class RolesController {
-  constructor(private readonly roleService: RolesService) { }
+  constructor(
+    private readonly rolesCreateService: RolesCreateService,
+    private readonly rolesGetAllService: RolesGetAllService,
+    private readonly rolesDeleteService: RolesDeleteService,
+  ) {}
 
   /**
    * create
@@ -18,7 +24,7 @@ export class RolesController {
   @Public()
   @Post('/create')
   async create(@Body() request: RolesRequestDto): Promise<RolesResponseDto> {
-    return this.roleService.create(request);
+    return this.rolesCreateService.create(request);
   }
 
   /**
@@ -26,18 +32,19 @@ export class RolesController {
    * @returns
    */
   @Public()
-  @Get('/GetAll')
+  @Get('/getAll')
   async getAll(): Promise<RolesResponseDto[]> {
-    return this.roleService.getAll();
+    return this.rolesGetAllService.getAll();
   }
+
   /**
    * delete roles
    * @param _id
    * @returns
    */
   @Public()
-  @Delete('/Delete/:_id')
+  @Delete('/delete/:_id')
   async delete(@Param('_id') _id: string): Promise<RolesResponseDto> {
-    return this.roleService.delete(_id);
+    return this.rolesDeleteService.delete(_id);
   }
 }

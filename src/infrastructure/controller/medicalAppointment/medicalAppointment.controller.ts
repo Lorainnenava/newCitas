@@ -13,15 +13,25 @@ import { RequestUser } from '../../../utils/types';
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { MedicalAppointmentService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointment.service';
+import { MedicalAppointmentCreateService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentCreate.service';
 import { MedicalAppointmentRequestDto } from '../../../application/dtos/medicalAppointments/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentGetAllService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentGetAll.service';
+import { MedicalAppointmentUpdateService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentUpdate.service';
+import { MedicalAppointmentDeleteService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentDelete.service';
 import { MedicalAppointmentResponseDto } from '../../../application/dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentFindByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentFindById.service';
+import { MedicalAppointmentGetAllByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentGetAllById.service';
 
 @ApiTags('MedicalAppointment')
 @Controller('medicalAppointment')
 export class MedicalAppointmentController {
   constructor(
-    private readonly medicalAppointmentService: MedicalAppointmentService,
+    private readonly medicalAppointmentCreateService: MedicalAppointmentCreateService,
+    private readonly medicalAppointmentGetAllService: MedicalAppointmentGetAllService,
+    private readonly medicalAppointmentUpdateService: MedicalAppointmentUpdateService,
+    private readonly medicalAppointmentDeleteService: MedicalAppointmentDeleteService,
+    private readonly medicalAppointmentFindByIdService: MedicalAppointmentFindByIdService,
+    private readonly medicalAppointmentGetAllByIdService: MedicalAppointmentGetAllByIdService,
   ) {}
 
   /**
@@ -36,7 +46,9 @@ export class MedicalAppointmentController {
   async create(
     @Body() requestMedicalAppointment: MedicalAppointmentRequestDto,
   ): Promise<MedicalAppointmentResponseDto> {
-    return this.medicalAppointmentService.create(requestMedicalAppointment);
+    return this.medicalAppointmentCreateService.create(
+      requestMedicalAppointment,
+    );
   }
 
   /**
@@ -47,7 +59,7 @@ export class MedicalAppointmentController {
   @Get('/getAll')
   @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE || Role.DOCTOR)
   async getAll(): Promise<MedicalAppointmentResponseDto[]> {
-    return this.medicalAppointmentService.getAll();
+    return this.medicalAppointmentGetAllService.getAll();
   }
 
   /**
@@ -62,7 +74,7 @@ export class MedicalAppointmentController {
     @Req() request: Request,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const user = request['user'] as RequestUser;
-    return this.medicalAppointmentService.getAllById(user);
+    return this.medicalAppointmentGetAllByIdService.getAllById(user);
   }
 
   /**
@@ -75,7 +87,7 @@ export class MedicalAppointmentController {
   async findById(
     @Param('_id') _id: string,
   ): Promise<MedicalAppointmentResponseDto> {
-    return this.medicalAppointmentService.findById(_id);
+    return this.medicalAppointmentFindByIdService.findById(_id);
   }
 
   /**
@@ -90,7 +102,7 @@ export class MedicalAppointmentController {
     @Body() request: MedicalAppointmentRequestDto,
     @Param('_id') _id: string,
   ): Promise<MedicalAppointmentResponseDto> {
-    return this.medicalAppointmentService.update(request, _id);
+    return this.medicalAppointmentUpdateService.update(request, _id);
   }
 
   /**
@@ -101,6 +113,6 @@ export class MedicalAppointmentController {
   @ApiBearerAuth('token')
   @Delete('/delete/:_id')
   async delete(@Param('_id') _id: string): Promise<object> {
-    return this.medicalAppointmentService.delete(_id);
+    return this.medicalAppointmentDeleteService.delete(_id);
   }
 }

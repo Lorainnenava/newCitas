@@ -2,14 +2,22 @@ import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
-import { MedicalHistoryService } from '../../../application/services/medicalHistory/medicalHistory.service';
+import { MedicalHistoryCreateService } from '../../../application/services/medicalHistory/medicalHistoryCreate.service';
+import { MedicalHistoryUpdateService } from './../../../application/services/medicalHistory/medicalHistoryUpdate.service';
+import { MedicalHistoryGetAllService } from './../../../application/services/medicalHistory/medicalHistoryGetAll.service';
+import { MedicalHistoryFindByIdService } from '../../../application/services/medicalHistory/medicalHistoryFindById.service';
 import { MedicalHistoryRequestDto } from '../../../application/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
 import { MedicalHistoryResponseDto } from '../../../application/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 
 @ApiTags('MedicalHistory')
-@Controller('MedicalHistory')
+@Controller('medicalHistory')
 export class MedicalHistoryController {
-  constructor(private readonly medicalHistoryService: MedicalHistoryService) {}
+  constructor(
+    private readonly medicalHistoryCreateService: MedicalHistoryCreateService,
+    private readonly medicalHistoryGetAllService: MedicalHistoryGetAllService,
+    private readonly medicalHistoryUpdateService: MedicalHistoryUpdateService,
+    private readonly medicalHistoryFindByIdService: MedicalHistoryFindByIdService,
+  ) {}
 
   /**
    * create medicalHistory
@@ -20,7 +28,7 @@ export class MedicalHistoryController {
   @Post('/create')
   @Roles(Role.ADMIN || Role.DOCTOR)
   async create(@Body() request: MedicalHistoryRequestDto): Promise<object> {
-    return this.medicalHistoryService.create(request);
+    return this.medicalHistoryCreateService.create(request);
   }
 
   /**
@@ -28,10 +36,10 @@ export class MedicalHistoryController {
    * @returns
    */
   @ApiBearerAuth('token')
-  @Get('/GetAll')
+  @Get('/getAll')
   @Roles(Role.ADMIN || Role.DOCTOR || Role.RECEPCIONISTA)
   async getAll(): Promise<MedicalHistoryResponseDto[]> {
-    return this.medicalHistoryService.getAll();
+    return this.medicalHistoryGetAllService.getAll();
   }
 
   /**
@@ -43,7 +51,7 @@ export class MedicalHistoryController {
   @Post('/:_id')
   @Roles(Role.ADMIN || Role.DOCTOR || Role.RECEPCIONISTA)
   async findById(@Param('_id') _id: string): Promise<object> {
-    return this.medicalHistoryService.findById(_id);
+    return this.medicalHistoryFindByIdService.findById(_id);
   }
 
   /**
@@ -58,6 +66,6 @@ export class MedicalHistoryController {
     @Body() request: MedicalHistoryRequestDto,
     @Param('_id') _id: string,
   ): Promise<object> {
-    return this.medicalHistoryService.update(request, _id);
+    return this.medicalHistoryUpdateService.update(request, _id);
   }
 }

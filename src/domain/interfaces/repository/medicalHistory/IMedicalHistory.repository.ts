@@ -1,15 +1,12 @@
 import { MedicalHistoryRequestDto } from '../../../../application/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
 import { MedicalHistoryResponseDto } from '../../../../application/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 
-/**
- * IMedicalHistoryRepository
- */
 export interface IMedicalHistoryRepository {
   /**
    * create medicalHistory
    * @param request
    */
-  create(request: MedicalHistoryRequestDto): Promise<object>;
+  create(request: MedicalHistoryRequestDto): Promise<MedicalHistoryResponseDto>;
 
   /**
    * getAll medicalHistories
@@ -22,7 +19,7 @@ export interface IMedicalHistoryRepository {
    * @param _id
    */
 
-  findById(_id: string): Promise<object>;
+  findById(_id: string): Promise<MedicalHistoryResponseDto>;
 
   /**
    * update medicalHistory

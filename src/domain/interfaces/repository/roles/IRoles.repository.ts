@@ -9,6 +9,11 @@ export interface IRolesRepository {
   create(request: RolesRequestDto): Promise<RolesResponseDto>;
 
   /**
+   * findOne roles
+   */
+  findOne(name: string): Promise<RolesResponseDto>;
+
+  /**
    * getAll roles
    */
   getAll(): Promise<RolesResponseDto[]>;

@@ -4,8 +4,11 @@ import {
   Permissions,
   PermissionsSchema,
 } from '../../../domain/entities/permissions/permissions.entity';
-import { PermissionService } from '../../../application/services/permissions/permissions.service';
 import { PermissionController } from '../../../infrastructure/controller/permissions/permission.controller';
+import { PermissionRepository } from '../../../infrastructure/repository/permissions/permissions.repository';
+import { PermissionCreateService } from '../../../application/services/permissions/permissionsCreate.service';
+import { PermissionUpdateService } from '../../../application/services/permissions/permissionsUpdate.service';
+import { PermissionGetAllByRoleService } from '../../../application/services/permissions/permissionsGetAllByRole.service';
 
 @Module({
   imports: [
@@ -14,7 +17,16 @@ import { PermissionController } from '../../../infrastructure/controller/permiss
     ]),
   ],
   controllers: [PermissionController],
-  providers: [PermissionService],
-  exports: [PermissionService],
+  providers: [
+    PermissionRepository,
+    PermissionCreateService,
+    PermissionGetAllByRoleService,
+    PermissionUpdateService,
+  ],
+  exports: [
+    PermissionCreateService,
+    PermissionGetAllByRoleService,
+    PermissionUpdateService,
+  ],
 })
 export class PermissionModule {}

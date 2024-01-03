@@ -6,22 +6,21 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from '../user/user.service';
-import { SessionService } from '../session/session.service';
 import { PasswordService } from '../../../utils/bcrypt/bcrypt';
+import { UserFindOneService } from '../user/userFindOne.service';
+import { SessionCreateService } from '../session/sessionCreate.service';
 import { SignInRequestDto } from '../../dtos/signIn/request/signIn.dto';
-import { ISignInApplication } from '../../../domain/interfaces/service/signIn/ISignInApplication';
+import { SessionFindOneService } from '../session/sessionFindOne.service';
+import { ISignInService } from '../../../domain/interfaces/service/signIn/ISignInService';
 
-/**
- * SignInService
- */
 @Injectable()
-export class SignInService implements ISignInApplication {
+export class SignInService implements ISignInService {
   constructor(
-    private readonly userService: UserService,
-    private readonly sessionService: SessionService,
     private readonly jwtService: JwtService,
     private readonly passwordService: PasswordService,
+    private readonly userFindOneService: UserFindOneService,
+    private readonly sessionCreateService: SessionCreateService,
+    private readonly sessionFindOneService: SessionFindOneService,
   ) {}
 
   /**
@@ -30,7 +29,7 @@ export class SignInService implements ISignInApplication {
    * @returns
    */
   async signIn(@Body() request: SignInRequestDto): Promise<object> {
-    const searchUser = await this.userService.findOne(request.email);
+    const searchUser = await this.userFindOneService.findOne(request.email);
 
     if (!searchUser) throw new NotFoundException('User not found');
 
@@ -43,12 +42,14 @@ export class SignInService implements ISignInApplication {
       throw new UnauthorizedException('Wrong data');
     }
 
-    /**
-     * verify if the session exists
-     */
-    const exitedSession = await this.sessionService.findOne(request.email);
+    // verify if the session exists
+    const exitedSession = await this.sessionFindOneService.findOne(
+      request.email,
+    );
     if (exitedSession)
       throw new ConflictException('This session already exists');
+
+    // create token
     const accessToken = await this.jwtService.signAsync({
       sub: searchUser._id,
       roles: searchUser.role,
@@ -57,13 +58,19 @@ export class SignInService implements ISignInApplication {
       typeDocument: searchUser.documentInfo.typeDocument,
       documentNumber: searchUser.documentInfo.documentNumber,
     });
-    await this.sessionService.create({
+
+    // create session
+    const createSession = await this.sessionCreateService.create({
       ...request,
       token: accessToken,
       userInfo: searchUser,
     });
+
+    // return token
     return {
-      access_token: accessToken,
+      name: createSession.userInfo.firstName,
+      email: createSession.email,
+      token: accessToken,
     };
   }
 }

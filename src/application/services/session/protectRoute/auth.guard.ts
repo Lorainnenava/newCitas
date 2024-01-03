@@ -9,17 +9,14 @@ import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { IS_PUBLIC_KEY } from '../../../../utils';
-import { SessionService } from '../session.service';
 import { RequestUser } from '../../../../utils/types';
+import { SessionDeleteService } from '../sessionDelete.service';
 
-/**
- * AuthGuard
- */
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
-    private sessionService: SessionService,
+    private sessionDeleteService: SessionDeleteService,
     private reflector: Reflector, // recover custom metadata
   ) {}
 
@@ -57,7 +54,7 @@ export class AuthGuard implements CanActivate {
         })
         .catch(async (error) => {
           if (error instanceof TokenExpiredError) {
-            await this.sessionService.delete(token);
+            await this.sessionDeleteService.delete(token);
             throw new UnauthorizedException('This session expired');
           }
         });

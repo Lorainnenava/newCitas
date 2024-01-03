@@ -1,34 +1,37 @@
-import { UpdateWriteOpResult } from 'mongoose';
+import mongoose, { UpdateWriteOpResult } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
 import { UserRequestDto } from '../../../../application/dtos/user/request/user/userRequest.dto';
 import { UserResponseDto } from '../../../../application/dtos/user/response/user/userResponse.dto';
 
 export interface IUserRepository {
   /**
-   * method signUp
+   * signUp
    * @param request
    */
   signUp(request: UserRequestDto): Promise<UserResponseDto>;
 
   /**
-   * method findOne
+   * findOne
    * @param email
    */
-  findOne?(email: string): Promise<UserResponseDto>;
+  findOne(email: string): Promise<UserResponseDto>;
 
   /**
-   * method findById
+   * findById
    * @param _id
    */
-  findById?(_id: string): Promise<UserResponseDto>;
+  findById(_id: string): Promise<UserResponseDto>;
 
   /**
-   * method getAll
+   * getAll
    */
-  getAll?(): Promise<UserResponseDto[]>;
+  getAll(): Promise<UserResponseDto[]>;
 
   /**
-   * method deleteToken
+   * deleteToken
    */
-  deleteToken?(token: string): Promise<NotFoundException | UpdateWriteOpResult>;
+  deleteToken(
+    data: UserRequestDto,
+    _id: mongoose.Types.ObjectId,
+  ): Promise<NotFoundException | UpdateWriteOpResult>;
 }

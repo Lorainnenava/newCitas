@@ -1,4 +1,4 @@
-import { SignInRequestDto } from "../../../../application/dtos/signIn/request/signIn.dto";
+import { SignInRequestDto } from '../../../../application/dtos/signIn/request/signIn.dto';
 
 export interface ISignInRepository {
   /**

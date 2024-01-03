@@ -1,34 +1,38 @@
-import { RequestUser } from '../../../../../utils/types';
 import { MedicalAppointmentResponseDto } from '../../../../../application/dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 export interface IScheduleRepository {
   /**
-   * filter by appointmentsOfDay
+   * getAllByDay appointmentsOfDay
    * @param user
    */
-  filterByDay(user: RequestUser): Promise<MedicalAppointmentResponseDto[]>;
-
-  /**
-   * filter by futureAppointments
-   * @param user
-   */
-  futureAppointments(
-    user: RequestUser,
+  getAllByDay(
+    date: string,
+    documentNumber: number,
   ): Promise<MedicalAppointmentResponseDto[]>;
 
   /**
-   * filter by cancelledAppointments
+   * getAllByDay futureAppointments
    * @param user
    */
-  cancelledAppointments(
-    user: RequestUser,
+  getAllByFuture(
+    dateAppointment: string,
+    documentNumber: number,
   ): Promise<MedicalAppointmentResponseDto[]>;
 
   /**
-   * filter by appointmentHistory
+   * getAllByDay cancelledAppointments
    * @param user
    */
-  appointmentHistory(
-    user: RequestUser,
+  getAllByCancelled(
+    documentNumber: number,
+  ): Promise<MedicalAppointmentResponseDto[]>;
+
+  /**
+   * getAllByDay appointmentHistory
+   * @param user
+   */
+  getAllHistory(
+    dateAppointment: string,
+    documentNumber: number,
   ): Promise<MedicalAppointmentResponseDto[]>;
 }

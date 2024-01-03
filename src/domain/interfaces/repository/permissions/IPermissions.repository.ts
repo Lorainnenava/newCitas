@@ -9,9 +9,9 @@ export interface IPermissionsRepository {
   create(request: PermissionsRequestDto): Promise<PermissionsResponseDto[]>;
 
   /**
-   * getAllByRole Permissions
+   * getByRole Permissions
    */
-  getAllByRole(role: string): Promise<PermissionsResponseDto[]>;
+  getByRole(role: string): Promise<PermissionsResponseDto[]>;
 
   /**
    * update Permissions
