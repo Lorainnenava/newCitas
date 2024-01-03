@@ -6,7 +6,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
  */
 export const medicalAppointmentCreate = createAsyncThunk(
     '/medicalAppointment/create',
-    async (token: string, request: Object) => {
+    async (token: string, request: object) => {
         try {
             const response = await axios.post(
                 `${process.env.BASE_URL}/medicalAppointment/create`,

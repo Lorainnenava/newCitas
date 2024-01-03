@@ -4,13 +4,12 @@ import * as yup from 'yup';
 import { useState } from 'react';
 import ViewLogin from '@/views/SignIn';
 import { toast } from 'react-toastify';
+import { validateEmail } from '@/utils';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { TypeAlertT } from '@/common/alert/types';
 import { getSession, signIn } from 'next-auth/react';
 import { handler } from '../../app/api/SignIn/route';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { alertInitialState, validateEmail } from '@/utils';
 
 const Login = () => {
     /**
@@ -18,7 +17,6 @@ const Login = () => {
      */
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [showAlert, setShowAlert] = useState<TypeAlertT>(alertInitialState);
 
     /**
      * schema de validación
@@ -57,9 +55,10 @@ const Login = () => {
                 email: data.email,
                 password: data.password,
             });
+            console.log(signInPromise);
             if (signInPromise?.ok !== true) {
                 setLoading(false);
-                toast('El usuario no existe.', {
+                toast('Los datos son incorrectos.', {
                     autoClose: 2000,
                     type: 'error',
                     hideProgressBar: false,
@@ -99,8 +98,6 @@ const Login = () => {
             errors={errors}
             control={control}
             loading={loading}
-            showAlert={showAlert}
-            setShowAlert={setShowAlert}
             handleSubmit={handleSubmit}
             handleSubmitLogin={handleSubmitLogin}
         />

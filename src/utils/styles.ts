@@ -46,29 +46,29 @@ export const CssTextField = styled(TextField)<{
     }
     & .Input-focused {
         color: ${({ colors }) => colors || ''};
-        border-color: ${({ border }) => border || 'primary'};
+        border-color: ${({ border }) => border || 'first'};
     }
     & label {
         color: ${({ colors }) => colors || ''};
-        border-color: ${({ border }) => border || 'primary'};
+        border-color: ${({ border }) => border || 'first'};
     }
     & input {
     }
     & .MuiInput-underline:after {
-        border-color: ${({ border }) => border || 'primary'};
-        color: ${({ colors }) => colors || 'primary'};
+        border-color: ${({ border }) => border || 'first'};
+        color: ${({ colors }) => colors || 'first'};
     }
     & .MuiOutlinedInput-root {
         & fieldset {
-            border-color: ${({ border }) => border || 'primary'};
+            border-color: ${({ border }) => border || 'first'};
             color: ${({ colors }) => colors || ''};
         }
         &:hover fieldset {
-            border-color: ${({ border }) => border || 'secondary'};
+            border-color: ${({ border }) => border || 'first'};
             color: ${({ colors }) => colors || ''};
         }
         &.Mui-focused fieldset {
-            border-color: ${({ border }) => border || 'secondary'};
+            border-color: ${({ border }) => border || 'first'};
             color: ${({ colors }) => colors || ''};
         }
         color: ${({ colors }) => colors || ''};

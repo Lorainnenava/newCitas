@@ -25,7 +25,7 @@ const authOptions: NextAuthOptions = {
                         password: credentials?.password,
                     };
                     const res = await fetch(
-                        `${process.env.NEXT_PUBLIC_BASE_URL}/SignIn`,
+                        `${process.env.NEXT_PUBLIC_BASE_URL}/signIn`,
                         {
                             method: 'POST',
                             body: JSON.stringify(payload),

@@ -1,5 +1,7 @@
 import { Session } from 'next-auth';
 
 export type TNavBar = {
-    data?: Session;
+    active: boolean;
+    matches: boolean;
+    setActive: React.Dispatch<React.SetStateAction<boolean>>;
 };

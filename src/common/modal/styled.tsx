@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 export const styles = {
     title: {
         fontSize: '24px',
@@ -10,15 +9,12 @@ export const styles = {
         alignItems: 'center',
         borderBottom: '1px solid',
     },
+    boxHeader: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: '25px',
+        height: '15px',
+        width: '97%',
+    },
 };
-
-export const BoxContainer = styled.div<{ width: string; height?: string }>`
-    margin: auto;
-    margin-top: 200px;
-    display: flex;
-    flex-direction: column;
-    width: ${({ width }) => (width ? width : 'auto')};
-    background-color: white;
-    padding: 20px;
-    height: ${({ height }) => (height ? height : 'auto')};
-`;

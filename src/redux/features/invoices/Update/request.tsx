@@ -6,7 +6,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
  */
 export const invoicesUpdate = createAsyncThunk(
     '/invoices/update',
-    async (args: { _id: string; request: Object; token: string }) => {
+    async (args: { _id: string; request: object; token: string }) => {
         try {
             const response = await axios.put(
                 `${process.env.BASE_URL}/invoices/update/${args._id}`,

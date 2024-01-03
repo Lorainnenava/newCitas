@@ -30,10 +30,10 @@ export const ToolbarList: React.FC<TToolbar> = ({ children }) => {
                 }}
             >
                 <GridToolbarColumnsButton
-                    sx={{ color: theme.palette.primary.main }}
+                    sx={{ color: theme.palette.first.main }}
                 />
                 <GridToolbarDensitySelector
-                    sx={{ color: theme.palette.primary.main }}
+                    sx={{ color: theme.palette.first.main }}
                 />
                 <Box>{children}</Box>
             </div>

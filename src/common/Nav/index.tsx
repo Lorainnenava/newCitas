@@ -1,44 +1,23 @@
 'use client';
 
-import {
-    Box,
-    Menu,
-    Stack,
-    Button,
-    Avatar,
-    Tooltip,
-    IconButton,
-} from '@mui/material';
-import Image from 'next/image';
 import { TNavBar } from './types';
-import ModalComponent from '../modal';
+import ModalMaster from '../modal';
+import { colors } from '../colors/colors';
+import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import React, { FC, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { Header, HeaderImagen, styles } from './styled';
-import { CloseSession } from './ContentModal/closeSession';
-import logoNav from '../../../public/assets/img/main/logoNav.png';
+import { Container, Header } from './styled';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountMenu from './acountMenu/acountMenu';
+import { SessionModal } from './sessionModal/sessionModal';
 
-const Nav: FC<TNavBar> = () => {
+const Nav: FC<TNavBar> = ({ setActive, matches, active }) => {
     const router = useRouter();
+
     const { data: session, status } = useSession();
     const [openModal, setOpenModal] = useState(false);
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    const handleOpen = () => {
-        setOpenModal(true);
-    };
-    const handleCloseModal = () => {
-        setOpenModal(false);
-    };
     /**
      * Función para cerrar session
      */
@@ -50,69 +29,52 @@ const Nav: FC<TNavBar> = () => {
     return (
         <>
             {status !== 'loading' && status !== 'unauthenticated' && (
-                <Header>
-                    <HeaderImagen>
-                        <Image
-                            src={logoNav}
-                            alt="logo"
-                            width={280}
-                            height={90}
-                            onClick={() => {
-                                router.push('/Dashboard');
+                <Container>
+                    <Header>
+                        <Box
+                            sx={{
+                                width: '98%',
+                                margin: 'auto',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent:
+                                    matches !== true
+                                        ? 'space-between'
+                                        : 'flex-end',
                             }}
-                        />
-                    </HeaderImagen>
-                    <Box sx={{ display: 'flex', width: '50%' }}>
-                        <Stack
-                            direction="row"
-                            alignItems={'center'}
-                            spacing={2}
-                            width={'100%'}
-                            justifyContent={'end'}
                         >
-                            <Tooltip title="Account settings">
-                                <IconButton
-                                    onClick={handleClick}
-                                    size="small"
-                                    sx={{ ml: 2 }}
-                                    aria-controls={
-                                        open ? 'account-menu' : undefined
-                                    }
-                                    aria-haspopup="true"
-                                    aria-expanded={open ? 'true' : undefined}
+                            {matches !== true && (
+                                <Button
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        width: 'auto',
+                                        color: `${colors.first}`,
+                                    }}
+                                    onClick={() => setActive(!active)}
                                 >
-                                    <Avatar src="/broken-image.jpg" />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                anchorEl={anchorEl}
-                                id="account-menu"
-                                open={open}
-                                onClose={handleClose}
-                                onClick={handleClose}
-                            >
-                                <Box sx={styles.box}>{session?.user.name}</Box>
-                                <Box sx={styles.box}>{session?.user.email}</Box>
-                                <Box sx={styles.box}>
-                                    <Button onClick={handleOpen}>
-                                        <LogoutIcon />
-                                    </Button>
-                                </Box>
-                            </Menu>
-                        </Stack>
-                    </Box>
-                    <ModalComponent
-                        open={openModal}
-                        onClose={handleCloseModal}
-                        width="400px"
-                        tittle="Confirme sesión"
-                    >
-                        <CloseSession
-                            onClose={handleCloseModal}
-                            logout={logout}
-                        />
-                    </ModalComponent>
-                </Header>
+                                    <MenuIcon
+                                        sx={{
+                                            fontSize: '1rm',
+                                        }}
+                                    />
+                                </Button>
+                            )}
+                            <AccountMenu
+                                session={session!}
+                                setOpenModal={setOpenModal}
+                            />
+                        </Box>
+                        <ModalMaster
+                            open={openModal}
+                            onClose={() => setOpenModal(false)}
+                            width="400px"
+                            tittle="Quiere cerrar la sesión?"
+                        >
+                            <SessionModal logout={logout} />
+                        </ModalMaster>
+                    </Header>
+                </Container>
             )}
         </>
     );

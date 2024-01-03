@@ -23,8 +23,6 @@ const ViewLogin: FC<TLogin> = ({
     schema,
     control,
     loading,
-    showAlert,
-    setShowAlert,
     handleSubmit,
     handleSubmitLogin,
 }) => {

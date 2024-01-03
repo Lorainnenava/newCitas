@@ -31,7 +31,7 @@ import { SpecialtyGetAllReducer } from '../features/specialty/getAll/slice';
 
 // invoice imports
 import { InvoicesGetAllReducer } from '../features/invoices/getAll/slice';
-import { InvoicesUpdateReducer } from '../features/invoices/Update/slice';
+import { InvoicesUpdateReducer } from '../features/invoices/update/slice';
 import { InvoicesfindOneReducer } from '../features/invoices/findOne/slice';
 
 // medicalAppointment imports
@@ -100,16 +100,16 @@ export const RootReducer = combineReducers({
     medicalHistoryFindOne: MedicalHistoryFindOneReducer,
     medicalHistoryGetAll: MedicalHistoryGetAllReducer,
     medicalHistoryUpdated: MedicalHistoryUpdateReducer,
-    MedicalReportCreate: MedicalReportCreateReducer,
-    MedicalReportFindOne: MedicalReportFindOneReducer,
+    medicalReportCreate: MedicalReportCreateReducer,
+    medicalReportFindOne: MedicalReportFindOneReducer,
     scheduleAppointmentHistory: ScheduleAppointmentHistoryReducer,
     scheduleFilterByDay: ScheduleFilterByDayReducer,
     scheduleFilterByFutureAppointments:
         ScheduleFilterByFutureAppointmentsReducer,
     scheduleFilterByCancelledAppointments:
         ScheduleFilterByCancelledAppointmentsReducer,
-    RolesGetAll: RolesGetAllReducer,
-    PermissionsCreate: PermissionsCreateReducer,
-    PermissionsGetAllByRole: PermissionsGetAllByRoleReducer,
-    PermissionsUpdate: PermissionsUpdateReducer,
+    rolesGetAll: RolesGetAllReducer,
+    permissionsCreate: PermissionsCreateReducer,
+    permissionsGetAllByRole: PermissionsGetAllByRoleReducer,
+    permissionsUpdate: PermissionsUpdateReducer,
 });

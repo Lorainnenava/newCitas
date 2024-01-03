@@ -1,5 +1,7 @@
-import { TDataProfileAuth } from '@/utils/types.d';
+type SubModuleType = { name: string; path: string };
 
-export type TLayout = {
-    profileAuth?: TDataProfileAuth;
+export type TDataModulesGetAll = {
+    index: number;
+    name: string;
+    subModule: SubModuleType[];
 };

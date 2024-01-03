@@ -23,5 +23,6 @@ export const permissionsUpdate = createAsyncThunk(
         } catch (error) {
             throw error;
         }
+        
     }
 );
