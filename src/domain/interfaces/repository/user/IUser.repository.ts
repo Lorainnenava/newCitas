@@ -1,7 +1,7 @@
 import mongoose, { UpdateWriteOpResult } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
-import { UserRequestDto } from '../../../../application/dtos/user/request/user/userRequest.dto';
-import { UserResponseDto } from '../../../../application/dtos/user/response/user/userResponse.dto';
+import { UserRequestDto } from '../../../dtos/user/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../dtos/user/response/user/userResponse.dto';
 
 export interface IUserRepository {
   /**
@@ -23,12 +23,12 @@ export interface IUserRepository {
   findById(_id: string): Promise<UserResponseDto>;
 
   /**
-   * getAll
+   * getAll users
    */
   getAll(): Promise<UserResponseDto[]>;
 
   /**
-   * deleteToken
+   * deleteToken of user
    */
   deleteToken(
     data: UserRequestDto,

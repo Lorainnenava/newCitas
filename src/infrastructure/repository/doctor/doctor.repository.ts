@@ -1,10 +1,10 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Doctor } from '../../../domain/entities/doctors/doctor.entity';
-import { DoctorRequestDto } from '../../../application/dtos/doctor/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../application/dtos/doctor/response/doctorResponse.dto';
-import { IDoctorRepository } from '../../../domain/interfaces/repository/doctors/IDoctor.repository';
+import { Doctor } from '../../../domain/entities/doctor/doctor.entity';
+import { IDoctorRepository } from '../../../domain/interfaces/repository/doctor/IDoctor.repository';
+import { DoctorRequestDto } from '../../../domain/dtos/doctor/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../domain/dtos/doctor/response/doctorResponse.dto';
 
 @Injectable()
 export class DoctorRepository implements IDoctorRepository {
@@ -44,9 +44,10 @@ export class DoctorRepository implements IDoctorRepository {
    */
   async findOne(documentNumber: number): Promise<DoctorResponseDto> {
     try {
-      return this.doctorModel.findOne({
-        'documentInfo.documentNumber': documentNumber,
+      const doctor = await this.doctorModel.findOne({
+        'documentInfo.documentNumber': Number(documentNumber),
       });
+      return doctor;
     } catch (error) {
       throw new Error(error);
     }
@@ -55,15 +56,11 @@ export class DoctorRepository implements IDoctorRepository {
   /**
    * update doctor
    * @param request
-   * @param _id
    * @returns
    */
-  async update(
-    request: DoctorRequestDto,
-    _id: string,
-  ): Promise<DoctorResponseDto> {
+  async update(request: DoctorRequestDto): Promise<DoctorResponseDto> {
     try {
-      return await this.doctorModel.findByIdAndUpdate(_id, request, {
+      return await this.doctorModel.findByIdAndUpdate(request._id, request, {
         new: true,
       });
     } catch (error) {

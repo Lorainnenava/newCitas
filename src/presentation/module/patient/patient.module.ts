@@ -1,22 +1,22 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
-  Patients,
+  Patient,
   patientSchema,
-} from '../../../domain/entities/patients/patiensts.entity';
+} from '../../../domain/entities/patient/patient.entity';
 import { WelcomeEmailModule } from '../welcomeEmail/welcomeEmail.module';
-import { PatientController } from '../../../infrastructure/controller/patient/patient.controller';
 import { PatientCreateService } from '../../../application/services/patient/patientCreate.service';
 import { PatientDeleteService } from '../../../application/services/patient/patientDelete.service';
-import { PatientGetAllService } from '../../../application/services/patient/patientGetAll.service';
 import { PatientUpdateService } from '../../../application/services/patient/patientUpdate.service';
-import { PatientRepository } from '../../../infrastructure/repository/patients/patients.repository';
 import { PatientFindOneService } from '../../../application/services/patient/patientFindOne.service';
 import { PatientFindByIdService } from '../../../application/services/patient/patientFindById.service';
+import { PatientRepository } from '../../../infrastructure/repository/patient/patient.repository';
+import { PatientsGetAllService } from '../../../application/services/patient/patientsGetAll.service';
+import { PatientController } from '../../controller/patient/patient.controller';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Patients.name, schema: patientSchema }]),
+    MongooseModule.forFeature([{ name: Patient.name, schema: patientSchema }]),
     WelcomeEmailModule,
   ],
   providers: [
@@ -25,7 +25,7 @@ import { PatientFindByIdService } from '../../../application/services/patient/pa
     PatientDeleteService,
     PatientFindByIdService,
     PatientFindOneService,
-    PatientGetAllService,
+    PatientsGetAllService,
     PatientUpdateService,
   ],
   exports: [
@@ -33,7 +33,7 @@ import { PatientFindByIdService } from '../../../application/services/patient/pa
     PatientDeleteService,
     PatientFindByIdService,
     PatientFindOneService,
-    PatientGetAllService,
+    PatientsGetAllService,
     PatientUpdateService,
     MongooseModule,
   ],

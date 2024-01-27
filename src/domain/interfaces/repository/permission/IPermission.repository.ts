@@ -1,0 +1,21 @@
+import { PermissionRequestDto } from '../../../dtos/permission/request/permissionRequest.dto';
+import { PermissionResponseDto } from '../../../dtos/permission/response/permissionResponse.dto';
+
+export interface IPermissionRepository {
+  /**
+   * create Permission
+   * @param request
+   */
+  create(request: PermissionRequestDto): Promise<PermissionResponseDto[]>;
+
+  /**
+   * getByRole Permissions
+   */
+  getByRole(role: string): Promise<PermissionResponseDto[]>;
+
+  /**
+   * update Permission
+   * @param _id
+   */
+  update(request: PermissionRequestDto): Promise<PermissionResponseDto[]>;
+}

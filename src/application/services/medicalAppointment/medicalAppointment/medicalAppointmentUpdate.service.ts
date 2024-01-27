@@ -1,8 +1,8 @@
-import { Body, Param, Injectable } from '@nestjs/common';
-import { MedicalAppointmentRepository } from '../../../../infrastructure/repository/medicalAppointments/medicalAppointments.repository';
-import { MedicalAppointmentRequestDto } from '../../../dtos/medicalAppointments/request/medicalAppointment/medicalAppointmentRequest.dto';
-import { MedicalAppointmentResponseDto } from '../../../dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IMedicalAppointmentUpdateService } from '../../../../domain/interfaces/service/medicalAppointments/medicalAppointment/update/IMedicalAppointmentUpdateService';
+import { Body, Injectable } from '@nestjs/common';
+import { MedicalAppointmentRepository } from '../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
+import { IMedicalAppointmentUpdateService } from '../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/update/IMedicalAppointmentUpdateService';
+import { MedicalAppointmentRequestDto } from '../../../../domain/dtos/medicalAppointment/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentResponseDto } from '../../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @Injectable()
 export class MedicalAppointmentUpdateService
@@ -15,15 +15,13 @@ export class MedicalAppointmentUpdateService
   /**
    * update medicalAppointment
    * @param request
-   * @param _id
    * @returns
    */
   async update(
     @Body() request: MedicalAppointmentRequestDto,
-    @Param('_id') _id: string,
   ): Promise<MedicalAppointmentResponseDto> {
     try {
-      return await this.medicalAppointmentRepository.update(request, _id);
+      return await this.medicalAppointmentRepository.update(request);
     } catch (error) {
       throw error;
     }

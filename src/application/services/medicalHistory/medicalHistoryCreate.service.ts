@@ -1,8 +1,8 @@
 import { Injectable, Body } from '@nestjs/common';
-import { MedicalHistoryRequestDto } from '../../dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
 import { MedicalHistoryRepository } from '../../../infrastructure/repository/medicalHistory/medicalHistory.repository';
-import { MedicalHistoryResponseDto } from '../../dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 import { IMedicalHistoryCreateService } from '../../../domain/interfaces/service/medicalHistory/create/IMedicalHistoryCreateService';
+import { MedicalHistoryRequestDto } from '../../../domain/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
+import { MedicalHistoryResponseDto } from '../../../domain/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 
 @Injectable()
 export class MedicalHistoryCreateService

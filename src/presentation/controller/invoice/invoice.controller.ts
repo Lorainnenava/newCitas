@@ -1,0 +1,92 @@
+import {
+  Get,
+  Put,
+  Body,
+  Post,
+  Param,
+  Delete,
+  Controller,
+} from '@nestjs/common';
+import { Roles } from '../../../utils/roles/roles';
+import { Role } from '../../../utils/roles/role.enum';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { InvoiceCreateService } from '../../../application/services/invoice/invoiceCreate.service';
+import { InvoiceDeleteService } from '../../../application/services/invoice/invoiceDelete.service';
+import { InvoicesGetAllService } from '../../../application/services/invoice/invoicesGetAll.service';
+import { InvoiceUpdateService } from '../../../application/services/invoice/invoiceUpdate.service';
+import { InvoiceFindByIdService } from '../../../application/services/invoice/invoicesFindById.service';
+import { InvoiceRequestDto } from '../../../domain/dtos/invoice/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../domain/dtos/invoice/response/invoice/invoiceResponse.dto';
+
+@ApiTags('Invoice')
+@Controller('invoice')
+export class InvoiceController {
+  constructor(
+    private readonly invoiceCreateService: InvoiceCreateService,
+    private readonly invoiceDeleteService: InvoiceDeleteService,
+    private readonly invoicesGetAllService: InvoicesGetAllService,
+    private readonly invoiceUpdateService: InvoiceUpdateService,
+    private readonly invoiceFindByIdService: InvoiceFindByIdService,
+  ) {}
+
+  /**
+   * create invoice
+   * @param request
+   * @returns
+   */
+  @ApiBearerAuth('token')
+  @Post('/create')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
+  async create(
+    @Body() request: InvoiceRequestDto,
+  ): Promise<InvoiceResponseDto> {
+    return this.invoiceCreateService.create(request);
+  }
+
+  /**
+   * getAll invoices
+   * @returns
+   */
+  @ApiBearerAuth('token')
+  @Get('/getAll')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA)
+  async getAll(): Promise<InvoiceResponseDto[]> {
+    return this.invoicesGetAllService.getAll();
+  }
+
+  /**
+   * findById invoice
+   * @returns
+   */
+  @ApiBearerAuth('token')
+  @Post('/:_id')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
+  async findById(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
+    return this.invoiceFindByIdService.findById(_id);
+  }
+
+  /**
+   * update invoices
+   * @returns
+   */
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
+  @ApiBearerAuth('token')
+  @Put('/update')
+  async update(
+    @Body() request: InvoiceRequestDto,
+  ): Promise<InvoiceResponseDto> {
+    return this.invoiceUpdateService.update(request);
+  }
+
+  /**
+   * delete invoice
+   * @param _id
+   * @returns
+   */
+  @ApiBearerAuth('token')
+  @Delete('/delete/:_id')
+  @Roles(Role.ADMIN || Role.RECEPCIONISTA || Role.PACIENTE)
+  async delete(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
+    return this.invoiceDeleteService.delete(_id);
+  }
+}

@@ -1,22 +1,22 @@
-import { SessionRequestDto } from '../../../../application/dtos/session/request/sessionRequest.dto';
-import { SessionResponseDto } from '../../../../application/dtos/session/response/sessionResponse.dto';
+import { SessionRequestDto } from '../../../dtos/session/request/sessionRequest.dto';
+import { SessionResponseDto } from '../../../dtos/session/response/sessionResponse.dto';
 
 export interface ISessionRepository {
   /**
-   * method create
+   * create session
    * @param request
    */
   create(request: SessionRequestDto): Promise<SessionResponseDto>;
 
   /**
-   * method delete
+   * delete session
    * @param token
    */
   delete(token: string): Promise<SessionResponseDto>;
 
   /**
-   * method findOne
+   * findOne session
    * @param email
    */
-  findOne(email: string): Promise<SessionResponseDto | object>;
+  findOne(email: string): Promise<SessionResponseDto>;
 }

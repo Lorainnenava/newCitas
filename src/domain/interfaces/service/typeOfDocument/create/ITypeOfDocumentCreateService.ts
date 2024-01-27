@@ -1,5 +1,5 @@
-import { TypeOfDocumentRequestDto } from "../../../../../application/dtos/typeOfDocument/request/typeOfDocumentRequest.dto";
-import { TypeOfDocumentResponseDto } from "../../../../../application/dtos/typeOfDocument/response/typeOfDocumentResponsedto";
+import { TypeOfDocumentRequestDto } from '../../../../dtos/typeOfDocument/request/typeOfDocumentRequest.dto';
+import { TypeOfDocumentResponseDto } from '../../../../dtos/typeOfDocument/response/typeOfDocumentResponsedto';
 
 export interface ITypeOfDocumentCreateService {
   /**

@@ -2,12 +2,12 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Invoice } from '../../../domain/entities/invoice/invoice.entity';
-import { InvoiceRequestDto } from '../../../application/dtos/invoice/request/invoice/invoiceRequest.dto';
-import { IInvoicesRepository } from '../../../domain/interfaces/repository/invoices/IInvoices.repository';
-import { InvoiceResponseDto } from '../../../application/dtos/invoice/response/invoice/invoiceResponse.dto';
+import { IInvoiceRepository } from '../../../domain/interfaces/repository/invoice/IInvoice.repository';
+import { InvoiceRequestDto } from '../../../domain/dtos/invoice/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../domain/dtos/invoice/response/invoice/invoiceResponse.dto';
 
 @Injectable()
-export class InvoiceRepository implements IInvoicesRepository {
+export class InvoiceRepository implements IInvoiceRepository {
   constructor(
     @InjectModel(Invoice.name) private readonly invoiceModel: Model<Invoice>,
   ) {}
@@ -55,7 +55,7 @@ export class InvoiceRepository implements IInvoicesRepository {
    */
   async findOne(code: number): Promise<InvoiceResponseDto> {
     try {
-      return this.invoiceModel.findOne({code});
+      return this.invoiceModel.findOne({ code });
     } catch (error) {
       throw new Error(error);
     }
@@ -64,15 +64,11 @@ export class InvoiceRepository implements IInvoicesRepository {
   /**
    * update invoice
    * @param request
-   * @param _id
    * @returns
    */
-  async update(
-    request: InvoiceRequestDto,
-    _id: string,
-  ): Promise<InvoiceResponseDto> {
+  async update(request: InvoiceRequestDto): Promise<InvoiceResponseDto> {
     try {
-      return await this.invoiceModel.findByIdAndUpdate(_id, request, {
+      return await this.invoiceModel.findByIdAndUpdate(request._id, request, {
         new: true,
       });
     } catch (error) {

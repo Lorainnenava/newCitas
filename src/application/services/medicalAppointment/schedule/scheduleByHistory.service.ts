@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../utils/types';
 import { DateService } from '../../../../utils/date/date.service';
 import { ScheduleRepository } from '../../../../infrastructure/repository/schedule/schedule.repository';
-import { MedicalAppointmentResponseDto } from '../../../dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IScheduleGetAppointmentHistoryService } from '../../../../domain/interfaces/service/medicalAppointments/schedule/getAppointmentHistory/IScheduleGetAppointmentHistoryService';
+import { IScheduleGetAppointmentHistoryService } from '../../../../domain/interfaces/service/medicalAppointment/schedule/getAppointmentHistory/IScheduleGetAppointmentHistoryService';
+import { MedicalAppointmentResponseDto } from '../../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @Injectable()
 export class ScheduleByAppointmentHistoryService

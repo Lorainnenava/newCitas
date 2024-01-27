@@ -1,4 +1,4 @@
-import { MedicalReportResponseDto } from '../../../../../application/dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
+import { MedicalReportResponseDto } from '../../../../dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
 
 export interface IMedicalReportFindByIdService {
   /**

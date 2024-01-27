@@ -1,5 +1,5 @@
-import { SpecialtyRequestDto } from '../../../../../application/dtos/specialty/request/specialtiesRequest.dto';
-import { SpecialtyResponseDto } from '../../../../../application/dtos/specialty/response/specialtiesResponse.dto';
+import { SpecialtyRequestDto } from '../../../../dtos/specialty/request/specialtyRequest.dto';
+import { SpecialtyResponseDto } from '../../../../dtos/specialty/response/specialtyResponse.dto';
 
 export interface ISpecialtyCreateService {
   /**

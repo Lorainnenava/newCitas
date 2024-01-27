@@ -1,5 +1,5 @@
-import { MedicalReportRequestDto } from "../../../../application/dtos/medicalReport/request/medicalReport/medicalReportRequest.dto";
-import { MedicalReportResponseDto } from "../../../../application/dtos/medicalReport/response/medicalReport/medicalReportResponse.dto";
+import { MedicalReportRequestDto } from '../../../dtos/medicalReport/request/medicalReport/medicalReportRequest.dto';
+import { MedicalReportResponseDto } from '../../../dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
 
 export interface IMedicalReportRepository {
   /**
@@ -9,12 +9,12 @@ export interface IMedicalReportRepository {
   create(request: MedicalReportRequestDto): Promise<MedicalReportResponseDto>;
 
   /**
-   * getAll MedicalReport
+   * getAll medicalReport
    */
   getAll(): Promise<MedicalReportResponseDto[]>;
 
   /**
-   * findById MedicalReport
+   * findById medicalReport
    * @param _id
    */
   findById(_id: string): Promise<MedicalReportResponseDto>;

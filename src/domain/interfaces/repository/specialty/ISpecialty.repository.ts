@@ -1,20 +1,20 @@
-import { SpecialtyRequestDto } from '../../../../application/dtos/specialty/request/specialtiesRequest.dto';
-import { SpecialtyResponseDto } from '../../../../application/dtos/specialty/response/specialtiesResponse.dto';
+import { SpecialtyRequestDto } from '../../../dtos/specialty/request/specialtyRequest.dto';
+import { SpecialtyResponseDto } from '../../../dtos/specialty/response/specialtyResponse.dto';
 
 export interface ISpecialtyRepository {
   /**
-   * Create Specialty
+   * Create specialty
    * @param request
    */
   create(request: SpecialtyRequestDto): Promise<SpecialtyResponseDto>;
 
   /**
-   * getAll Specialty
+   * getAll specialties
    */
   getAll(): Promise<SpecialtyResponseDto[]>;
 
   /**
-   * Delete Specialty
+   * Delete specialty
    * @param _id
    */
   delete(_id: string): Promise<SpecialtyResponseDto>;

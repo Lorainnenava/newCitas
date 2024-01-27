@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { MedicalReportRepository } from '../../../infrastructure/repository/medicalReport/medicalReport.repository';
-import { MedicalReportResponseDto } from '../../dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
-import { IMedicalReportGetAllService } from '../../../domain/interfaces/service/medicalReport/getAll/IMedicalReportGetAllService';
+import { IMedicalReportsGetAllService } from '../../../domain/interfaces/service/medicalReport/getAll/IMedicalReportsGetAllService';
+import { MedicalReportResponseDto } from '../../../domain/dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
 
 @Injectable()
-export class MedicalReportGetAllService implements IMedicalReportGetAllService {
+export class MedicalReportsGetAllService
+  implements IMedicalReportsGetAllService
+{
   constructor(
     private readonly medicalReportRepository: MedicalReportRepository,
   ) {}
 
   /**
-   * getAll medicalReport
+   * getAll medicalReports
    * @returns
    */
   async getAll(): Promise<MedicalReportResponseDto[]> {

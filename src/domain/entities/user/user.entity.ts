@@ -1,6 +1,6 @@
 import { HydratedDocument } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { DocumentInfoRequestDto } from '../../../application/dtos/user/request/document/documentInfoRequest.dto';
+import { DocumentInfoRequestDto } from '../../dtos/user/request/document/documentInfoRequest.dto';
 
 export type userDocument = HydratedDocument<User>;
 
@@ -78,7 +78,7 @@ export class User {
   /**
    * role
    */
-  @Prop({ type: String, default: 'USER' })
+  @Prop({ type: String })
   role: string;
 
   /**

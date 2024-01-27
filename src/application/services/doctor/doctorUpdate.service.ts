@@ -1,8 +1,8 @@
-import { Body, Param, Injectable } from '@nestjs/common';
-import { DoctorRequestDto } from '../../dtos/doctor/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../dtos/doctor/response/doctorResponse.dto';
+import { Body, Injectable } from '@nestjs/common';
 import { DoctorRepository } from '../../../infrastructure/repository/doctor/doctor.repository';
-import { IDoctorUpdateService } from '../../../domain/interfaces/service/doctors/update/IDoctorUpdateService';
+import { IDoctorUpdateService } from '../../../domain/interfaces/service/doctor/update/IDoctorUpdateService';
+import { DoctorRequestDto } from '../../../domain/dtos/doctor/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../domain/dtos/doctor/response/doctorResponse.dto';
 
 @Injectable()
 export class DoctorUpdateService implements IDoctorUpdateService {
@@ -11,15 +11,11 @@ export class DoctorUpdateService implements IDoctorUpdateService {
   /**
    * update doctor
    * @param request
-   * @param _id
    * @returns
    */
-  async update(
-    @Body() request: DoctorRequestDto,
-    @Param('_id') _id: string,
-  ): Promise<DoctorResponseDto> {
+  async update(@Body() request: DoctorRequestDto): Promise<DoctorResponseDto> {
     try {
-      return await this.doctorRepository.update(request, _id);
+      return await this.doctorRepository.update(request);
     } catch (error) {
       throw error;
     }

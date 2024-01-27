@@ -1,8 +1,8 @@
-import { SignInRequestDto } from '../../../../application/dtos/signIn/request/signIn.dto';
+import { SignInRequestDto } from '../../../dtos/signIn/request/signIn.dto';
 
 export interface ISignInRepository {
   /**
-   * method signIn
+   * signIn
    * @param request
    */
   signIn(request: SignInRequestDto): Promise<object>;

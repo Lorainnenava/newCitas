@@ -1,12 +1,12 @@
 import { Body, Injectable, ConflictException } from '@nestjs/common';
-import { PasswordService } from '../../../utils/bcrypt/bcrypt';
+import { PasswordService } from '../../../utils/bcrypt/bcrypt.service';
 import { DoctorFindOneService } from '../doctor/doctorFindOne.service';
-import { RandomTokenService } from '../../../utils/randomToken/randomToken';
-import { UserRequestDto } from '../../dtos/user/request/user/userRequest.dto';
-import { UserResponseDto } from '../../dtos/user/response/user/userResponse.dto';
+import { RandomTokenService } from '../../../utils/randomToken/randomToken.service';
 import { UserRepository } from '../../../infrastructure/repository/user/user.repository';
 import { ConfirmationEmailService } from '../confirmationEmail/confirmationEmail.service';
 import { IUserSignUpService } from '../../../domain/interfaces/service/user/signUp/IUserService';
+import { UserRequestDto } from '../../../domain/dtos/user/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../domain/dtos/user/response/user/userResponse.dto';
 
 @Injectable()
 export class UserSignUpService implements IUserSignUpService {

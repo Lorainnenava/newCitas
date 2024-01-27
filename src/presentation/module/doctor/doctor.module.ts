@@ -3,14 +3,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   Doctor,
   DoctorSchema,
-} from '../../../domain/entities/doctors/doctor.entity';
+} from '../../../domain/entities/doctor/doctor.entity';
 import { DoctorRepository } from '../../../infrastructure/repository/doctor/doctor.repository';
-import { DoctorController } from '../../../infrastructure/controller/doctor/doctor.controller';
 import { DoctorCreateService } from '../../../application/services/doctor/doctorCreate.service';
 import { DoctorDeleteService } from '../../../application/services/doctor/doctorDelete.service';
-import { DoctorGetAllService } from '../../../application/services/doctor/doctorGetAll.service';
+import { DoctorsGetAllService } from '../../../application/services/doctor/doctorsGetAll.service';
 import { DoctorUpdateService } from '../../../application/services/doctor/doctorUpdate.service';
 import { DoctorFindOneService } from '../../../application/services/doctor/doctorFindOne.service';
+import { DoctorController } from '../../controller/doctor/doctor.controller';
 
 @Module({
   imports: [
@@ -21,14 +21,14 @@ import { DoctorFindOneService } from '../../../application/services/doctor/docto
     DoctorCreateService,
     DoctorDeleteService,
     DoctorFindOneService,
-    DoctorGetAllService,
+    DoctorsGetAllService,
     DoctorUpdateService,
   ],
   exports: [
     DoctorCreateService,
     DoctorDeleteService,
     DoctorFindOneService,
-    DoctorGetAllService,
+    DoctorsGetAllService,
     DoctorUpdateService,
     MongooseModule,
   ],

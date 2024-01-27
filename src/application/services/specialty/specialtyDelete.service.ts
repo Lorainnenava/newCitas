@@ -1,7 +1,7 @@
 import { Injectable, Param, NotFoundException } from '@nestjs/common';
-import { SpecialtyResponseDto } from '../../dtos/specialty/response/specialtiesResponse.dto';
 import { SpecialtyRepository } from '../../../infrastructure/repository/specialty/specialty.repository';
 import { ISpecialtyDeleteService } from '../../../domain/interfaces/service/specialty/delete/ISpecialtyDeleteService';
+import { SpecialtyResponseDto } from '../../../domain/dtos/specialty/response/specialtyResponse.dto';
 
 @Injectable()
 export class SpecialtyDeleteService implements ISpecialtyDeleteService {

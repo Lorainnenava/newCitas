@@ -1,5 +1,5 @@
-import { MedicalHistoryRequestDto } from '../../../../application/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
-import { MedicalHistoryResponseDto } from '../../../../application/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
+import { MedicalHistoryRequestDto } from '../../../dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
+import { MedicalHistoryResponseDto } from '../../../dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 
 export interface IMedicalHistoryRepository {
   /**
@@ -15,7 +15,6 @@ export interface IMedicalHistoryRepository {
 
   /**
    * findById medicalHistory
-   * @param request
    * @param _id
    */
 
@@ -24,10 +23,6 @@ export interface IMedicalHistoryRepository {
   /**
    * update medicalHistory
    * @param request
-   * @param _id
    */
-  update(
-    request: MedicalHistoryRequestDto,
-    _id: string,
-  ): Promise<MedicalHistoryResponseDto>;
+  update(request: MedicalHistoryRequestDto): Promise<MedicalHistoryResponseDto>;
 }

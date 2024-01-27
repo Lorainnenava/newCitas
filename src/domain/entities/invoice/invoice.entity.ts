@@ -1,7 +1,7 @@
 import { HydratedDocument, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { MedicalAppointment } from '../medicalAppointments/medicalAppointment.entity';
-import { PatientInformationRequestDto } from '../../../application/dtos/invoice/request/patientInformation/patientInformationRequest.dto';
+import { MedicalAppointment } from '../medicalAppointment/medicalAppointment.entity';
+import { PatientInformationRequestDto } from '../../dtos/invoice/request/patientInformation/patientInformationRequest.dto';
 
 export type invoiceDocument = HydratedDocument<Invoice>;
 

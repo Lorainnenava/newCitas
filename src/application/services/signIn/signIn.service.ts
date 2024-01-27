@@ -6,12 +6,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PasswordService } from '../../../utils/bcrypt/bcrypt';
+import { PasswordService } from '../../../utils/bcrypt/bcrypt.service';
 import { UserFindOneService } from '../user/userFindOne.service';
 import { SessionCreateService } from '../session/sessionCreate.service';
-import { SignInRequestDto } from '../../dtos/signIn/request/signIn.dto';
 import { SessionFindOneService } from '../session/sessionFindOne.service';
 import { ISignInService } from '../../../domain/interfaces/service/signIn/ISignInService';
+import { SignInRequestDto } from '../../../domain/dtos/signIn/request/signIn.dto';
 
 @Injectable()
 export class SignInService implements ISignInService {

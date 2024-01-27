@@ -1,7 +1,7 @@
 import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { DocumentInfoRequestDto } from '../../../application/dtos/user/request/document/documentInfoRequest.dto';
-import { TreatmentRequestDto } from '../../../application/dtos/medicalReport/request/treatment/treatmentRequest.dto';
+import { DocumentInfoRequestDto } from '../../dtos/user/request/document/documentInfoRequest.dto';
+import { TreatmentRequestDto } from '../../dtos/medicalReport/request/treatment/treatmentRequest.dto';
 
 export type medicalReportDocument = HydratedDocument<MedicalReport>;
 
@@ -47,10 +47,10 @@ export class MedicalReport {
   age: number;
 
   /**
-   *   documentInfo
+   * documentInfo
    */
   @Prop({ type: DocumentInfoRequestDto })
-  documentInfo: DocumentInfoRequestDto
+  documentInfo: DocumentInfoRequestDto;
 
   /**
    * reasonForVisit

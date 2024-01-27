@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PermissionsRequestDto } from '../../dtos/permissions/request/permissionsRequest.dto';
-import { PermissionsResponseDto } from '../../dtos/permissions/response/permissionsResponse.dto';
-import { PermissionRepository } from '../../../infrastructure/repository/permissions/permissions.repository';
-import { IPermissionsUpdateService } from '../../../domain/interfaces/service/permissions/update/IPermissionsUpdateService';
+import { PermissionRepository } from '../../../infrastructure/repository/permission/permission.repository';
+import { IPermissionsUpdateService } from '../../../domain/interfaces/service/permission/update/IPermissionsUpdateService';
+import { PermissionRequestDto } from '../../../domain/dtos/permission/request/permissionRequest.dto';
+import { PermissionResponseDto } from '../../../domain/dtos/permission/response/permissionResponse.dto';
 
 @Injectable()
-export class PermissionUpdateService implements IPermissionsUpdateService {
+export class PermissionsUpdateService implements IPermissionsUpdateService {
   constructor(private readonly permissionRepository: PermissionRepository) {}
 
   /**
@@ -14,8 +14,8 @@ export class PermissionUpdateService implements IPermissionsUpdateService {
    * @returns
    */
   async update(
-    request: PermissionsRequestDto,
-  ): Promise<PermissionsResponseDto[]> {
+    request: PermissionRequestDto,
+  ): Promise<PermissionResponseDto[]> {
     try {
       return await this.permissionRepository.update(request);
     } catch (error) {

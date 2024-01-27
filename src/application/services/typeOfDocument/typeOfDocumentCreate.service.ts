@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { TypeOfDocumentRequestDto } from '../../dtos/typeOfDocument/request/typeOfDocumentRequest.dto';
-import { TypeOfDocumentResponseDto } from '../../dtos/typeOfDocument/response/typeOfDocumentResponsedto';
 import { TypeOfDocumentRepository } from '../../../infrastructure/repository/typeOfDocument/typeOfDocument.repository';
 import { ITypeOfDocumentCreateService } from '../../../domain/interfaces/service/typeOfDocument/create/ITypeOfDocumentCreateService';
+import { TypeOfDocumentRequestDto } from '../../../domain/dtos/typeOfDocument/request/typeOfDocumentRequest.dto';
+import { TypeOfDocumentResponseDto } from '../../../domain/dtos/typeOfDocument/response/typeOfDocumentResponsedto';
 
 @Injectable()
 export class TypeOfDocumentCreateService

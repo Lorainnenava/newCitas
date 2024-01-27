@@ -1,4 +1,4 @@
-import { SessionResponseDto } from '../../../../../application/dtos/session/response/sessionResponse.dto';
+import { SessionResponseDto } from '../../../../dtos/session/response/sessionResponse.dto';
 
 export interface ISessionDeleteService {
   /**

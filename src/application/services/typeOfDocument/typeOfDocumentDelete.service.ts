@@ -1,7 +1,7 @@
 import { Injectable, Param, NotFoundException } from '@nestjs/common';
-import { TypeOfDocumentResponseDto } from '../../dtos/typeOfDocument/response/typeOfDocumentResponsedto';
 import { TypeOfDocumentRepository } from '../../../infrastructure/repository/typeOfDocument/typeOfDocument.repository';
 import { ITypeOfDocumentDeleteService } from '../../../domain/interfaces/service/typeOfDocument/delete/ITypeOfDocumentDeleteService';
+import { TypeOfDocumentResponseDto } from '../../../domain/dtos/typeOfDocument/response/typeOfDocumentResponsedto';
 
 @Injectable()
 export class TypeOfDocumentDeleteService

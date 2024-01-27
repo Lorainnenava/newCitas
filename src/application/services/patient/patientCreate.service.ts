@@ -1,9 +1,9 @@
 import { Body, Injectable, ConflictException } from '@nestjs/common';
 import { WelcomeEmailService } from '../welcomeEmail/welcomeEmail.service';
-import { PatientRequestDto } from '../../dtos/patients/request/patient/patientRequest.dto';
-import { PatientResponseDto } from '../../dtos/patients/response/patient/patientResponse.dto';
-import { PatientRepository } from '../../../infrastructure/repository/patients/patients.repository';
-import { IPatientCreateService } from '../../../domain/interfaces/service/patients/create/IPatientCreateService';
+import { PatientRepository } from '../../../infrastructure/repository/patient/patient.repository';
+import { IPatientCreateService } from '../../../domain/interfaces/service/patient/create/IPatientCreateService';
+import { PatientRequestDto } from '../../../domain/dtos/patient/request/patient/patientRequest.dto';
+import { PatientResponseDto } from '../../../domain/dtos/patient/response/patient/patientResponse.dto';
 
 @Injectable()
 export class PatientCreateService implements IPatientCreateService {

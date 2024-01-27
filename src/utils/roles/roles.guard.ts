@@ -7,8 +7,8 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
-    private reflector: Reflector,
-    private jwtService: JwtService,
+    private reflector: Reflector, // se utiliza para recuperar datos de un guardia
+    private jwtService: JwtService, // accede a los servicios del token
   ) {}
 
   canActivate(context: ExecutionContext): boolean {

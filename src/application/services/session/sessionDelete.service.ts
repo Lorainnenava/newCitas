@@ -1,7 +1,7 @@
 import { NotFoundException, Injectable } from '@nestjs/common';
-import { SessionResponseDto } from '../../dtos/session/response/sessionResponse.dto';
 import { SessionRepository } from '../../../infrastructure/repository/session/session.repository';
 import { ISessionDeleteService } from '../../../domain/interfaces/service/session/delete/ISessionDeleteService';
+import { SessionResponseDto } from '../../../domain/dtos/session/response/sessionResponse.dto';
 
 @Injectable()
 export class SessionDeleteService implements ISessionDeleteService {

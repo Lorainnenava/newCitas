@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../utils/types';
 import { DateService } from '../../../../utils/date/date.service';
 import { ScheduleRepository } from '../../../../infrastructure/repository/schedule/schedule.repository';
-import { MedicalAppointmentResponseDto } from '../../../dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IScheduleFilterByDayService } from '../../../../domain/interfaces/service/medicalAppointments/schedule/filterByDay/IScheduleFilterByDayService';
+import { IScheduleFilterByDayService } from '../../../../domain/interfaces/service/medicalAppointment/schedule/filterByDay/IScheduleFilterByDayService';
+import { MedicalAppointmentResponseDto } from '../../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @Injectable()
 export class ScheduleByDayService implements IScheduleFilterByDayService {

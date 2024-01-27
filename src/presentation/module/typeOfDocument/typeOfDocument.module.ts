@@ -5,10 +5,10 @@ import {
   typeOfDocumentSchema,
 } from '../../../domain/entities/typeOfDocument/typeOfDocument.entity';
 import { TypeOfDocumentRepository } from '../../../infrastructure/repository/typeOfDocument/typeOfDocument.repository';
-import { TypeOfDocumentController } from '../../../infrastructure/controller/typeOfDocument/typeOfDocument.controller';
 import { TypeOfDocumentCreateService } from '../../../application/services/typeOfDocument/typeOfDocumentCreate.service';
 import { TypeOfDocumentDeleteService } from '../../../application/services/typeOfDocument/typeOfDocumentDelete.service';
-import { TypeOfDocumentGetAllService } from '../../../application/services/typeOfDocument/typeOfDocumentGetAll.service';
+import { TypeOfDocumentsGetAllService } from '../../../application/services/typeOfDocument/typeOfDocumentGetAll.service';
+import { TypeOfDocumentController } from '../../controller/typeOfDocument/typeOfDocument.controller';
 
 @Module({
   imports: [
@@ -20,12 +20,12 @@ import { TypeOfDocumentGetAllService } from '../../../application/services/typeO
     TypeOfDocumentRepository,
     TypeOfDocumentCreateService,
     TypeOfDocumentDeleteService,
-    TypeOfDocumentGetAllService,
+    TypeOfDocumentsGetAllService,
   ],
   exports: [
     TypeOfDocumentCreateService,
     TypeOfDocumentDeleteService,
-    TypeOfDocumentGetAllService,
+    TypeOfDocumentsGetAllService,
   ],
   controllers: [TypeOfDocumentController],
 })

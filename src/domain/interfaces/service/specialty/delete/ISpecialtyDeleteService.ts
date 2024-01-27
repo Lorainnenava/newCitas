@@ -1,4 +1,4 @@
-import { SpecialtyResponseDto } from '../../../../../application/dtos/specialty/response/specialtiesResponse.dto';
+import { SpecialtyResponseDto } from '../../../../dtos/specialty/response/specialtyResponse.dto';
 
 export interface ISpecialtyDeleteService {
   /**

@@ -1,5 +1,5 @@
-import { UserRequestDto } from '../../../../../application/dtos/user/request/user/userRequest.dto';
-import { UserResponseDto } from '../../../../../application/dtos/user/response/user/userResponse.dto';
+import { UserRequestDto } from '../../../../dtos/user/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../../dtos/user/response/user/userResponse.dto';
 
 export interface IUserSignUpService {
   /**

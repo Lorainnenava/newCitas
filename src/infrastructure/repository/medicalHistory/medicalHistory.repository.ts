@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { MedicalHistory } from '../../../domain/entities/medicalHistory/medicalHistory.entity';
 import { IMedicalHistoryRepository } from '../../../domain/interfaces/repository/medicalHistory/IMedicalHistory.repository';
-import { MedicalHistoryRequestDto } from '../../../application/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
-import { MedicalHistoryResponseDto } from '../../../application/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
+import { MedicalHistoryRequestDto } from '../../../domain/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
+import { MedicalHistoryResponseDto } from '../../../domain/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 
 @Injectable()
 export class MedicalHistoryRepository implements IMedicalHistoryRepository {
@@ -56,17 +56,19 @@ export class MedicalHistoryRepository implements IMedicalHistoryRepository {
   /**
    * update
    * @param request
-   * @param _id
    * @returns
    */
   async update(
     request: MedicalHistoryRequestDto,
-    _id: string,
   ): Promise<MedicalHistoryResponseDto> {
     try {
-      return await this.medicalHistoryModel.findByIdAndUpdate(_id, request, {
-        new: true,
-      });
+      return await this.medicalHistoryModel.findByIdAndUpdate(
+        request._id,
+        request,
+        {
+          new: true,
+        },
+      );
     } catch (error) {
       throw new Error(error);
     }

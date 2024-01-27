@@ -1,6 +1,7 @@
 import { Param, Injectable, NotFoundException } from '@nestjs/common';
-import { PatientRepository } from '../../../infrastructure/repository/patients/patients.repository';
-import { IPatientDeleteService } from '../../../domain/interfaces/service/patients/delete/IPatientDeleteService';
+import { PatientRepository } from '../../../infrastructure/repository/patient/patient.repository';
+import { IPatientDeleteService } from '../../../domain/interfaces/service/patient/delete/IPatientDeleteService';
+import { PatientResponseDto } from '../../../domain/dtos/patient/response/patient/patientResponse.dto';
 
 @Injectable()
 export class PatientDeleteService implements IPatientDeleteService {
@@ -10,7 +11,7 @@ export class PatientDeleteService implements IPatientDeleteService {
    * delete patient
    * @param _id
    */
-  async delete(@Param('_id') _id: string): Promise<boolean> {
+  async delete(@Param('_id') _id: string): Promise<PatientResponseDto> {
     try {
       const search = await this.patientRepository.findById(_id);
       if (!search) {

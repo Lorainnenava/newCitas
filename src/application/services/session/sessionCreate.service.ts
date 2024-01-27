@@ -1,8 +1,8 @@
 import { Body, Injectable } from '@nestjs/common';
-import { SessionRequestDto } from '../../dtos/session/request/sessionRequest.dto';
-import { SessionResponseDto } from '../../dtos/session/response/sessionResponse.dto';
 import { SessionRepository } from '../../../infrastructure/repository/session/session.repository';
 import { ISessionCreateService } from '../../../domain/interfaces/service/session/create/ISessionCreateService';
+import { SessionRequestDto } from '../../../domain/dtos/session/request/sessionRequest.dto';
+import { SessionResponseDto } from '../../../domain/dtos/session/response/sessionResponse.dto';
 
 @Injectable()
 export class SessionCreateService implements ISessionCreateService {

@@ -1,9 +1,9 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { MedicalAppointment } from '../../../domain/entities/medicalAppointments/medicalAppointment.entity';
-import { IScheduleRepository } from '../../../domain/interfaces/repository/medicalAppointments/schedule/ISchedule.repository';
-import { MedicalAppointmentResponseDto } from '../../../application/dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointment } from '../../../domain/entities/medicalAppointment/medicalAppointment.entity';
+import { IScheduleRepository } from '../../../domain/interfaces/repository/medicalAppointment/schedule/ISchedule.repository';
+import { MedicalAppointmentResponseDto } from '../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @Injectable()
 export class ScheduleRepository implements IScheduleRepository {

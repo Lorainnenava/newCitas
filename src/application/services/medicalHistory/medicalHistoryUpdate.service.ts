@@ -1,8 +1,8 @@
-import { Injectable, Body, Param } from '@nestjs/common';
-import { MedicalHistoryRequestDto } from '../../dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
+import { Injectable, Body } from '@nestjs/common';
 import { MedicalHistoryRepository } from '../../../infrastructure/repository/medicalHistory/medicalHistory.repository';
-import { MedicalHistoryResponseDto } from '../../dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 import { IMedicalHistoryUpdateService } from '../../../domain/interfaces/service/medicalHistory/update/IMedicalHistoryUpdateService';
+import { MedicalHistoryRequestDto } from '../../../domain/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
+import { MedicalHistoryResponseDto } from '../../../domain/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 
 @Injectable()
 export class MedicalHistoryUpdateService
@@ -15,15 +15,13 @@ export class MedicalHistoryUpdateService
   /**
    * update medicalHistory
    * @param request
-   * @param _id
    * @returns
    */
   async update(
     @Body() request: MedicalHistoryRequestDto,
-    @Param('_id') _id: string,
   ): Promise<MedicalHistoryResponseDto> {
     try {
-      return await this.medicalHistoryRepository.update(request, _id);
+      return await this.medicalHistoryRepository.update(request);
     } catch (error) {
       throw error;
     }

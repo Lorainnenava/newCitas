@@ -5,10 +5,10 @@ import {
   MedicalReportSchema,
 } from '../../../domain/entities/medicalReport/medicalReport.entity';
 import { MedicalReportRepository } from '../../../infrastructure/repository/medicalReport/medicalReport.repository';
-import { MedicalReportController } from '../../../infrastructure/controller/medicalReport/medicalReport.controller';
 import { MedicalReportCreateService } from '../../../application/services/medicalReport/medicalReportCreate.service';
-import { MedicalReportGetAllService } from '../../../application/services/medicalReport/medicalReportGetAll.service';
+import { MedicalReportsGetAllService } from '../../../application/services/medicalReport/medicalReportGetAll.service';
 import { MedicalReportFindByIdService } from '../../../application/services/medicalReport/medicalReportFindById.service';
+import { MedicalReportController } from '../../controller/medicalReport/medicalReport.controller';
 
 @Module({
   imports: [
@@ -20,12 +20,12 @@ import { MedicalReportFindByIdService } from '../../../application/services/medi
     MedicalReportRepository,
     MedicalReportCreateService,
     MedicalReportFindByIdService,
-    MedicalReportGetAllService,
+    MedicalReportsGetAllService,
   ],
   exports: [
     MedicalReportCreateService,
     MedicalReportFindByIdService,
-    MedicalReportGetAllService,
+    MedicalReportsGetAllService,
   ],
   controllers: [MedicalReportController],
 })

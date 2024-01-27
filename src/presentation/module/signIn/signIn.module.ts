@@ -3,10 +3,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { UserModule } from '../user/user.module';
 import { SessionModule } from '../session/session.module';
-import { PasswordService } from '../../../utils/bcrypt/bcrypt';
+import { PasswordService } from '../../../utils/bcrypt/bcrypt.service';
 import { SignInService } from '../../../application/services/signIn/signIn.service';
 import { AuthGuard } from '../../../application/services/session/protectRoute/auth.guard';
-import { SignInController } from '../../../infrastructure/controller/signIn/signIn.controller';
+import { SignInController } from '../../controller/signIn/signIn.controller';
 
 @Module({
   imports: [

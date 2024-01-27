@@ -1,8 +1,8 @@
 import { Injectable, Body } from '@nestjs/common';
-import { SpecialtyRequestDto } from '../../dtos/specialty/request/specialtiesRequest.dto';
-import { SpecialtyResponseDto } from '../../dtos/specialty/response/specialtiesResponse.dto';
 import { SpecialtyRepository } from '../../../infrastructure/repository/specialty/specialty.repository';
 import { ISpecialtyCreateService } from '../../../domain/interfaces/service/specialty/create/ISpecialtyCreateService';
+import { SpecialtyRequestDto } from '../../../domain/dtos/specialty/request/specialtyRequest.dto';
+import { SpecialtyResponseDto } from '../../../domain/dtos/specialty/response/specialtyResponse.dto';
 
 @Injectable()
 export class SpecialtyCreateService implements ISpecialtyCreateService {

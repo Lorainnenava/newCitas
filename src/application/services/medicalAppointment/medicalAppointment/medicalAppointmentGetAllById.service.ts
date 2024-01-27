@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../utils/types';
-import { MedicalAppointmentRepository } from '../../../../infrastructure/repository/medicalAppointments/medicalAppointments.repository';
-import { MedicalAppointmentResponseDto } from '../../../dtos/medicalAppointments/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IMedicalAppointmentGetAllByIdService } from '../../../../domain/interfaces/service/medicalAppointments/medicalAppointment/getAllById/IMedicalAppointmentGetAllByIdService';
+import { MedicalAppointmentRepository } from '../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
+import { IMedicalAppointmentsGetAllByIdService } from '../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/getAllById/IMedicalAppointmentsGetAllByIdService';
+import { MedicalAppointmentResponseDto } from '../../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @Injectable()
 export class MedicalAppointmentGetAllByIdService
-  implements IMedicalAppointmentGetAllByIdService
+  implements IMedicalAppointmentsGetAllByIdService
 {
   constructor(
     private readonly medicalAppointmentRepository: MedicalAppointmentRepository,

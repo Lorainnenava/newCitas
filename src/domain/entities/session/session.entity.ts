@@ -1,6 +1,6 @@
 import { HydratedDocument } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { UserRequestDto } from '../../../application/dtos/user/request/user/userRequest.dto';
+import { UserRequestDto } from '../../dtos/user/request/user/userRequest.dto';
 
 export type sessionDocument = HydratedDocument<Session>;
 

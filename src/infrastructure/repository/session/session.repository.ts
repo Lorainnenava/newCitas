@@ -2,9 +2,9 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Body, Injectable } from '@nestjs/common';
 import { Session } from '../../../domain/entities/session/session.entity';
-import { SessionRequestDto } from '../../../application/dtos/session/request/sessionRequest.dto';
-import { SessionResponseDto } from '../../../application/dtos/session/response/sessionResponse.dto';
 import { ISessionRepository } from '../../../domain/interfaces/repository/session/ISession.repository';
+import { SessionRequestDto } from '../../../domain/dtos/session/request/sessionRequest.dto';
+import { SessionResponseDto } from '../../../domain/dtos/session/response/sessionResponse.dto';
 
 @Injectable()
 export class SessionRepository implements ISessionRepository {
@@ -48,7 +48,7 @@ export class SessionRepository implements ISessionRepository {
    * @param email
    * @returns
    */
-  async findOne(email: string): Promise<SessionResponseDto | object> {
+  async findOne(email: string): Promise<SessionResponseDto> {
     try {
       return await this.sessionModel.findOne({ email });
     } catch (error) {

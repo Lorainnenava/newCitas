@@ -3,12 +3,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   Specialty,
   specialtySchema,
-} from '../../../domain/entities/specialty/specialties.entity';
-import { SpecialtyController } from '../../../infrastructure/controller/specialty/specialty.controller';
+} from '../../../domain/entities/specialty/specialty.entity';
 import { SpecialtyRepository } from '../../../infrastructure/repository/specialty/specialty.repository';
 import { SpecialtyCreateService } from '../../../application/services/specialty/specialtyCreate.service';
 import { SpecialtyDeleteService } from '../../../application/services/specialty/specialtyDelete.service';
-import { SpecialtyGetAllService } from '../../../application/services/specialty/specialtyGetAll.service';
+import { SpecialtiesGetAllService } from '../../../application/services/specialty/specialtiesGetAll.service';
+import { SpecialtyController } from '../../controller/specialty/specialty.controller';
 
 @Module({
   imports: [
@@ -20,12 +20,12 @@ import { SpecialtyGetAllService } from '../../../application/services/specialty/
     SpecialtyRepository,
     SpecialtyCreateService,
     SpecialtyDeleteService,
-    SpecialtyGetAllService,
+    SpecialtiesGetAllService,
   ],
   exports: [
     SpecialtyCreateService,
     SpecialtyDeleteService,
-    SpecialtyGetAllService,
+    SpecialtiesGetAllService,
   ],
   controllers: [SpecialtyController],
 })
