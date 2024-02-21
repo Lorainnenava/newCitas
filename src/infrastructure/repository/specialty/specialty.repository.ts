@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Specialty } from '../../../domain/entities/specialty/specialty.entity';
 import { ISpecialtyRepository } from '../../../domain/interfaces/repository/specialty/ISpecialty.repository';
-import { SpecialtyRequestDto } from '../../../domain/dtos/specialty/request/specialtyRequest.dto';
-import { SpecialtyResponseDto } from '../../../domain/dtos/specialty/response/specialtyResponse.dto';
+import { SpecialtyRequestDto } from '../../../domain/entities/specialty/dto/request/specialtyRequest.dto';
+import { SpecialtyResponseDto } from '../../../domain/entities/specialty/dto/response/specialtyResponse.dto';
 
 @Injectable()
 export class SpecialtyRepository implements ISpecialtyRepository {

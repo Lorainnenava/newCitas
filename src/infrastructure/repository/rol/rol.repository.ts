@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Rol } from '../../../domain/entities/rol/rol.entity';
 import { IRolRepository } from '../../../domain/interfaces/repository/rol/IRol.repository';
-import { RolResponseDto } from '../../../domain/dtos/rol/response/rolResponse.dto';
-import { RolRequestDto } from '../../../domain/dtos/rol/request/rolRequest.dto';
+import { RolRequestDto } from '../../../domain/entities/rol/dto/request/rolRequest.dto';
+import { RolResponseDto } from '../../../domain/entities/rol/dto/response/rolResponse.dto';
 
 @Injectable()
 export class RolRepository implements IRolRepository {

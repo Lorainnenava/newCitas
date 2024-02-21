@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MedicalHistoryRepository } from '../../../infrastructure/repository/medicalHistory/medicalHistory.repository';
-import { MedicalHistoryResponseDto } from '../../../domain/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
 import { IMedicalHistoriesGetAllService } from '../../../domain/interfaces/service/medicalHistory/getAll/IMedicalHistoriesGetAllService';
+import { MedicalHistoryResponseDto } from '../../../domain/entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
 
 @Injectable()
 export class MedicalHistoriesGetAllService

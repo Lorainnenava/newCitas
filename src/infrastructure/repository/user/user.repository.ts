@@ -3,8 +3,8 @@ import mongoose, { Model, UpdateWriteOpResult } from 'mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../../../domain/entities/user/user.entity';
 import { IUserRepository } from '../../../domain/interfaces/repository/user/IUser.repository';
-import { UserRequestDto } from '../../../domain/dtos/user/request/user/userRequest.dto';
-import { UserResponseDto } from '../../../domain/dtos/user/response/user/userResponse.dto';
+import { UserRequestDto } from '../../../domain/entities/user/dto/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../domain/entities/user/dto/response/user/userResponse.dto';
 
 @Injectable()
 export class UserRepository implements IUserRepository {

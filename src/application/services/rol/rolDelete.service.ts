@@ -1,7 +1,7 @@
-import { Param, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { RolRepository } from '../../../infrastructure/repository/rol/rol.repository';
 import { IRolDeleteService } from '../../../domain/interfaces/service/rol/delete/IRolDeleteService';
-import { RolResponseDto } from '../../../domain/dtos/rol/response/rolResponse.dto';
+import { RolResponseDto } from '../../../domain/entities/rol/dto/response/rolResponse.dto';
 
 @Injectable()
 export class RolDeleteService implements IRolDeleteService {
@@ -12,7 +12,7 @@ export class RolDeleteService implements IRolDeleteService {
    * @param _id
    * @returns
    */
-  async delete(@Param('_id') _id: string): Promise<RolResponseDto> {
+  async delete(_id: string): Promise<RolResponseDto> {
     try {
       const deleteRole = await this.rolRepository.delete(_id);
       if (deleteRole === null)

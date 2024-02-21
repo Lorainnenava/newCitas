@@ -1,9 +1,9 @@
-import { Body, Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { WelcomeEmailService } from '../welcomeEmail/welcomeEmail.service';
 import { PatientRepository } from '../../../infrastructure/repository/patient/patient.repository';
 import { IPatientCreateService } from '../../../domain/interfaces/service/patient/create/IPatientCreateService';
-import { PatientRequestDto } from '../../../domain/dtos/patient/request/patient/patientRequest.dto';
-import { PatientResponseDto } from '../../../domain/dtos/patient/response/patient/patientResponse.dto';
+import { PatientRequestDto } from '../../../domain/entities/patient/dto/request/patient/patientRequest.dto';
+import { PatientResponseDto } from '../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
 
 @Injectable()
 export class PatientCreateService implements IPatientCreateService {
@@ -16,9 +16,7 @@ export class PatientCreateService implements IPatientCreateService {
    * create patient
    * @param request
    */
-  async create(
-    @Body() request: PatientRequestDto,
-  ): Promise<PatientResponseDto> {
+  async create(request: PatientRequestDto): Promise<PatientResponseDto> {
     try {
       const searchPatient = await this.patientRepository.findOne(
         request.documentInfo.documentNumber,

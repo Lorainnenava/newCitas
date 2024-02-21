@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Modules } from '../../../domain/entities/module/module.entity';
 import { IModuleRepository } from '../../../domain/interfaces/repository/module/IModule.repository';
-import { ModuleRequestDto } from '../../../domain/dtos/module/request/module/moduleRequest.dto';
-import { ModuleResponseDto } from '../../../domain/dtos/module/response/module/moduleResponse.dto';
+import { ModuleRequestDto } from '../../../domain/entities/module/dto/request/module/moduleRequest.dto';
+import { ModuleResponseDto } from '../../../domain/entities/module/dto/response/module/moduleResponse.dto';
 
 @Injectable()
 export class ModuleRepository implements IModuleRepository {

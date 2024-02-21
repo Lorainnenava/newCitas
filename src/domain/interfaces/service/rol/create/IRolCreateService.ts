@@ -1,5 +1,5 @@
-import { RolRequestDto } from '../../../../dtos/rol/request/rolRequest.dto';
-import { RolResponseDto } from '../../../../dtos/rol/response/rolResponse.dto';
+import { RolRequestDto } from '../../../../entities/rol/dto/request/rolRequest.dto';
+import { RolResponseDto } from '../../../../entities/rol/dto/response/rolResponse.dto';
 
 export interface IRolCreateService {
   /**

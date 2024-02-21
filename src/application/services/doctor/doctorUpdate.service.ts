@@ -1,8 +1,8 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { DoctorRepository } from '../../../infrastructure/repository/doctor/doctor.repository';
 import { IDoctorUpdateService } from '../../../domain/interfaces/service/doctor/update/IDoctorUpdateService';
-import { DoctorRequestDto } from '../../../domain/dtos/doctor/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../domain/dtos/doctor/response/doctorResponse.dto';
+import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 
 @Injectable()
 export class DoctorUpdateService implements IDoctorUpdateService {
@@ -13,9 +13,12 @@ export class DoctorUpdateService implements IDoctorUpdateService {
    * @param request
    * @returns
    */
-  async update(@Body() request: DoctorRequestDto): Promise<DoctorResponseDto> {
+  async update(
+    _id: string,
+    request: DoctorRequestDto,
+  ): Promise<DoctorResponseDto> {
     try {
-      return await this.doctorRepository.update(request);
+      return await this.doctorRepository.update({ _id }, request);
     } catch (error) {
       throw error;
     }

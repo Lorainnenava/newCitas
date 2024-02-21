@@ -1,5 +1,5 @@
-import { InvoiceRequestDto } from '../../../../dtos/invoice/request/invoice/invoiceRequest.dto';
-import { InvoiceResponseDto } from '../../../../dtos/invoice/response/invoice/invoiceResponse.dto';
+import { InvoiceRequestDto } from '../../../../entities/invoice/dto/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../../entities/invoice/dto/response/invoice/invoiceResponse.dto';
 
 export interface IInvoiceCreateService {
   /**

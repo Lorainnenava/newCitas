@@ -1,5 +1,5 @@
-import { PatientRequestDto } from '../../../dtos/patient/request/patient/patientRequest.dto';
-import { PatientResponseDto } from '../../../dtos/patient/response/patient/patientResponse.dto';
+import { PatientRequestDto } from '../../../entities/patient/dto/request/patient/patientRequest.dto';
+import { PatientResponseDto } from '../../../entities/patient/dto/response/patient/patientResponse.dto';
 
 export interface IPatientRepository {
   /**

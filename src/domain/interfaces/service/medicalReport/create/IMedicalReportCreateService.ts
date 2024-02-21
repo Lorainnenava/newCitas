@@ -1,5 +1,5 @@
-import { MedicalReportRequestDto } from '../../../../dtos/medicalReport/request/medicalReport/medicalReportRequest.dto';
-import { MedicalReportResponseDto } from '../../../../dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
+import { MedicalReportRequestDto } from '../../../../entities/medicalReport/dto/request/medicalReport/medicalReportRequest.dto';
+import { MedicalReportResponseDto } from '../../../../entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
 
 export interface IMedicalReportCreateService {
   /**

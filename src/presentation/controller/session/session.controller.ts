@@ -4,7 +4,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Delete, Param, Get, Req } from '@nestjs/common';
 import { SessionDeleteService } from '../../../application/services/session/sessionDelete.service';
 import { SessionFindSessionService } from '../../../application/services/session/sessionFindSession.service';
-import { SessionResponseDto } from '../../../domain/dtos/session/response/sessionResponse.dto';
+import { SessionResponseDto } from '../../../domain/entities/session/dto/response/sessionResponse.dto';
 
 @ApiTags('Session')
 @Controller('session')

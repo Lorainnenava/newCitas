@@ -8,7 +8,7 @@ import { ScheduleByDayService } from '../../../application/services/medicalAppoi
 import { ScheduleByAppointmentHistoryService } from '../../../application/services/medicalAppointment/schedule/scheduleByHistory.service';
 import { ScheduleByFutureAppointmentsService } from './../../../application/services/medicalAppointment/schedule/scheduleByFuture.service';
 import { ScheduleByCancelledAppointmentsService } from '../../../application/services/medicalAppointment/schedule/scheduleCancelled.service';
-import { MedicalAppointmentResponseDto } from '../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentResponseDto } from '../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @ApiTags('Schedule')
 @Controller('schedule')

@@ -1,4 +1,4 @@
-import { UserResponseDto } from '../../../../dtos/user/response/user/userResponse.dto';
+import { UserResponseDto } from '../../../../entities/user/dto/response/user/userResponse.dto';
 
 export interface IUserGetAllService {
   /**

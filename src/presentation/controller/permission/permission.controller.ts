@@ -5,8 +5,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PermissionsCreateService } from '../../../application/services/permissions/permissionsCreate.service';
 import { PermissionsUpdateService } from '../../../application/services/permissions/permissionsUpdate.service';
 import { PermissionsGetAllByRoleService } from '../../../application/services/permissions/permissionsGetAllByRole.service';
-import { PermissionRequestDto } from '../../../domain/dtos/permission/request/permissionRequest.dto';
-import { PermissionResponseDto } from '../../../domain/dtos/permission/response/permissionResponse.dto';
+import { PermissionRequestDto } from '../../../domain/entities/permission/dto/request/permissionRequest.dto';
+import { PermissionResponseDto } from '../../../domain/entities/permission/dto/response/permissionResponse.dto';
 
 @ApiTags('Permissions')
 @Controller('permissions')

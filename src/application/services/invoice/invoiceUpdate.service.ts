@@ -1,8 +1,8 @@
-import { Injectable, Body } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InvoiceRepository } from '../../../infrastructure/repository/invoice/invoice.repository';
 import { IInvoiceUpdateService } from '../../../domain/interfaces/service/invoice/update/IInvoicesUpdateService';
-import { InvoiceResponseDto } from '../../../domain/dtos/invoice/response/invoice/invoiceResponse.dto';
-import { InvoiceRequestDto } from '../../../domain/dtos/invoice/request/invoice/invoiceRequest.dto';
+import { InvoiceRequestDto } from '../../../domain/entities/invoice/dto/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
 
 @Injectable()
 export class InvoiceUpdateService implements IInvoiceUpdateService {
@@ -14,10 +14,11 @@ export class InvoiceUpdateService implements IInvoiceUpdateService {
    * @returns
    */
   async update(
-    @Body() request: InvoiceRequestDto,
+    _id: string,
+    request: InvoiceRequestDto,
   ): Promise<InvoiceResponseDto> {
     try {
-      return await this.invoiceRepository.update(request);
+      return await this.invoiceRepository.update({ _id }, request);
     } catch (error) {
       throw error;
     }

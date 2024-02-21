@@ -1,7 +1,7 @@
-import { Injectable, Param, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { MedicalHistoryRepository } from '../../../infrastructure/repository/medicalHistory/medicalHistory.repository';
 import { IMedicalHistoryFindByIdService } from '../../../domain/interfaces/service/medicalHistory/findById/IMedicalHistoryFindByIdService';
-import { MedicalHistoryResponseDto } from '../../../domain/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
+import { MedicalHistoryResponseDto } from '../../../domain/entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
 
 @Injectable()
 export class MedicalHistoryFindByIdService
@@ -16,9 +16,7 @@ export class MedicalHistoryFindByIdService
    * @param _id
    * @returns
    */
-  async findById(
-    @Param('_id') _id: string,
-  ): Promise<MedicalHistoryResponseDto> {
+  async findById(_id: string): Promise<MedicalHistoryResponseDto> {
     try {
       const searchMedicalHistory =
         await this.medicalHistoryRepository.findById(_id);

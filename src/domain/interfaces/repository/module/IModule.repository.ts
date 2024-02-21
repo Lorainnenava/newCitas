@@ -1,5 +1,5 @@
-import { ModuleRequestDto } from '../../../dtos/module/request/module/moduleRequest.dto';
-import { ModuleResponseDto } from '../../../dtos/module/response/module/moduleResponse.dto';
+import { ModuleRequestDto } from '../../../entities/module/dto/request/module/moduleRequest.dto';
+import { ModuleResponseDto } from '../../../entities/module/dto/response/module/moduleResponse.dto';
 
 export interface IModuleRepository {
   /**

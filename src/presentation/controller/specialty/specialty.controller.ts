@@ -4,8 +4,8 @@ import { Controller, Post, Body, Delete, Param, Get } from '@nestjs/common';
 import { SpecialtiesGetAllService } from '../../../application/services/specialty/specialtiesGetAll.service';
 import { SpecialtyDeleteService } from './../../../application/services/specialty/specialtyDelete.service';
 import { SpecialtyCreateService } from './../../../application/services/specialty/specialtyCreate.service';
-import { SpecialtyRequestDto } from '../../../domain/dtos/specialty/request/specialtyRequest.dto';
-import { SpecialtyResponseDto } from '../../../domain/dtos/specialty/response/specialtyResponse.dto';
+import { SpecialtyRequestDto } from '../../../domain/entities/specialty/dto/request/specialtyRequest.dto';
+import { SpecialtyResponseDto } from '../../../domain/entities/specialty/dto/response/specialtyResponse.dto';
 
 @ApiTags('Specialty')
 @Controller('specialty')

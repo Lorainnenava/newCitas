@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DoctorRepository } from '../../../infrastructure/repository/doctor/doctor.repository';
 import { IDoctorFindOneService } from '../../../domain/interfaces/service/doctor/findOne/IDoctorFindOneService';
-import { DoctorResponseDto } from '../../../domain/dtos/doctor/response/doctorResponse.dto';
+import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 
 @Injectable()
 export class DoctorFindOneService implements IDoctorFindOneService {
@@ -14,7 +14,9 @@ export class DoctorFindOneService implements IDoctorFindOneService {
    */
   async findOne(documentNumber: number): Promise<DoctorResponseDto> {
     try {
-      const findDoctor = await this.doctorRepository.findOne(documentNumber);
+      const findDoctor = await this.doctorRepository.findOne({
+        'documentInfo.documentNumber': Number(documentNumber),
+      });
       if (!findDoctor)
         throw new NotFoundException('This doctor does not exist');
       return findDoctor;

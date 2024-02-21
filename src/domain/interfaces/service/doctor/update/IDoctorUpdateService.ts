@@ -1,11 +1,11 @@
-import { DoctorRequestDto } from '../../../../dtos/doctor/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../../dtos/doctor/response/doctorResponse.dto';
+import { DoctorRequestDto } from '../../../../entities/doctor/dto/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../../entities/doctor/dto/response/doctorResponse.dto';
 
 export interface IDoctorUpdateService {
   /**
    * update doctor
-   * @param request
    * @param _id
+   * @param request
    */
-  update(request: DoctorRequestDto): Promise<DoctorResponseDto>;
+  update(_id: string, request: DoctorRequestDto): Promise<DoctorResponseDto>;
 }

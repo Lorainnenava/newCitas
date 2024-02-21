@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DoctorRepository } from '../../../infrastructure/repository/doctor/doctor.repository';
 import { IDoctorDeleteService } from '../../../domain/interfaces/service/doctor/delete/IDoctorDeleteService';
-import { DoctorResponseDto } from '../../../domain/dtos/doctor/response/doctorResponse.dto';
+import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 
 @Injectable()
 export class DoctorDeleteService implements IDoctorDeleteService {
@@ -14,7 +14,8 @@ export class DoctorDeleteService implements IDoctorDeleteService {
    */
   async delete(_id: string): Promise<DoctorResponseDto> {
     try {
-      return await this.doctorRepository.delete(_id);
+      const deleteDoctor = await this.doctorRepository.delete({ _id });
+      return deleteDoctor;
     } catch (error) {
       throw new Error(error);
     }

@@ -1,4 +1,4 @@
-import { RolResponseDto } from '../../../../dtos/rol/response/rolResponse.dto';
+import { RolResponseDto } from '../../../../entities/rol/dto/response/rolResponse.dto';
 
 export interface IRolesGetAllService {
   /**

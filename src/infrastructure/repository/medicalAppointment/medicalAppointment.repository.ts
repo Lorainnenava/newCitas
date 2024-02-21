@@ -1,11 +1,11 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RequestUser } from '../../../utils/types';
 import { MedicalAppointment } from '../../../domain/entities/medicalAppointment/medicalAppointment.entity';
 import { IMedicalAppointmentRepository } from '../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
-import { MedicalAppointmentRequestDto } from '../../../domain/dtos/medicalAppointment/request/medicalAppointment/medicalAppointmentRequest.dto';
-import { MedicalAppointmentResponseDto } from '../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentRequestDto } from '../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentResponseDto } from '../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @Injectable()
 export class MedicalAppointmentRepository
@@ -17,9 +17,9 @@ export class MedicalAppointmentRepository
   ) {}
 
   /**
-   * create medicalAppointmentModel
-   * @param request
-   * @returns
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(
     request: MedicalAppointmentRequestDto,
@@ -32,97 +32,48 @@ export class MedicalAppointmentRepository
   }
 
   /**
-   * getAll medicalAppointmentModels
-   * @returns
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  async getAll(): Promise<MedicalAppointmentResponseDto[]> {
-    try {
-      return this.medicalAppointmentModel.find();
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  /**
-   * findOne medicalAppointmentModel
-   * @param user
-   * @returns
-   */
-  async getAllById(
-    user: RequestUser,
+  async getAll(
+    options?: FilterQuery<RequestUser | MedicalAppointmentRequestDto>,
   ): Promise<MedicalAppointmentResponseDto[]> {
     try {
-      return this.medicalAppointmentModel.find(user);
+      return this.medicalAppointmentModel.find(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * findOne medicalAppointmentModel
-   * @param doctor
-   * @returns
-   */
-  async getAllByDoctor(
-    doctor: string,
-  ): Promise<MedicalAppointmentResponseDto[]> {
-    try {
-      return this.medicalAppointmentModel.find({
-        'doctor.documentInfo.documentNumber': doctor,
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  /**
-   * findById medicalAppointmentModel
-   * @param _id
-   * @returns
-   */
-  async findById(_id: string): Promise<MedicalAppointmentResponseDto> {
-    try {
-      return this.medicalAppointmentModel.findById(_id);
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  /**
-   * findOne medicalAppointmentModel
-   * @param _id
-   * @returns
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
   async findOne(
-    date: string,
-    timeAppointment: string,
-    doctor: string,
-    specialty: string,
+    options?: FilterQuery<MedicalAppointmentRequestDto>,
   ): Promise<MedicalAppointmentResponseDto> {
     try {
-      return this.medicalAppointmentModel.findOne({
-        state: true,
-        date: date,
-        'doctor.firstName': doctor,
-        timeAppointment: timeAppointment,
-        'doctor.specialty': specialty,
-      });
+      return this.medicalAppointmentModel.findOne(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * update medicalAppointmentModel
-   * @param request
-   * @returns
+   * Updates an existing entity in the database.
+   * @param request - The updated data for the entity.
+   * @param options - The criteria to identify the entity to be updated.
+   * @returns A promise that resolves to the updated entity.
    */
   async update(
-    request: MedicalAppointmentRequestDto,
+    option: FilterQuery<MedicalAppointmentRequestDto>,
+    request: UpdateQuery<MedicalAppointmentRequestDto>,
   ): Promise<MedicalAppointmentResponseDto> {
     try {
-      return await this.medicalAppointmentModel.findByIdAndUpdate(
-        request._id,
+      return await this.medicalAppointmentModel.findOneAndUpdate(
+        option,
         request,
         {
           new: true,
@@ -134,13 +85,15 @@ export class MedicalAppointmentRepository
   }
 
   /**
-   * delete invoice
-   * @param _id
-   * @returns
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  async delete(_id: string): Promise<MedicalAppointmentResponseDto> {
+  async delete(
+    options: FilterQuery<MedicalAppointmentRequestDto>,
+  ): Promise<MedicalAppointmentResponseDto> {
     try {
-      return await this.medicalAppointmentModel.findByIdAndDelete(_id);
+      return await this.medicalAppointmentModel.findByIdAndDelete(options);
     } catch (error) {
       throw new Error(error);
     }

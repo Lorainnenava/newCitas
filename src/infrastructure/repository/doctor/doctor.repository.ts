@@ -1,10 +1,10 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Doctor } from '../../../domain/entities/doctor/doctor.entity';
 import { IDoctorRepository } from '../../../domain/interfaces/repository/doctor/IDoctor.repository';
-import { DoctorRequestDto } from '../../../domain/dtos/doctor/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../domain/dtos/doctor/response/doctorResponse.dto';
+import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
+import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
 
 @Injectable()
 export class DoctorRepository implements IDoctorRepository {
@@ -13,9 +13,9 @@ export class DoctorRepository implements IDoctorRepository {
   ) {}
 
   /**
-   * create doctor
-   * @param request
-   * @returns
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(request: DoctorRequestDto): Promise<DoctorResponseDto> {
     try {
@@ -26,27 +26,30 @@ export class DoctorRepository implements IDoctorRepository {
   }
 
   /**
-   * getAll Doctors
-   * @returns
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  async getAll(): Promise<DoctorResponseDto[]> {
+  async getAll(
+    options?: FilterQuery<DoctorRequestDto>,
+  ): Promise<DoctorResponseDto[]> {
     try {
-      return this.doctorModel.find();
+      return this.doctorModel.find(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * findOne doctor
-   * @param documentNumber
-   * @returns
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  async findOne(documentNumber: number): Promise<DoctorResponseDto> {
+  async findOne(
+    options?: FilterQuery<DoctorRequestDto>,
+  ): Promise<DoctorResponseDto> {
     try {
-      const doctor = await this.doctorModel.findOne({
-        'documentInfo.documentNumber': Number(documentNumber),
-      });
+      const doctor = await this.doctorModel.findOne(options);
       return doctor;
     } catch (error) {
       throw new Error(error);
@@ -54,13 +57,17 @@ export class DoctorRepository implements IDoctorRepository {
   }
 
   /**
-   * update doctor
-   * @param request
-   * @returns
+   * Updates an existing entity in the database.
+   * @param options - The criteria to identify the entity to be updated.
+   * @param request - The updated data for the entity.
+   * @returns A promise that resolves to the updated entity.
    */
-  async update(request: DoctorRequestDto): Promise<DoctorResponseDto> {
+  async update(
+    option: FilterQuery<DoctorRequestDto>,
+    request: UpdateQuery<DoctorRequestDto>,
+  ): Promise<DoctorResponseDto> {
     try {
-      return await this.doctorModel.findByIdAndUpdate(request._id, request, {
+      return await this.doctorModel.findByIdAndUpdate(option, request, {
         new: true,
       });
     } catch (error) {
@@ -69,13 +76,15 @@ export class DoctorRepository implements IDoctorRepository {
   }
 
   /**
-   * delete doctor
-   * @param _id
-   * @returns
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  async delete(_id: string): Promise<DoctorResponseDto> {
+  async delete(
+    options: FilterQuery<DoctorRequestDto>,
+  ): Promise<DoctorResponseDto> {
     try {
-      return await this.doctorModel.findByIdAndDelete(_id);
+      return await this.doctorModel.findByIdAndDelete(options);
     } catch (error) {
       throw new Error(error);
     }

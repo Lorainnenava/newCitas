@@ -1,7 +1,7 @@
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { MedicalReportRepository } from '../../../infrastructure/repository/medicalReport/medicalReport.repository';
 import { IMedicalReportFindByIdService } from '../../../domain/interfaces/service/medicalReport/findById/IMedicalReportFindByIdService';
-import { MedicalReportResponseDto } from '../../../domain/dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
+import { MedicalReportResponseDto } from '../../../domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
 
 @Injectable()
 export class MedicalReportFindByIdService
@@ -16,7 +16,7 @@ export class MedicalReportFindByIdService
    * @param _id
    * @returns
    */
-  async findById(@Param('_id') _id: string): Promise<MedicalReportResponseDto> {
+  async findById(_id: string): Promise<MedicalReportResponseDto> {
     try {
       return await this.medicalReportRepository.findById(_id);
     } catch (error) {

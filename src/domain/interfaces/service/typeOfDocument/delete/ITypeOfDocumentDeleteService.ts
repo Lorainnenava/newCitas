@@ -1,4 +1,4 @@
-import { TypeOfDocumentResponseDto } from '../../../../dtos/typeOfDocument/response/typeOfDocumentResponsedto';
+import { TypeOfDocumentResponseDto } from '../../../../entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
 
 export interface ITypeOfDocumentDeleteService {
   /**

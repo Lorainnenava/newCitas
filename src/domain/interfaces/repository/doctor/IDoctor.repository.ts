@@ -1,34 +1,44 @@
-import { DoctorRequestDto } from '../../../dtos/doctor/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../dtos/doctor/response/doctorResponse.dto';
+import { FilterQuery, UpdateQuery } from 'mongoose';
+import { DoctorRequestDto } from '../../../entities/doctor/dto/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../entities/doctor/dto/response/doctorResponse.dto';
 
 export interface IDoctorRepository {
   /**
-   * create doctor
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   create(request: DoctorRequestDto): Promise<DoctorResponseDto>;
 
   /**
-   * getAll doctors
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  getAll(): Promise<DoctorResponseDto[]>;
+  getAll(options?: FilterQuery<DoctorRequestDto>): Promise<DoctorResponseDto[]>;
 
   /**
-   * findOne doctor
-   * @param documentNumber
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  findOne(documentNumber: number): Promise<DoctorResponseDto>;
+  findOne(options?: FilterQuery<DoctorRequestDto>): Promise<DoctorResponseDto>;
 
   /**
-   * update doctor
-   * @param request
-   * @param _id
+   * Updates an existing entity in the database.
+   * @param request - The updated data for the entity.
+   * @param options - The criteria to identify the entity to be updated.
+   * @returns A promise that resolves to the updated entity.
    */
-  update(request: DoctorRequestDto): Promise<DoctorResponseDto>;
+  update(
+    option: FilterQuery<DoctorRequestDto>,
+    request: UpdateQuery<DoctorRequestDto>,
+  ): Promise<DoctorResponseDto>;
 
   /**
-   * delete doctor
-   * @param _id
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  delete(_id: string): Promise<DoctorResponseDto>;
+  delete(options: FilterQuery<DoctorRequestDto>): Promise<DoctorResponseDto>;
 }

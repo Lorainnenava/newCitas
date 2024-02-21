@@ -16,8 +16,8 @@ import { DoctorDeleteService } from '../../../application/services/doctor/doctor
 import { DoctorsGetAllService } from '../../../application/services/doctor/doctorsGetAll.service';
 import { DoctorUpdateService } from '../../../application/services/doctor/doctorUpdate.service';
 import { DoctorFindOneService } from '../../../application/services/doctor/doctorFindOne.service';
-import { DoctorRequestDto } from '../../../domain/dtos/doctor/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../domain/dtos/doctor/response/doctorResponse.dto';
+import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 
 @ApiTags('Doctor')
 @Controller('doctor')
@@ -71,10 +71,13 @@ export class DoctorController {
    */
   @Public()
   // @ApiBearerAuth('token')
-  @Put('/update')
+  @Put('/update/:_id')
   // @Roles(Role.ADMIN)
-  async update(@Body() request: DoctorRequestDto): Promise<DoctorResponseDto> {
-    return this.DoctorUpdateService.update(request);
+  async update(
+    @Param('_id') _id: string,
+    @Body() request: DoctorRequestDto,
+  ): Promise<DoctorResponseDto> {
+    return this.DoctorUpdateService.update(_id, request);
   }
 
   /**

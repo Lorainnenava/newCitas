@@ -19,8 +19,8 @@ import { MedicalAppointmentUpdateService } from '../../../application/services/m
 import { MedicalAppointmentDeleteService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentDelete.service';
 import { MedicalAppointmentFindByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentFindById.service';
 import { MedicalAppointmentGetAllByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentGetAllById.service';
-import { MedicalAppointmentRequestDto } from '../../../domain/dtos/medicalAppointment/request/medicalAppointment/medicalAppointmentRequest.dto';
-import { MedicalAppointmentResponseDto } from '../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentRequestDto } from '../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentResponseDto } from '../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @ApiTags('MedicalAppointment')
 @Controller('medicalAppointment')
@@ -98,9 +98,10 @@ export class MedicalAppointmentController {
   @ApiBearerAuth('token')
   @Put('/update')
   async update(
+    @Param('_id') _id: string,
     @Body() request: MedicalAppointmentRequestDto,
   ): Promise<MedicalAppointmentResponseDto> {
-    return this.medicalAppointmentUpdateService.update(request);
+    return this.medicalAppointmentUpdateService.update(_id, request);
   }
 
   /**

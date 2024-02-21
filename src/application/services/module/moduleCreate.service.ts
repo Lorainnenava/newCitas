@@ -1,8 +1,8 @@
-import { Body, Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { ModuleRepository } from '../../../infrastructure/repository/module/module.repository';
 import { IModuleCreateService } from '../../../domain/interfaces/service/module/create/IModuleCreateService';
-import { ModuleRequestDto } from '../../../domain/dtos/module/request/module/moduleRequest.dto';
-import { ModuleResponseDto } from '../../../domain/dtos/module/response/module/moduleResponse.dto';
+import { ModuleRequestDto } from '../../../domain/entities/module/dto/request/module/moduleRequest.dto';
+import { ModuleResponseDto } from '../../../domain/entities/module/dto/response/module/moduleResponse.dto';
 
 @Injectable()
 export class ModuleCreateService implements IModuleCreateService {
@@ -12,7 +12,7 @@ export class ModuleCreateService implements IModuleCreateService {
    * create module
    * @param request
    */
-  async create(@Body() request: ModuleRequestDto): Promise<ModuleResponseDto> {
+  async create(request: ModuleRequestDto): Promise<ModuleResponseDto> {
     try {
       const searchModule = await this.moduleRepository.findOne(request.name);
       if (searchModule)

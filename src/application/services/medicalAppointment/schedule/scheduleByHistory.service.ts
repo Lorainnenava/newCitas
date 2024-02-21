@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../utils/types';
 import { DateService } from '../../../../utils/date/date.service';
-import { ScheduleRepository } from '../../../../infrastructure/repository/schedule/schedule.repository';
 import { IScheduleGetAppointmentHistoryService } from '../../../../domain/interfaces/service/medicalAppointment/schedule/getAppointmentHistory/IScheduleGetAppointmentHistoryService';
-import { MedicalAppointmentResponseDto } from '../../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentResponseDto } from '../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentRepository } from '../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
 
 @Injectable()
 export class ScheduleByAppointmentHistoryService
   implements IScheduleGetAppointmentHistoryService
 {
   constructor(
-    private readonly scheduleRepository: ScheduleRepository,
+    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
     private dateService: DateService,
   ) {}
 
@@ -22,9 +22,10 @@ export class ScheduleByAppointmentHistoryService
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
-    return await this.scheduleRepository.getAllHistory(
-      dateAppointment,
-      user.documentNumber,
-    );
+    return await this.medicalAppointmentRepository.getAll({
+      date: { $lt: dateAppointment },
+      cancelled: false,
+      'doctor.documentInfo.documentNumber': user.documentNumber,
+    });
   }
 }

@@ -1,5 +1,5 @@
-import { SpecialtyRequestDto } from '../../../dtos/specialty/request/specialtyRequest.dto';
-import { SpecialtyResponseDto } from '../../../dtos/specialty/response/specialtyResponse.dto';
+import { SpecialtyRequestDto } from '../../../entities/specialty/dto/request/specialtyRequest.dto';
+import { SpecialtyResponseDto } from '../../../entities/specialty/dto/response/specialtyResponse.dto';
 
 export interface ISpecialtyRepository {
   /**

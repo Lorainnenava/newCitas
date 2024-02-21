@@ -1,7 +1,7 @@
 import mongoose, { UpdateWriteOpResult } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
-import { UserRequestDto } from '../../../dtos/user/request/user/userRequest.dto';
-import { UserResponseDto } from '../../../dtos/user/response/user/userResponse.dto';
+import { UserRequestDto } from '../../../entities/user/dto/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../entities/user/dto/response/user/userResponse.dto';
 
 export interface IUserRepository {
   /**

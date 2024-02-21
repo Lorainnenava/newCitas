@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SpecialtyRepository } from '../../../infrastructure/repository/specialty/specialty.repository';
-import { SpecialtyResponseDto } from '../../../domain/dtos/specialty/response/specialtyResponse.dto';
 import { ISpecialtiesGetAllService } from '../../../domain/interfaces/service/specialty/getAll/ISpecialtiesGetAllService';
+import { SpecialtyResponseDto } from '../../../domain/entities/specialty/dto/response/specialtyResponse.dto';
 
 @Injectable()
 export class SpecialtiesGetAllService implements ISpecialtiesGetAllService {

@@ -1,4 +1,4 @@
-import { MedicalAppointmentResponseDto } from '../../../../../dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentResponseDto } from "../../../../../entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto";
 
 export interface IMedicalAppointmentsGetAllService {
   /**

@@ -1,5 +1,5 @@
-import { DoctorResponseDto } from '../../../../dtos/doctor/response/doctorResponse.dto';
-import { DoctorRequestDto } from '../../../../dtos/doctor/request/doctorRequest.dto';
+import { DoctorRequestDto } from '../../../../entities/doctor/dto/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../../entities/doctor/dto/response/doctorResponse.dto';
 
 export interface IDoctorCreateService {
   /**

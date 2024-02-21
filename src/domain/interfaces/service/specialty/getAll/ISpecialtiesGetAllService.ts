@@ -1,4 +1,4 @@
-import { SpecialtyResponseDto } from '../../../../dtos/specialty/response/specialtyResponse.dto';
+import { SpecialtyResponseDto } from '../../../../entities/specialty/dto/response/specialtyResponse.dto';
 
 export interface ISpecialtiesGetAllService {
   /**

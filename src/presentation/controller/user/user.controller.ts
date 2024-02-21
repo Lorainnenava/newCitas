@@ -13,8 +13,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserSignUpService } from '../../../application/services/user/userSignUp.service';
 import { UserGetAllService } from './../../../application/services/user/userGetAll.service';
 import { UserDeleteTokenService } from './../../../application/services/user/userDeleteToken.service';
-import { UserRequestDto } from '../../../domain/dtos/user/request/user/userRequest.dto';
-import { UserResponseDto } from '../../../domain/dtos/user/response/user/userResponse.dto';
+import { UserRequestDto } from '../../../domain/entities/user/dto/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../domain/entities/user/dto/response/user/userResponse.dto';
 
 @ApiTags('User')
 @Controller()

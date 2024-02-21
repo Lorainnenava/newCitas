@@ -1,4 +1,4 @@
-import { SessionResponseDto } from '../../../../dtos/session/response/sessionResponse.dto';
+import { SessionResponseDto } from '../../../../entities/session/dto/response/sessionResponse.dto';
 
 export interface ISessionFindOneService {
   /**

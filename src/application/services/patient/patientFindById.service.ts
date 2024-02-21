@@ -1,7 +1,7 @@
-import { Param, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PatientRepository } from '../../../infrastructure/repository/patient/patient.repository';
 import { IPatientFindByIdService } from '../../../domain/interfaces/service/patient/findById/IPatientFindByIdService';
-import { PatientResponseDto } from '../../../domain/dtos/patient/response/patient/patientResponse.dto';
+import { PatientResponseDto } from '../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
 
 @Injectable()
 export class PatientFindByIdService implements IPatientFindByIdService {
@@ -11,7 +11,7 @@ export class PatientFindByIdService implements IPatientFindByIdService {
    * findById
    * @param _id
    */
-  async findById(@Param('_id') _id: string): Promise<PatientResponseDto> {
+  async findById(_id: string): Promise<PatientResponseDto> {
     try {
       const searchPatient = await this.patientRepository.findById(_id);
       if (!searchPatient)

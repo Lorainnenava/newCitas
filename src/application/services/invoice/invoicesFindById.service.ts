@@ -1,7 +1,7 @@
-import { Injectable, Param, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InvoiceRepository } from '../../../infrastructure/repository/invoice/invoice.repository';
 import { IInvoiceFindByIdService } from '../../../domain/interfaces/service/invoice/findById/IInvoiceFindByIdService';
-import { InvoiceResponseDto } from '../../../domain/dtos/invoice/response/invoice/invoiceResponse.dto';
+import { InvoiceResponseDto } from '../../../domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
 
 @Injectable()
 export class InvoiceFindByIdService implements IInvoiceFindByIdService {
@@ -12,9 +12,9 @@ export class InvoiceFindByIdService implements IInvoiceFindByIdService {
    * @param _id
    * @returns
    */
-  async findById(@Param('_id') _id: string): Promise<InvoiceResponseDto> {
+  async findById(_id: string): Promise<InvoiceResponseDto> {
     try {
-      const searchInvoice = await this.invoiceRepository.findById(_id);
+      const searchInvoice = await this.invoiceRepository.findOne({ _id });
       if (searchInvoice === null) {
         throw new NotFoundException('This invoice does not exist');
       }

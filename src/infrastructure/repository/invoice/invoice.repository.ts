@@ -1,10 +1,10 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Invoice } from '../../../domain/entities/invoice/invoice.entity';
 import { IInvoiceRepository } from '../../../domain/interfaces/repository/invoice/IInvoice.repository';
-import { InvoiceRequestDto } from '../../../domain/dtos/invoice/request/invoice/invoiceRequest.dto';
-import { InvoiceResponseDto } from '../../../domain/dtos/invoice/response/invoice/invoiceResponse.dto';
+import { InvoiceRequestDto } from '../../../domain/entities/invoice/dto/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
 
 @Injectable()
 export class InvoiceRepository implements IInvoiceRepository {
@@ -13,9 +13,9 @@ export class InvoiceRepository implements IInvoiceRepository {
   ) {}
 
   /**
-   * create invoice
-   * @param request
-   * @returns
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(request: InvoiceRequestDto): Promise<InvoiceResponseDto> {
     try {
@@ -24,51 +24,47 @@ export class InvoiceRepository implements IInvoiceRepository {
   }
 
   /**
-   * getAll invoices
-   * @returns
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  async getAll(): Promise<InvoiceResponseDto[]> {
+  async getAll(
+    options?: FilterQuery<InvoiceRequestDto>,
+  ): Promise<InvoiceResponseDto[]> {
     try {
-      return this.invoiceModel.find();
+      return this.invoiceModel.find(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * findById invoice
-   * @param _id
-   * @returns
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  async findById(_id: string): Promise<InvoiceResponseDto> {
+  async findOne(
+    options?: FilterQuery<InvoiceRequestDto>,
+  ): Promise<InvoiceResponseDto> {
     try {
-      return this.invoiceModel.findById(_id);
+      return this.invoiceModel.findOne(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * findOne invoice
-   * @param code
-   * @returns
+   * Updates an existing entity in the database.
+   * @param options - The criteria to identify the entity to be updated.
+   * @param request - The updated data for the entity.
+   * @returns A promise that resolves to the updated entity.
    */
-  async findOne(code: number): Promise<InvoiceResponseDto> {
+  async update(
+    option: FilterQuery<InvoiceRequestDto>,
+    request: UpdateQuery<InvoiceRequestDto>,
+  ): Promise<InvoiceResponseDto> {
     try {
-      return this.invoiceModel.findOne({ code });
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  /**
-   * update invoice
-   * @param request
-   * @returns
-   */
-  async update(request: InvoiceRequestDto): Promise<InvoiceResponseDto> {
-    try {
-      return await this.invoiceModel.findByIdAndUpdate(request._id, request, {
+      return await this.invoiceModel.findByIdAndUpdate(option, request, {
         new: true,
       });
     } catch (error) {
@@ -77,13 +73,15 @@ export class InvoiceRepository implements IInvoiceRepository {
   }
 
   /**
-   * delete invoice
-   * @param _id
-   * @returns
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  async delete(_id: string): Promise<InvoiceResponseDto> {
+  async delete(
+    options?: FilterQuery<InvoiceRequestDto>,
+  ): Promise<InvoiceResponseDto> {
     try {
-      return await this.invoiceModel.findByIdAndDelete(_id);
+      return await this.invoiceModel.findByIdAndDelete(options);
     } catch (error) {
       throw new Error(error);
     }

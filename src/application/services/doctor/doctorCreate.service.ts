@@ -1,8 +1,8 @@
-import { Body, Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { DoctorRepository } from '../../../infrastructure/repository/doctor/doctor.repository';
 import { IDoctorCreateService } from '../../../domain/interfaces/service/doctor/create/IDoctorCreateService';
-import { DoctorRequestDto } from '../../../domain/dtos/doctor/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../domain/dtos/doctor/response/doctorResponse.dto';
+import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
+import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 
 @Injectable()
 export class DoctorCreateService implements IDoctorCreateService {
@@ -12,11 +12,13 @@ export class DoctorCreateService implements IDoctorCreateService {
    * create doctor
    * @param request
    */
-  async create(@Body() request: DoctorRequestDto): Promise<DoctorResponseDto> {
+  async create(request: DoctorRequestDto): Promise<DoctorResponseDto> {
     try {
-      const searchDoctor = await this.doctorRepository.findOne(
-        request.documentInfo.documentNumber,
-      );
+      const searchDoctor = await this.doctorRepository.findOne({
+        'documentInfo.documentNumber': Number(
+          request.documentInfo.documentNumber,
+        ),
+      });
       if (searchDoctor)
         throw new ConflictException('This doctor already exists');
       return await this.doctorRepository.create(request);

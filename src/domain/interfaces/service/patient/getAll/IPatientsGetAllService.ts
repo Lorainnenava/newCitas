@@ -1,4 +1,4 @@
-import { PatientResponseDto } from "../../../../dtos/patient/response/patient/patientResponse.dto";
+import { PatientResponseDto } from '../../../../entities/patient/dto/response/patient/patientResponse.dto';
 
 export interface IPatientsGetAllService {
   /**

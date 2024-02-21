@@ -1,5 +1,5 @@
 import { DateService } from '../../../../utils/date/date.service';
-import { Body, Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { DoctorFindOneService } from '../../doctor/doctorFindOne.service';
 import { PatientFindOneService } from '../../patient/patientFindOne.service';
 import { InvoiceCreateService } from '../../invoice/invoiceCreate.service';
@@ -10,10 +10,10 @@ import { ObjectEntriesService } from '../../../../utils/objectEntries/objectEntr
 import { ConfirmationMedicalAppointmentService } from '../../confirmationMedicalAppointment/confirmationMedicalAppointment.service';
 import { MedicalAppointmentRepository } from '../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
 import { IMedicalAppointmentCreateService } from '../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/create/IMedicalAppointmentCreateService';
-import { MedicalAppointmentRequestDto } from '../../../../domain/dtos/medicalAppointment/request/medicalAppointment/medicalAppointmentRequest.dto';
-import { MedicalAppointmentResponseDto } from '../../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { PatientInformationRequestDto } from '../../../../domain/dtos/invoice/request/patientInformation/patientInformationRequest.dto';
-import { DoctorRequestDto } from '../../../../domain/dtos/doctor/request/doctorRequest.dto';
+import { MedicalAppointmentRequestDto } from '../../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentResponseDto } from '../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { PatientInformationRequestDto } from '../../../../domain/entities/invoice/dto/request/patientInformation/patientInformationRequest.dto';
+import { DoctorRequestDto } from '../../../../domain/entities/doctor/dto/request/doctorRequest.dto';
 
 @Injectable()
 export class MedicalAppointmentCreateService
@@ -38,7 +38,7 @@ export class MedicalAppointmentCreateService
    * @param user
    */
   async create(
-    @Body() request: MedicalAppointmentRequestDto,
+    request: MedicalAppointmentRequestDto,
   ): Promise<MedicalAppointmentResponseDto> {
     try {
       // search doctor
@@ -48,12 +48,13 @@ export class MedicalAppointmentCreateService
 
       // verify if the medicalAppointment exists
       const existingAppointment =
-        await this.medicalAppointmentRepository.findOne(
-          request.date,
-          searchDoctor.firstName,
-          request.timeAppointment,
-          searchDoctor.specialty,
-        );
+        await this.medicalAppointmentRepository.findOne({
+          date: request.date,
+          'doctor.documentInfo.documentNumber':
+            searchDoctor.documentInfo.documentNumber,
+          timeAppointment: request.timeAppointment,
+          'doctor.specialty': searchDoctor.specialty,
+        });
 
       if (existingAppointment)
         throw new ConflictException('This medicalAppointment already exists');

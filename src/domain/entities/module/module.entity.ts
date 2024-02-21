@@ -1,6 +1,6 @@
 import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { SubModulesRequestDto } from '../../dtos/module/request/subModules/subModulesRequest.dto';
+import { SubModulesRequestDto } from './dto/request/subModules/subModulesRequest.dto';
 
 export type moduleDocument = HydratedDocument<Modules>;
 

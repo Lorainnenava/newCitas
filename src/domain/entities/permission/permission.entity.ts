@@ -1,5 +1,6 @@
 import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Modules } from '../module/module.entity';
 
 export type permissionsDocument = HydratedDocument<Permission>;
 
@@ -15,16 +16,10 @@ export class Permission {
   role: string;
 
   /**
-   * module
+   * modules
    */
-  @Prop({ type: String })
-  module: string;
-
-  /**
-   * subModule
-   */
-  @Prop({ type: String })
-  subModule: string;
+  @Prop({ type: Modules })
+  modules: Modules;
 }
 
 export const PermissionSchema = SchemaFactory.createForClass(Permission);

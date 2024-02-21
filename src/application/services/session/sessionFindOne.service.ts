@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SessionRepository } from '../../../infrastructure/repository/session/session.repository';
 import { ISessionFindOneService } from '../../../domain/interfaces/service/session/findOne/ISessionFindOneService';
-import { SessionResponseDto } from '../../../domain/dtos/session/response/sessionResponse.dto';
+import { SessionResponseDto } from '../../../domain/entities/session/dto/response/sessionResponse.dto';
 
 @Injectable()
 export class SessionFindOneService implements ISessionFindOneService {

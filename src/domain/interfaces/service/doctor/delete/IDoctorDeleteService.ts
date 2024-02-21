@@ -1,4 +1,4 @@
-import { DoctorResponseDto } from '../../../../dtos/doctor/response/doctorResponse.dto';
+import { DoctorResponseDto } from '../../../../entities/doctor/dto/response/doctorResponse.dto';
 
 export interface IDoctorDeleteService {
   /**

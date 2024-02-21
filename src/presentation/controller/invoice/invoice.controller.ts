@@ -15,8 +15,8 @@ import { InvoiceDeleteService } from '../../../application/services/invoice/invo
 import { InvoicesGetAllService } from '../../../application/services/invoice/invoicesGetAll.service';
 import { InvoiceUpdateService } from '../../../application/services/invoice/invoiceUpdate.service';
 import { InvoiceFindByIdService } from '../../../application/services/invoice/invoicesFindById.service';
-import { InvoiceRequestDto } from '../../../domain/dtos/invoice/request/invoice/invoiceRequest.dto';
-import { InvoiceResponseDto } from '../../../domain/dtos/invoice/response/invoice/invoiceResponse.dto';
+import { InvoiceRequestDto } from '../../../domain/entities/invoice/dto/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
 
 @ApiTags('Invoice')
 @Controller('invoice')
@@ -73,9 +73,10 @@ export class InvoiceController {
   @ApiBearerAuth('token')
   @Put('/update')
   async update(
+    @Param('_id') _id: string,
     @Body() request: InvoiceRequestDto,
   ): Promise<InvoiceResponseDto> {
-    return this.invoiceUpdateService.update(request);
+    return this.invoiceUpdateService.update(_id, request);
   }
 
   /**

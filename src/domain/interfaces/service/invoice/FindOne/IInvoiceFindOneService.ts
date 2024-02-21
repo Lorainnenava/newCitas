@@ -1,4 +1,4 @@
-import { InvoiceResponseDto } from '../../../../dtos/invoice/response/invoice/invoiceResponse.dto';
+import { InvoiceResponseDto } from '../../../../entities/invoice/dto/response/invoice/invoiceResponse.dto';
 
 export interface IInvoiceFindOneService {
   /**

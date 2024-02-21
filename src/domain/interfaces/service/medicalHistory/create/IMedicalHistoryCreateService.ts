@@ -1,5 +1,5 @@
-import { MedicalHistoryRequestDto } from '../../../../dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
-import { MedicalHistoryResponseDto } from '../../../../dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
+import { MedicalHistoryRequestDto } from '../../../../entities/medicalHistory/dto/request/medicalHistory/medicalHistoryRequest.dto';
+import { MedicalHistoryResponseDto } from '../../../../entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
 
 /**
  * IMedicalHistoryCreateService

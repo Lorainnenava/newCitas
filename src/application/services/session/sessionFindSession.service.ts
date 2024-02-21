@@ -1,7 +1,7 @@
 import { NotFoundException, Injectable } from '@nestjs/common';
 import { SessionRepository } from '../../../infrastructure/repository/session/session.repository';
 import { ISessionFindSessionService } from '../../../domain/interfaces/service/session/findSession/ISessionfindSessionService';
-import { SessionResponseDto } from '../../../domain/dtos/session/response/sessionResponse.dto';
+import { SessionResponseDto } from '../../../domain/entities/session/dto/response/sessionResponse.dto';
 
 @Injectable()
 export class SessionFindSessionService implements ISessionFindSessionService {

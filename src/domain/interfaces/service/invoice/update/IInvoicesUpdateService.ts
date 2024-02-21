@@ -1,10 +1,10 @@
-import { InvoiceRequestDto } from '../../../../dtos/invoice/request/invoice/invoiceRequest.dto';
-import { InvoiceResponseDto } from '../../../../dtos/invoice/response/invoice/invoiceResponse.dto';
+import { InvoiceRequestDto } from '../../../../entities/invoice/dto/request/invoice/invoiceRequest.dto';
+import { InvoiceResponseDto } from '../../../../entities/invoice/dto/response/invoice/invoiceResponse.dto';
 
 export interface IInvoiceUpdateService {
   /**
    * update invoice
    * @param request
    */
-  update(request: InvoiceRequestDto): Promise<InvoiceResponseDto>;
+  update(_id: string, request: InvoiceRequestDto): Promise<InvoiceResponseDto>;
 }

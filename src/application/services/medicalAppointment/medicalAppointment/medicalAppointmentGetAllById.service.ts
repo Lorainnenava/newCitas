@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../utils/types';
 import { MedicalAppointmentRepository } from '../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
 import { IMedicalAppointmentsGetAllByIdService } from '../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/getAllById/IMedicalAppointmentsGetAllByIdService';
-import { MedicalAppointmentResponseDto } from '../../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentResponseDto } from '../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @Injectable()
 export class MedicalAppointmentGetAllByIdService
@@ -21,7 +21,7 @@ export class MedicalAppointmentGetAllByIdService
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     try {
-      return await this.medicalAppointmentRepository.getAllById(user);
+      return await this.medicalAppointmentRepository.getAll(user);
     } catch (error) {
       throw error;
     }

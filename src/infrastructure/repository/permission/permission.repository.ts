@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Permission } from '../../../domain/entities/permission/permission.entity';
 import { IPermissionRepository } from '../../../domain/interfaces/repository/permission/IPermission.repository';
-import { PermissionRequestDto } from '../../../domain/dtos/permission/request/permissionRequest.dto';
-import { PermissionResponseDto } from '../../../domain/dtos/permission/response/permissionResponse.dto';
+import { PermissionRequestDto } from '../../../domain/entities/permission/dto/request/permissionRequest.dto';
+import { PermissionResponseDto } from '../../../domain/entities/permission/dto/response/permissionResponse.dto';
 
 @Injectable()
 export class PermissionRepository implements IPermissionRepository {

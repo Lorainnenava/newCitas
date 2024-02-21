@@ -1,12 +1,12 @@
-import { Body, Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { PasswordService } from '../../../utils/bcrypt/bcrypt.service';
 import { DoctorFindOneService } from '../doctor/doctorFindOne.service';
 import { RandomTokenService } from '../../../utils/randomToken/randomToken.service';
 import { UserRepository } from '../../../infrastructure/repository/user/user.repository';
 import { ConfirmationEmailService } from '../confirmationEmail/confirmationEmail.service';
 import { IUserSignUpService } from '../../../domain/interfaces/service/user/signUp/IUserService';
-import { UserRequestDto } from '../../../domain/dtos/user/request/user/userRequest.dto';
-import { UserResponseDto } from '../../../domain/dtos/user/response/user/userResponse.dto';
+import { UserRequestDto } from '../../../domain/entities/user/dto/request/user/userRequest.dto';
+import { UserResponseDto } from '../../../domain/entities/user/dto/response/user/userResponse.dto';
 
 @Injectable()
 export class UserSignUpService implements IUserSignUpService {
@@ -22,7 +22,7 @@ export class UserSignUpService implements IUserSignUpService {
    * SignUp
    * @param request
    */
-  async signUp(@Body() request: UserRequestDto): Promise<UserResponseDto> {
+  async signUp(request: UserRequestDto): Promise<UserResponseDto> {
     try {
       // verify if the user exists
       const exitedUser = await this.userRepository.findOne(request.email);

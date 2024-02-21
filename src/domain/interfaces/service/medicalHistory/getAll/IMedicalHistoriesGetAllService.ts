@@ -1,4 +1,4 @@
-import { MedicalHistoryResponseDto } from '../../../../dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
+import { MedicalHistoryResponseDto } from '../../../../entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
 
 export interface IMedicalHistoriesGetAllService {
   /**

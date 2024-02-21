@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../utils/types';
 import { DateService } from '../../../../utils/date/date.service';
-import { ScheduleRepository } from '../../../../infrastructure/repository/schedule/schedule.repository';
 import { IScheduleFilterByDayService } from '../../../../domain/interfaces/service/medicalAppointment/schedule/filterByDay/IScheduleFilterByDayService';
-import { MedicalAppointmentResponseDto } from '../../../../domain/dtos/medicalAppointment/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentResponseDto } from '../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentRepository } from '../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
 
 @Injectable()
 export class ScheduleByDayService implements IScheduleFilterByDayService {
   constructor(
-    private readonly scheduleRepository: ScheduleRepository,
+    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
     private dateService: DateService,
   ) {}
 
@@ -20,9 +20,10 @@ export class ScheduleByDayService implements IScheduleFilterByDayService {
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
-    return await this.scheduleRepository.getAllByDay(
-      dateAppointment,
-      user.documentNumber,
-    );
+    return await this.medicalAppointmentRepository.getAll({
+      state: true,
+      date: dateAppointment,
+      'doctor.documentInfo.documentNumber': user.documentNumber,
+    });
   }
 }

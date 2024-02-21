@@ -1,4 +1,4 @@
-import { PermissionResponseDto } from '../../../../dtos/permission/response/permissionResponse.dto';
+import { PermissionResponseDto } from '../../../../entities/permission/dto/response/permissionResponse.dto';
 
 export interface IPermissionsGetAllByRoleService {
   /**

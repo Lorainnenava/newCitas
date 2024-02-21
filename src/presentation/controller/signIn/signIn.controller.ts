@@ -2,7 +2,7 @@ import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body } from '@nestjs/common';
 import { SignInService } from '../../../application/services/signIn/signIn.service';
-import { SignInRequestDto } from '../../../domain/dtos/signIn/request/signIn.dto';
+import { SignInRequestDto } from '../../../domain/entities/session/dto/request/signIn/signInRequest.dto';
 
 @ApiTags('SignIn')
 @Controller('/signIn')

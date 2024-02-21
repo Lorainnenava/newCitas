@@ -1,4 +1,4 @@
-import { ModuleResponseDto } from '../../../../dtos/module/response/module/moduleResponse.dto';
+import { ModuleResponseDto } from '../../../../entities/module/dto/response/module/moduleResponse.dto';
 
 export interface IModulesGetAllService {
   /**

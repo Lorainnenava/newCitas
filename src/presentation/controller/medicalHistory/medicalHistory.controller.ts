@@ -6,8 +6,8 @@ import { MedicalHistoryCreateService } from '../../../application/services/medic
 import { MedicalHistoryUpdateService } from './../../../application/services/medicalHistory/medicalHistoryUpdate.service';
 import { MedicalHistoriesGetAllService } from '../../../application/services/medicalHistory/medicalHistoriesGetAll.service';
 import { MedicalHistoryFindByIdService } from '../../../application/services/medicalHistory/medicalHistoryFindById.service';
-import { MedicalHistoryResponseDto } from '../../../domain/dtos/medicalHistory/response/medicalHistory/medicalHistoryResponse.dto';
-import { MedicalHistoryRequestDto } from '../../../domain/dtos/medicalHistory/request/medicalHistory/medicalHistoryRequest.dto';
+import { MedicalHistoryRequestDto } from '../../../domain/entities/medicalHistory/dto/request/medicalHistory/medicalHistoryRequest.dto';
+import { MedicalHistoryResponseDto } from '../../../domain/entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
 
 @ApiTags('MedicalHistory')
 @Controller('medicalHistory')

@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { MedicalReport } from '../../../domain/entities/medicalReport/medicalReport.entity';
 import { IMedicalReportRepository } from '../../../domain/interfaces/repository/medicalReport/IMedicalReport.repository';
-import { MedicalReportRequestDto } from '../../../domain/dtos/medicalReport/request/medicalReport/medicalReportRequest.dto';
-import { MedicalReportResponseDto } from '../../../domain/dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
+import { MedicalReportRequestDto } from '../../../domain/entities/medicalReport/dto/request/medicalReport/medicalReportRequest.dto';
+import { MedicalReportResponseDto } from '../../../domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
 
 @Injectable()
 export class MedicalReportRepository implements IMedicalReportRepository {

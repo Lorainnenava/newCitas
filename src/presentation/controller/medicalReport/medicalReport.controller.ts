@@ -5,8 +5,8 @@ import { Body, Controller, Param, Post } from '@nestjs/common';
 import { MedicalReportCreateService } from '../../../application/services/medicalReport/medicalReportCreate.service';
 import { MedicalReportsGetAllService } from './../../../application/services/medicalReport/medicalReportGetAll.service';
 import { MedicalReportFindByIdService } from '../../../application/services/medicalReport/medicalReportFindById.service';
-import { MedicalReportResponseDto } from '../../../domain/dtos/medicalReport/response/medicalReport/medicalReportResponse.dto';
-import { MedicalReportRequestDto } from '../../../domain/dtos/medicalReport/request/medicalReport/medicalReportRequest.dto';
+import { MedicalReportRequestDto } from '../../../domain/entities/medicalReport/dto/request/medicalReport/medicalReportRequest.dto';
+import { MedicalReportResponseDto } from '../../../domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
 
 @ApiTags('MedicalReport')
 @Controller('medicalReport')

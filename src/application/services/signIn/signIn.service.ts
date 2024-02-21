@@ -1,5 +1,4 @@
 import {
-  Body,
   Injectable,
   ConflictException,
   NotFoundException,
@@ -11,7 +10,7 @@ import { UserFindOneService } from '../user/userFindOne.service';
 import { SessionCreateService } from '../session/sessionCreate.service';
 import { SessionFindOneService } from '../session/sessionFindOne.service';
 import { ISignInService } from '../../../domain/interfaces/service/signIn/ISignInService';
-import { SignInRequestDto } from '../../../domain/dtos/signIn/request/signIn.dto';
+import { SignInRequestDto } from '../../../domain/entities/session/dto/request/signIn/signInRequest.dto';
 
 @Injectable()
 export class SignInService implements ISignInService {
@@ -28,7 +27,7 @@ export class SignInService implements ISignInService {
    * @param request
    * @returns
    */
-  async signIn(@Body() request: SignInRequestDto): Promise<object> {
+  async signIn(request: SignInRequestDto): Promise<object> {
     const searchUser = await this.userFindOneService.findOne(request.email);
 
     if (!searchUser) throw new NotFoundException('User not found');

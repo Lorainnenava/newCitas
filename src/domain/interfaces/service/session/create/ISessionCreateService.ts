@@ -1,5 +1,5 @@
-import { SessionRequestDto } from '../../../../dtos/session/request/sessionRequest.dto';
-import { SessionResponseDto } from '../../../../dtos/session/response/sessionResponse.dto';
+import { SessionRequestDto } from '../../../../entities/session/dto/request/session/sessionRequest.dto';
+import { SessionResponseDto } from '../../../../entities/session/dto/response/sessionResponse.dto';
 
 export interface ISessionCreateService {
   /**

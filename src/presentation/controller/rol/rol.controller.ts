@@ -4,8 +4,8 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { RolCreateService } from '../../../application/services/rol/rolCreate.service';
 import { RolesGetAllService } from '../../../application/services/rol/rolesGetAll.service';
 import { RolDeleteService } from '../../../application/services/rol/rolDelete.service';
-import { RolRequestDto } from '../../../domain/dtos/rol/request/rolRequest.dto';
-import { RolResponseDto } from '../../../domain/dtos/rol/response/rolResponse.dto';
+import { RolRequestDto } from '../../../domain/entities/rol/dto/request/rolRequest.dto';
+import { RolResponseDto } from '../../../domain/entities/rol/dto/response/rolResponse.dto';
 
 @ApiTags('Rol')
 @Controller('rol')

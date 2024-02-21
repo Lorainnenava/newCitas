@@ -4,8 +4,8 @@ import { Get, Post, Body, Param, Delete, Controller } from '@nestjs/common';
 import { TypeOfDocumentsGetAllService } from './../../../application/services/typeOfDocument/typeOfDocumentGetAll.service';
 import { TypeOfDocumentDeleteService } from './../../../application/services/typeOfDocument/typeOfDocumentDelete.service';
 import { TypeOfDocumentCreateService } from './../../../application/services/typeOfDocument/typeOfDocumentCreate.service';
-import { TypeOfDocumentResponseDto } from '../../../domain/dtos/typeOfDocument/response/typeOfDocumentResponsedto';
-import { TypeOfDocumentRequestDto } from '../../../domain/dtos/typeOfDocument/request/typeOfDocumentRequest.dto';
+import { TypeOfDocumentRequestDto } from '../../../domain/entities/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
+import { TypeOfDocumentResponseDto } from '../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
 
 @ApiTags('TypeOfDocument')
 @Controller('typeOfDocument')

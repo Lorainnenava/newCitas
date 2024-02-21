@@ -1,7 +1,7 @@
-import { Injectable, Param, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { TypeOfDocumentRepository } from '../../../infrastructure/repository/typeOfDocument/typeOfDocument.repository';
 import { ITypeOfDocumentDeleteService } from '../../../domain/interfaces/service/typeOfDocument/delete/ITypeOfDocumentDeleteService';
-import { TypeOfDocumentResponseDto } from '../../../domain/dtos/typeOfDocument/response/typeOfDocumentResponsedto';
+import { TypeOfDocumentResponseDto } from '../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
 
 @Injectable()
 export class TypeOfDocumentDeleteService
@@ -16,7 +16,7 @@ export class TypeOfDocumentDeleteService
    * @param _id
    * @returns
    */
-  async delete(@Param('_id') _id: string): Promise<TypeOfDocumentResponseDto> {
+  async delete(_id: string): Promise<TypeOfDocumentResponseDto> {
     try {
       const deleteTypeOfDocument =
         await this.typeOfDocumentRepository.delete(_id);

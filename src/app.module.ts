@@ -12,7 +12,6 @@ import { PatientModule } from './presentation/module/patient/patient.module';
 import { ModuleModule } from './presentation/module/module/module.module';
 import { SessionModule } from './presentation/module/session/session.module';
 import { InvoiceModule } from './presentation/module/invoice/invoice.module';
-import { ScheduleModule } from './presentation/module/schedule/schedule.module';
 import { SpecialtyModule } from './presentation/module/specialty/specialty.module';
 import { PermissionModule } from './presentation/module/permission/permission.module';
 import { WelcomeEmailModule } from './presentation/module/welcomeEmail/welcomeEmail.module';
@@ -41,7 +40,6 @@ import { ConfirmationMedicalAppointmentModule } from './presentation/module/conf
     MedicalAppointmentModule,
     MedicalHistoryModule,
     MedicalReportModule,
-    ScheduleModule,
     RolModule,
     ModuleModule,
     WelcomeEmailModule,

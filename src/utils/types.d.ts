@@ -37,3 +37,14 @@ export type ConfirmationMedicalAppointmentRequestDtoRequestDto = {
   date: string;
   specialty: string;
 };
+
+/**
+ * Acciones
+ */
+export enum Action {
+  Manage = 'manage', // permiso para todas las acciones
+  Create = 'create',
+  Read = 'read',
+  Update = 'update',
+  Delete = 'delete',
+}

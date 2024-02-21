@@ -16,8 +16,8 @@ import { PatientUpdateService } from '../../../application/services/patient/pati
 import { PatientsGetAllService } from '../../../application/services/patient/patientsGetAll.service';
 import { PatientCreateService } from '../../../application/services/patient/patientCreate.service';
 import { PatientFindByIdService } from '../../../application/services/patient/patientFindById.service';
-import { PatientResponseDto } from '../../../domain/dtos/patient/response/patient/patientResponse.dto';
-import { PatientRequestDto } from '../../../domain/dtos/patient/request/patient/patientRequest.dto';
+import { PatientRequestDto } from '../../../domain/entities/patient/dto/request/patient/patientRequest.dto';
+import { PatientResponseDto } from '../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
 
 @ApiTags('Patient')
 @Controller('patient')

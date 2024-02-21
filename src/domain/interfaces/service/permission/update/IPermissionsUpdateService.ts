@@ -1,5 +1,5 @@
-import { PermissionRequestDto } from '../../../../dtos/permission/request/permissionRequest.dto';
-import { PermissionResponseDto } from '../../../../dtos/permission/response/permissionResponse.dto';
+import { PermissionRequestDto } from '../../../../entities/permission/dto/request/permissionRequest.dto';
+import { PermissionResponseDto } from '../../../../entities/permission/dto/response/permissionResponse.dto';
 
 export interface IPermissionsUpdateService {
   /**
