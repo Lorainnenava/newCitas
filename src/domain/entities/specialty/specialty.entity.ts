@@ -15,4 +15,4 @@ export class Specialty {
   name: string;
 }
 
-export const specialtySchema = SchemaFactory.createForClass(Specialty);
+export const SpecialtySchema = SchemaFactory.createForClass(Specialty);

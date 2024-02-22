@@ -1,21 +1,30 @@
+import { FilterQuery } from 'mongoose';
 import { SpecialtyRequestDto } from '../../../entities/specialty/dto/request/specialtyRequest.dto';
 import { SpecialtyResponseDto } from '../../../entities/specialty/dto/response/specialtyResponse.dto';
 
 export interface ISpecialtyRepository {
   /**
-   * Create specialty
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   create(request: SpecialtyRequestDto): Promise<SpecialtyResponseDto>;
 
   /**
-   * getAll specialties
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  getAll(): Promise<SpecialtyResponseDto[]>;
+  getAll(
+    options?: FilterQuery<SpecialtyRequestDto>,
+  ): Promise<SpecialtyResponseDto[]>;
 
   /**
-   * Delete specialty
-   * @param _id
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  delete(_id: string): Promise<SpecialtyResponseDto>;
+  delete(
+    options: FilterQuery<SpecialtyRequestDto>,
+  ): Promise<SpecialtyResponseDto>;
 }

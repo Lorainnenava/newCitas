@@ -1,37 +1,36 @@
-import mongoose, { UpdateWriteOpResult } from 'mongoose';
-import { NotFoundException } from '@nestjs/common';
+import { FilterQuery, UpdateQuery } from 'mongoose';
 import { UserRequestDto } from '../../../entities/user/dto/request/user/userRequest.dto';
 import { UserResponseDto } from '../../../entities/user/dto/response/user/userResponse.dto';
 
 export interface IUserRepository {
   /**
-   * signUp
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
-  signUp(request: UserRequestDto): Promise<UserResponseDto>;
+  create(request: UserRequestDto): Promise<UserResponseDto>;
 
   /**
-   * findOne
-   * @param email
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  findOne(email: string): Promise<UserResponseDto>;
+  findOne(options?: FilterQuery<UserRequestDto>): Promise<UserResponseDto>;
 
   /**
-   * findById
-   * @param _id
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  findById(_id: string): Promise<UserResponseDto>;
+  getAll(options?: FilterQuery<UserRequestDto>): Promise<UserResponseDto[]>;
 
   /**
-   * getAll users
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  getAll(): Promise<UserResponseDto[]>;
-
-  /**
-   * deleteToken of user
-   */
-  deleteToken(
-    data: UserRequestDto,
-    _id: mongoose.Types.ObjectId,
-  ): Promise<NotFoundException | UpdateWriteOpResult>;
+  update(
+    option: FilterQuery<UserRequestDto>,
+    request: UpdateQuery<UserRequestDto>,
+  ): Promise<UserResponseDto>;
 }

@@ -1,21 +1,32 @@
+import { FilterQuery, UpdateQuery } from 'mongoose';
 import { PermissionRequestDto } from '../../../entities/permission/dto/request/permissionRequest.dto';
 import { PermissionResponseDto } from '../../../entities/permission/dto/response/permissionResponse.dto';
 
 export interface IPermissionRepository {
   /**
-   * create Permission
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   create(request: PermissionRequestDto): Promise<PermissionResponseDto[]>;
 
   /**
-   * getByRole Permissions
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  getByRole(role: string): Promise<PermissionResponseDto[]>;
+  getAll(
+    options?: FilterQuery<PermissionRequestDto>,
+  ): Promise<PermissionResponseDto[]>;
 
   /**
-   * update Permission
-   * @param _id
+   * Updates an existing entity in the database.
+   * @param request - The updated data for the entity.
+   * @param options - The criteria to identify the entity to be updated.
+   * @returns A promise that resolves to the updated entity.
    */
-  update(request: PermissionRequestDto): Promise<PermissionResponseDto[]>;
+  update(
+    option: FilterQuery<PermissionRequestDto>,
+    request: UpdateQuery<PermissionRequestDto>,
+  ): Promise<PermissionResponseDto[]>;
 }

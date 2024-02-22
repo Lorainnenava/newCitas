@@ -1,9 +1,8 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { RolCreateService } from '../../../application/services/rol/rolCreate.service';
-import { RolesGetAllService } from '../../../application/services/rol/rolesGetAll.service';
-import { RolDeleteService } from '../../../application/services/rol/rolDelete.service';
+import { RolCreateService } from '../../../application/services/rol/create/rolCreate.service';
+import { RolesGetAllService } from '../../../application/services/rol/getAll/rolesGetAll.service';
 import { RolRequestDto } from '../../../domain/entities/rol/dto/request/rolRequest.dto';
 import { RolResponseDto } from '../../../domain/entities/rol/dto/response/rolResponse.dto';
 
@@ -13,7 +12,6 @@ export class RolController {
   constructor(
     private readonly rolCreateService: RolCreateService,
     private readonly rolesGetAllService: RolesGetAllService,
-    private readonly rolDeleteService: RolDeleteService,
   ) {}
 
   /**
@@ -35,16 +33,5 @@ export class RolController {
   @Get('/getAll')
   async getAll(): Promise<RolResponseDto[]> {
     return this.rolesGetAllService.getAll();
-  }
-
-  /**
-   * delete roles
-   * @param _id
-   * @returns
-   */
-  @Public()
-  @Delete('/delete/:_id')
-  async delete(@Param('_id') _id: string): Promise<RolResponseDto> {
-    return this.rolDeleteService.delete(_id);
   }
 }

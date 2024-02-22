@@ -1,26 +1,33 @@
+import { FilterQuery } from 'mongoose';
 import { RolRequestDto } from '../../../entities/rol/dto/request/rolRequest.dto';
 import { RolResponseDto } from '../../../entities/rol/dto/response/rolResponse.dto';
 
 export interface IRolRepository {
   /**
-   * create rol
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   create(request: RolRequestDto): Promise<RolResponseDto>;
 
   /**
-   * findOne rol
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  findOne(name: string): Promise<RolResponseDto>;
+  getAll(options?: FilterQuery<RolRequestDto>): Promise<RolResponseDto[]>;
 
   /**
-   * getAll roles
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  getAll(): Promise<RolResponseDto[]>;
+  findOne(options?: FilterQuery<RolRequestDto>): Promise<RolResponseDto>;
 
   /**
-   * delete rol
-   * @param _id
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  delete(_id: string): Promise<RolResponseDto>;
+  delete(options: FilterQuery<RolRequestDto>): Promise<RolResponseDto>;
 }

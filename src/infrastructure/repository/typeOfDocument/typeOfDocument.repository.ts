@@ -1,6 +1,6 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { TypeOfDocument } from '../../../domain/entities/typeOfDocument/typeOfDocument.entity';
 import { ITypeOfDocumentRepository } from '../../../domain/interfaces/repository/typeOfDocument/ITypeOfDocument.repository';
 import { TypeOfDocumentRequestDto } from '../../../domain/entities/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
@@ -14,8 +14,9 @@ export class TypeOfDocumentRepository implements ITypeOfDocumentRepository {
   ) {}
 
   /**
-   * create
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(
     request: TypeOfDocumentRequestDto,
@@ -30,25 +31,30 @@ export class TypeOfDocumentRepository implements ITypeOfDocumentRepository {
   }
 
   /**
-   * getAll
-   * @returns
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  async getAll(): Promise<TypeOfDocumentResponseDto[]> {
+  async getAll(
+    options?: FilterQuery<TypeOfDocumentRequestDto>,
+  ): Promise<TypeOfDocumentResponseDto[]> {
     try {
-      return await this.typeOfDocumentModel.find();
+      return await this.typeOfDocumentModel.find(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * delete
-   * @param _id
-   * @returns
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  async delete(@Param('_id') _id: string): Promise<TypeOfDocumentResponseDto> {
+  async delete(
+    options: FilterQuery<TypeOfDocumentRequestDto>,
+  ): Promise<TypeOfDocumentResponseDto> {
     try {
-      return await this.typeOfDocumentModel.findByIdAndDelete({ _id });
+      return await this.typeOfDocumentModel.findByIdAndDelete(options);
     } catch (error) {
       throw new Error(error);
     }

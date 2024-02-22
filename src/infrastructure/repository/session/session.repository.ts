@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Body, Injectable } from '@nestjs/common';
 import { Session } from '../../../domain/entities/session/session.entity';
@@ -14,9 +14,9 @@ export class SessionRepository implements ISessionRepository {
   ) {}
 
   /**
-   * Create session
-   * @param request
-   * @returns
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(
     @Body() request: SessionRequestDto,
@@ -29,28 +29,30 @@ export class SessionRepository implements ISessionRepository {
   }
 
   /**
-   * Delete session
-   * @param token
-   * @returns
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  async delete(token: string): Promise<SessionResponseDto> {
+  async findOne(
+    options?: FilterQuery<SessionRequestDto>,
+  ): Promise<SessionResponseDto> {
     try {
-      return await this.sessionModel.findOneAndRemove({
-        token,
-      });
+      return await this.sessionModel.findOne(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * Search session
-   * @param email
-   * @returns
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  async findOne(email: string): Promise<SessionResponseDto> {
+  async delete(
+    options: FilterQuery<SessionRequestDto>,
+  ): Promise<SessionResponseDto> {
     try {
-      return await this.sessionModel.findOne({ email });
+      return await this.sessionModel.findOneAndRemove(options);
     } catch (error) {
       throw new Error(error);
     }

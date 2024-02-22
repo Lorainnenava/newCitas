@@ -2,10 +2,10 @@ import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
-import { MedicalHistoryCreateService } from '../../../application/services/medicalHistory/medicalHistoryCreate.service';
-import { MedicalHistoryUpdateService } from './../../../application/services/medicalHistory/medicalHistoryUpdate.service';
-import { MedicalHistoriesGetAllService } from '../../../application/services/medicalHistory/medicalHistoriesGetAll.service';
-import { MedicalHistoryFindByIdService } from '../../../application/services/medicalHistory/medicalHistoryFindById.service';
+import { MedicalHistoryCreateService } from '../../../application/services/medicalHistory/create/medicalHistoryCreate.service';
+import { MedicalHistoryUpdateService } from '../../../application/services/medicalHistory/update/medicalHistoryUpdate.service';
+import { MedicalHistoriesGetAllService } from '../../../application/services/medicalHistory/getAll/medicalHistoriesGetAll.service';
+import { MedicalHistoryFindByIdService } from '../../../application/services/medicalHistory/findById/medicalHistoryFindById.service';
 import { MedicalHistoryRequestDto } from '../../../domain/entities/medicalHistory/dto/request/medicalHistory/medicalHistoryRequest.dto';
 import { MedicalHistoryResponseDto } from '../../../domain/entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
 

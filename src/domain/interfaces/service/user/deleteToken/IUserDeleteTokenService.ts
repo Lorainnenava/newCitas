@@ -1,9 +1,8 @@
-import { UpdateWriteOpResult } from 'mongoose';
-import { NotFoundException } from '@nestjs/common';
+import { UserResponseDto } from '../../../../entities/user/dto/response/user/userResponse.dto';
 
 export interface IUserDeleteTokenService {
   /**
    * method deleteToken
    */
-  deleteToken(token: string): Promise<NotFoundException | UpdateWriteOpResult>;
+  deleteToken(token: string): Promise<UserResponseDto>;
 }

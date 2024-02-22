@@ -1,9 +1,8 @@
 import { Public } from '../../../utils';
 import { ApiTags } from '@nestjs/swagger';
-import { Get, Post, Body, Param, Delete, Controller } from '@nestjs/common';
-import { TypeOfDocumentsGetAllService } from './../../../application/services/typeOfDocument/typeOfDocumentGetAll.service';
-import { TypeOfDocumentDeleteService } from './../../../application/services/typeOfDocument/typeOfDocumentDelete.service';
-import { TypeOfDocumentCreateService } from './../../../application/services/typeOfDocument/typeOfDocumentCreate.service';
+import { Get, Post, Body, Controller } from '@nestjs/common';
+import { TypeOfDocumentsGetAllService } from '../../../application/services/typeOfDocument/getAll/typeOfDocumentGetAll.service';
+import { TypeOfDocumentCreateService } from '../../../application/services/typeOfDocument/create/typeOfDocumentCreate.service';
 import { TypeOfDocumentRequestDto } from '../../../domain/entities/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
 import { TypeOfDocumentResponseDto } from '../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
 
@@ -12,7 +11,6 @@ import { TypeOfDocumentResponseDto } from '../../../domain/entities/typeOfDocume
 export class TypeOfDocumentController {
   constructor(
     private readonly typeOfDocumentCreateService: TypeOfDocumentCreateService,
-    private readonly typeOfDocumentDeleteService: TypeOfDocumentDeleteService,
     private readonly typeOfDocumentsGetAllService: TypeOfDocumentsGetAllService,
   ) {}
 
@@ -37,16 +35,5 @@ export class TypeOfDocumentController {
   @Get('/getAll')
   async getAll(): Promise<TypeOfDocumentResponseDto[]> {
     return this.typeOfDocumentsGetAllService.getAll();
-  }
-
-  /**
-   * delete typeOfDocument
-   * @param _id
-   * @returns
-   */
-  @Public()
-  @Delete('/delete/:_id')
-  async delete(@Param('_id') _id: string): Promise<TypeOfDocumentResponseDto> {
-    return await this.typeOfDocumentDeleteService.delete(_id);
   }
 }

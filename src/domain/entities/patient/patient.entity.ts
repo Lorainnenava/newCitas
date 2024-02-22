@@ -95,4 +95,4 @@ export class Patient {
   state: boolean;
 }
 
-export const patientSchema = SchemaFactory.createForClass(Patient);
+export const PatientSchema = SchemaFactory.createForClass(Patient);

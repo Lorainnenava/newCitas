@@ -11,11 +11,11 @@ import {
   Controller,
 } from '@nestjs/common';
 import { Public } from '../../../utils';
-import { DoctorCreateService } from '../../../application/services/doctor/doctorCreate.service';
-import { DoctorDeleteService } from '../../../application/services/doctor/doctorDelete.service';
-import { DoctorsGetAllService } from '../../../application/services/doctor/doctorsGetAll.service';
-import { DoctorUpdateService } from '../../../application/services/doctor/doctorUpdate.service';
-import { DoctorFindOneService } from '../../../application/services/doctor/doctorFindOne.service';
+import { DoctorCreateService } from '../../../application/services/doctor/create/doctorCreate.service';
+import { DoctorDeleteService } from '../../../application/services/doctor/delete/doctorDelete.service';
+import { DoctorsGetAllService } from '../../../application/services/doctor/getAll/doctorsGetAll.service';
+import { DoctorUpdateService } from '../../../application/services/doctor/update/doctorUpdate.service';
+import { DoctorFindOneService } from '../../../application/services/doctor/findOne/doctorFindOne.service';
 import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
 import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 

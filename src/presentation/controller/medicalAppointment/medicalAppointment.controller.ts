@@ -13,14 +13,14 @@ import { RequestUser } from '../../../utils/types';
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { MedicalAppointmentCreateService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentCreate.service';
-import { MedicalAppointmentsGetAllService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentsGetAll.service';
-import { MedicalAppointmentUpdateService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentUpdate.service';
-import { MedicalAppointmentDeleteService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentDelete.service';
-import { MedicalAppointmentFindByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentFindById.service';
-import { MedicalAppointmentGetAllByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/medicalAppointmentGetAllById.service';
+import { MedicalAppointmentCreateService } from '../../../application/services/medicalAppointment/medicalAppointment/create/medicalAppointmentCreate.service';
+import { MedicalAppointmentUpdateService } from '../../../application/services/medicalAppointment/medicalAppointment/update/medicalAppointmentUpdate.service';
+import { MedicalAppointmentDeleteService } from '../../../application/services/medicalAppointment/medicalAppointment/delete/medicalAppointmentDelete.service';
 import { MedicalAppointmentRequestDto } from '../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentsGetAllService } from '../../../application/services/medicalAppointment/medicalAppointment/getAll/medicalAppointmentsGetAll.service';
+import { MedicalAppointmentFindByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/findById/medicalAppointmentFindById.service';
 import { MedicalAppointmentResponseDto } from '../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { MedicalAppointmentGetAllByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/getAllById/medicalAppointmentGetAllById.service';
 
 @ApiTags('MedicalAppointment')
 @Controller('medicalAppointment')

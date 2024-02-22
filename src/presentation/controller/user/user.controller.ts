@@ -1,18 +1,9 @@
-import {
-  Get,
-  Put,
-  Body,
-  Post,
-  Param,
-  Controller,
-  NotFoundException,
-} from '@nestjs/common';
+import { Get, Put, Body, Post, Param, Controller } from '@nestjs/common';
 import { Public } from '../../../utils';
-import { UpdateWriteOpResult } from 'mongoose';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { UserSignUpService } from '../../../application/services/user/userSignUp.service';
-import { UserGetAllService } from './../../../application/services/user/userGetAll.service';
-import { UserDeleteTokenService } from './../../../application/services/user/userDeleteToken.service';
+import { UserCreateService } from '../../../application/services/user/create/userCreate.service';
+import { UserGetAllService } from '../../../application/services/user/getAll/userGetAll.service';
+import { UserDeleteTokenService } from '../../../application/services/user/deleteToken/userDeleteToken.service';
 import { UserRequestDto } from '../../../domain/entities/user/dto/request/user/userRequest.dto';
 import { UserResponseDto } from '../../../domain/entities/user/dto/response/user/userResponse.dto';
 
@@ -20,20 +11,20 @@ import { UserResponseDto } from '../../../domain/entities/user/dto/response/user
 @Controller()
 export class UserController {
   constructor(
-    private readonly userSignUpService: UserSignUpService,
+    private readonly userCreateService: UserCreateService,
     private readonly userGetAllService: UserGetAllService,
     private readonly userDeleteTokenService: UserDeleteTokenService,
   ) {}
 
   /**
-   * SignUp
+   * Create
    * @param userDto
    * @returns
    */
   @Public()
-  @Post('/signUp')
-  async signUp(@Body() userDto: UserRequestDto): Promise<UserResponseDto> {
-    return this.userSignUpService.signUp(userDto);
+  @Post('/Create')
+  async Create(@Body() userDto: UserRequestDto): Promise<UserResponseDto> {
+    return this.userCreateService.create(userDto);
   }
 
   /**
@@ -52,9 +43,7 @@ export class UserController {
    */
   @Public()
   @Put('user/activateCount/:token')
-  async deleteToken(
-    @Param('token') token: string,
-  ): Promise<NotFoundException | UpdateWriteOpResult> {
+  async deleteToken(@Param('token') token: string): Promise<UserResponseDto> {
     return await this.userDeleteTokenService.deleteToken(token);
   }
 }

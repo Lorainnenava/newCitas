@@ -1,39 +1,48 @@
+import { FilterQuery, UpdateQuery } from 'mongoose';
 import { PatientRequestDto } from '../../../entities/patient/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../../entities/patient/dto/response/patient/patientResponse.dto';
 
 export interface IPatientRepository {
   /**
-   * create patient
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   create(request: PatientRequestDto): Promise<PatientResponseDto>;
 
   /**
-   * findById patient
-   * @param _id
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  findById(_id: string): Promise<PatientResponseDto>;
+  getAll(
+    options?: FilterQuery<PatientRequestDto>,
+  ): Promise<PatientResponseDto[]>;
 
   /**
-   * findOne patient
-   * @param _id
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  findOne(documentNumber: number): Promise<PatientResponseDto>;
+  findOne(
+    options?: FilterQuery<PatientRequestDto>,
+  ): Promise<PatientResponseDto>;
 
   /**
-   * update patient
-   * @param request
+   * Updates an existing entity in the database.
+   * @param request - The updated data for the entity.
+   * @param options - The criteria to identify the entity to be updated.
+   * @returns A promise that resolves to the updated entity.
    */
-  update(request: PatientRequestDto): Promise<PatientResponseDto>;
+  update(
+    option: FilterQuery<PatientRequestDto>,
+    request: UpdateQuery<PatientRequestDto>,
+  ): Promise<PatientResponseDto>;
 
   /**
-   * delete patient
-   * @param _id
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  delete(_id: string): Promise<PatientResponseDto>;
-
-  /**
-   * getAll patients
-   */
-  getAll(): Promise<PatientResponseDto[]>;
+  delete(options: FilterQuery<PatientRequestDto>): Promise<PatientResponseDto>;
 }

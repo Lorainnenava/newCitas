@@ -1,27 +1,37 @@
+import { FilterQuery, UpdateQuery } from 'mongoose';
 import { ModuleRequestDto } from '../../../entities/module/dto/request/module/moduleRequest.dto';
 import { ModuleResponseDto } from '../../../entities/module/dto/response/module/moduleResponse.dto';
 
 export interface IModuleRepository {
   /**
-   * create module
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   create(request: ModuleRequestDto): Promise<ModuleResponseDto>;
 
   /**
-   * getAll modules
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  getAll(): Promise<ModuleResponseDto[]>;
+  getAll(options?: FilterQuery<ModuleRequestDto>): Promise<ModuleResponseDto[]>;
 
   /**
-   * findOne module
-   * @param name
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  findOne(name: string): Promise<ModuleResponseDto>;
+  findOne(options?: FilterQuery<ModuleRequestDto>): Promise<ModuleResponseDto>;
 
   /**
-   * update module
-   * @param request
+   * Updates an existing entity in the database.
+   * @param request - The updated data for the entity.
+   * @param options - The criteria to identify the entity to be updated.
+   * @returns A promise that resolves to the updated entity.
    */
-  update(request: ModuleRequestDto): Promise<ModuleResponseDto>;
+  update(
+    option: FilterQuery<ModuleRequestDto>,
+    request: UpdateQuery<ModuleRequestDto>,
+  ): Promise<ModuleResponseDto>;
 }

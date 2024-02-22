@@ -4,10 +4,10 @@ import { RequestUser } from '../../../utils/types';
 import { Role } from '../../../utils/roles/role.enum';
 import { Controller, Post, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ScheduleByDayService } from '../../../application/services/medicalAppointment/schedule/scheduleByDay.service';
-import { ScheduleByAppointmentHistoryService } from '../../../application/services/medicalAppointment/schedule/scheduleByHistory.service';
-import { ScheduleByFutureAppointmentsService } from './../../../application/services/medicalAppointment/schedule/scheduleByFuture.service';
-import { ScheduleByCancelledAppointmentsService } from '../../../application/services/medicalAppointment/schedule/scheduleCancelled.service';
+import { ScheduleByDayService } from '../../../application/services/medicalAppointment/schedule/getByDay/scheduleByDay.service';
+import { ScheduleByAppointmentHistoryService } from '../../../application/services/medicalAppointment/schedule/getHistory/scheduleByHistory.service';
+import { ScheduleByFutureAppointmentsService } from '../../../application/services/medicalAppointment/schedule/getByFuture/scheduleByFuture.service';
+import { ScheduleByCancelledAppointmentsService } from '../../../application/services/medicalAppointment/schedule/getByCancelled/scheduleCancelled.service';
 import { MedicalAppointmentResponseDto } from '../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @ApiTags('Schedule')

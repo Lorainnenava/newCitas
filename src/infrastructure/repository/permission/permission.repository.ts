@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Permission } from '../../../domain/entities/permission/permission.entity';
@@ -14,9 +14,9 @@ export class PermissionRepository implements IPermissionRepository {
   ) {}
 
   /**
-   * create permissions
-   * @param request
-   * @returns
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(
     request: PermissionRequestDto,
@@ -29,34 +29,34 @@ export class PermissionRepository implements IPermissionRepository {
   }
 
   /**
-   * getByRole permissions
-   * @param request
-   * @returns
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  async getByRole(role: string): Promise<PermissionResponseDto[]> {
+  async getAll(
+    options?: FilterQuery<PermissionRequestDto>,
+  ): Promise<PermissionResponseDto[]> {
     try {
-      return await this.permissionModel.find({ role });
+      return await this.permissionModel.find(options);
     } catch (error) {
       throw error;
     }
   }
 
   /**
-   * update permissions
-   * @param request
-   * @returns
+   * Updates an existing entity in the database.
+   * @param options - The criteria to identify the entity to be updated.
+   * @param request - The updated data for the entity.
+   * @returns A promise that resolves to the updated entity.
    */
   async update(
-    request: PermissionRequestDto,
+    option: FilterQuery<PermissionRequestDto>,
+    request: UpdateQuery<PermissionRequestDto>,
   ): Promise<PermissionResponseDto[]> {
     try {
-      return await this.permissionModel.findByIdAndUpdate(
-        request.role,
-        request,
-        {
-          new: true,
-        },
-      );
+      return await this.permissionModel.findByIdAndUpdate(option, request, {
+        new: true,
+      });
     } catch (error) {
       throw error;
     }

@@ -1,3 +1,4 @@
+import { FilterQuery } from 'mongoose';
 import { TypeOfDocumentRequestDto } from '../../../entities/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
 import { TypeOfDocumentResponseDto } from '../../../entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
 
@@ -9,13 +10,20 @@ export interface ITypeOfDocumentRepository {
   create(request: TypeOfDocumentRequestDto): Promise<TypeOfDocumentResponseDto>;
 
   /**
-   * getAll typeOfDocuments
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  getAll(): Promise<TypeOfDocumentResponseDto[]>;
+  getAll(
+    options?: FilterQuery<TypeOfDocumentRequestDto>,
+  ): Promise<TypeOfDocumentResponseDto[]>;
 
   /**
-   * Delete typeOfDocument
-   * @param _id
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  delete(_id: string): Promise<TypeOfDocumentResponseDto>;
+  delete(
+    options: FilterQuery<TypeOfDocumentRequestDto>,
+  ): Promise<TypeOfDocumentResponseDto>;
 }

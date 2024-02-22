@@ -11,11 +11,11 @@ import {
 import { Roles } from '../../../utils/roles/roles';
 import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PatientDeleteService } from '../../../application/services/patient/patientDelete.service';
-import { PatientUpdateService } from '../../../application/services/patient/patientUpdate.service';
-import { PatientsGetAllService } from '../../../application/services/patient/patientsGetAll.service';
-import { PatientCreateService } from '../../../application/services/patient/patientCreate.service';
-import { PatientFindByIdService } from '../../../application/services/patient/patientFindById.service';
+import { PatientDeleteService } from '../../../application/services/patient/delete/patientDelete.service';
+import { PatientUpdateService } from '../../../application/services/patient/update/patientUpdate.service';
+import { PatientsGetAllService } from '../../../application/services/patient/getAll/patientsGetAll.service';
+import { PatientCreateService } from '../../../application/services/patient/create/patientCreate.service';
+import { PatientFindByIdService } from '../../../application/services/patient/findById/patientFindById.service';
 import { PatientRequestDto } from '../../../domain/entities/patient/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
 

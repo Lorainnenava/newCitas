@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { MedicalHistory } from '../../../domain/entities/medicalHistory/medicalHistory.entity';
@@ -14,9 +14,9 @@ export class MedicalHistoryRepository implements IMedicalHistoryRepository {
   ) {}
 
   /**
-   * create
-   * @param request
-   * @returns
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(
     request: MedicalHistoryRequestDto,
@@ -29,46 +29,49 @@ export class MedicalHistoryRepository implements IMedicalHistoryRepository {
   }
 
   /**
-   * getAll
-   * @returns
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  async getAll(): Promise<MedicalHistoryResponseDto[]> {
+  async getAll(
+    options?: FilterQuery<MedicalHistoryRequestDto>,
+  ): Promise<MedicalHistoryResponseDto[]> {
     try {
-      return await this.medicalHistoryModel.find();
+      return await this.medicalHistoryModel.find(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * findById
-   * @param _id
-   * @returns
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  async findById(_id: string): Promise<MedicalHistoryResponseDto> {
-    try {
-      return await this.medicalHistoryModel.findById(_id);
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  /**
-   * update
-   * @param request
-   * @returns
-   */
-  async update(
-    request: MedicalHistoryRequestDto,
+  async findOne(
+    options?: FilterQuery<MedicalHistoryRequestDto>,
   ): Promise<MedicalHistoryResponseDto> {
     try {
-      return await this.medicalHistoryModel.findByIdAndUpdate(
-        request._id,
-        request,
-        {
-          new: true,
-        },
-      );
+      return await this.medicalHistoryModel.findById(options);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Updates an existing entity in the database.
+   * @param options - The criteria to identify the entity to be updated.
+   * @param request - The updated data for the entity.
+   * @returns A promise that resolves to the updated entity.
+   */
+  async update(
+    option: FilterQuery<MedicalHistoryRequestDto>,
+    request: UpdateQuery<MedicalHistoryRequestDto>,
+  ): Promise<MedicalHistoryResponseDto> {
+    try {
+      return await this.medicalHistoryModel.findByIdAndUpdate(option, request, {
+        new: true,
+      });
     } catch (error) {
       throw new Error(error);
     }

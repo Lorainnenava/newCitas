@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Rol } from '../../../domain/entities/rol/rol.entity';
@@ -11,8 +11,9 @@ export class RolRepository implements IRolRepository {
   constructor(@InjectModel(Rol.name) private readonly roleModel: Model<Rol>) {}
 
   /**
-   * create rol
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(request: RolRequestDto): Promise<RolResponseDto> {
     try {
@@ -23,37 +24,40 @@ export class RolRepository implements IRolRepository {
   }
 
   /**
-   * findOne rol
-   * @returns
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  async findOne(name: string): Promise<RolResponseDto> {
+  async findOne(options?: FilterQuery<RolRequestDto>): Promise<RolResponseDto> {
     try {
-      return await this.roleModel.findOne({ name });
+      return await this.roleModel.findOne(options);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  /**
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
+   */
+  async getAll(
+    options?: FilterQuery<RolRequestDto>,
+  ): Promise<RolResponseDto[]> {
+    try {
+      return await this.roleModel.find(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * getAll roles
-   * @returns
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  async getAll(): Promise<RolResponseDto[]> {
+  async delete(options: FilterQuery<RolRequestDto>): Promise<RolResponseDto> {
     try {
-      return await this.roleModel.find();
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  /**
-   * delete rol
-   * @param _id
-   * @returns
-   */
-  async delete(_id: string): Promise<RolResponseDto> {
-    try {
-      return await this.roleModel.findByIdAndDelete({ _id });
+      return await this.roleModel.findByIdAndDelete(options);
     } catch (error) {
       throw new Error(error);
     }

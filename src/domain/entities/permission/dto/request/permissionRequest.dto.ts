@@ -1,8 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ModuleRequestDto } from '../../../module/dto/request/module/moduleRequest.dto';
 
 export class PermissionRequestDto {
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  _id: string;
+
   @ApiProperty()
   @IsString()
   @IsNotEmpty()

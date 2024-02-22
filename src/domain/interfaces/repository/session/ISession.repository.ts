@@ -1,22 +1,28 @@
+import { FilterQuery } from 'mongoose';
 import { SessionRequestDto } from '../../../entities/session/dto/request/session/sessionRequest.dto';
 import { SessionResponseDto } from '../../../entities/session/dto/response/sessionResponse.dto';
 
 export interface ISessionRepository {
   /**
-   * create session
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   create(request: SessionRequestDto): Promise<SessionResponseDto>;
 
   /**
-   * delete session
-   * @param token
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  delete(token: string): Promise<SessionResponseDto>;
+  delete(options: FilterQuery<SessionRequestDto>): Promise<SessionResponseDto>;
 
   /**
-   * findOne session
-   * @param email
+   * Finds and retrieves a single entity from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to the found entity.
    */
-  findOne(email: string): Promise<SessionResponseDto>;
+  findOne(
+    options?: FilterQuery<SessionRequestDto>,
+  ): Promise<SessionResponseDto>;
 }

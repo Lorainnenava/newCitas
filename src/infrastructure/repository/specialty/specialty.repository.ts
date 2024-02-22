@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Specialty } from '../../../domain/entities/specialty/specialty.entity';
@@ -14,8 +14,9 @@ export class SpecialtyRepository implements ISpecialtyRepository {
   ) {}
 
   /**
-   * create specialty
-   * @param request
+   * Creates a new entity in the database.
+   * @param request - The data for the new entity.
+   * @returns A promise that resolves to the created entity.
    */
   async create(request: SpecialtyRequestDto): Promise<SpecialtyResponseDto> {
     try {
@@ -28,27 +29,30 @@ export class SpecialtyRepository implements ISpecialtyRepository {
   }
 
   /**
-   * getAll specialty
-   * @returns
+   * Retrieves all entities from the database.
+   * @param options - Optional filter query parameters.
+   * @returns A promise that resolves to an array of entities.
    */
-  async getAll(): Promise<SpecialtyResponseDto[]> {
+  async getAll(
+    options?: FilterQuery<SpecialtyRequestDto>,
+  ): Promise<SpecialtyResponseDto[]> {
     try {
-      return this.specialtyModel.find();
+      return this.specialtyModel.find(options);
     } catch (error) {
       throw new Error(error);
     }
   }
 
   /**
-   * delete specialty
-   * @param _id
-   * @returns
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
    */
-  async delete(_id: string): Promise<SpecialtyResponseDto> {
+  async delete(
+    options: FilterQuery<SpecialtyRequestDto>,
+  ): Promise<SpecialtyResponseDto> {
     try {
-      return await this.specialtyModel.findByIdAndDelete({
-        _id,
-      });
+      return await this.specialtyModel.findByIdAndDelete(options);
     } catch (error) {
       throw new Error(error);
     }
