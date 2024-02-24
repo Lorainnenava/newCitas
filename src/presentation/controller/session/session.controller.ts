@@ -1,18 +1,18 @@
 import { Request } from 'express';
+import { Public } from '../../../utils';
 import { RequestUser } from '../../../utils/types';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Req, Post, Body } from '@nestjs/common';
-import { SessionFindSessionService } from '../../../application/services/session/find/sessionFind.service';
-import { SessionResponseDto } from '../../../domain/entities/session/dto/response/sessionResponse.dto';
-import { Public } from '../../../utils';
-import { LoginRequestDto } from '../../../domain/entities/session/dto/request/login/loginRequest.dto';
 import { LoginService } from '../../../application/services/session/login/login.service';
+import { LoginRequestDto } from '../../../domain/entities/session/dto/request/login/loginRequest.dto';
+import { SessionResponseDto } from '../../../domain/entities/session/dto/response/sessionResponse.dto';
+import { SessionGetOneService } from '../../../application/services/session/getOne/sessionFind.service';
 
 @ApiTags('Session')
 @Controller('session')
 export class SessionController {
   constructor(
-    private readonly sessionFindSessionService: SessionFindSessionService,
+    private readonly sessionGetOne: SessionGetOneService,
     private readonly loginService: LoginService,
   ) {}
 
@@ -25,7 +25,7 @@ export class SessionController {
   @ApiBearerAuth('token')
   async findOne(@Req() request: Request): Promise<SessionResponseDto | object> {
     const user = request['user'] as RequestUser;
-    return await this.sessionFindSessionService.findSession(user?.email);
+    return await this.sessionGetOne.findOne(user?.email);
   }
 
   /**

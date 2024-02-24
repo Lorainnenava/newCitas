@@ -3,6 +3,7 @@ import {
   CanActivate,
   ExecutionContext,
   UnauthorizedException,
+  Inject,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
@@ -15,8 +16,9 @@ import { ISessionRepository } from '../../domain/interfaces/repository/session/I
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private jwtService: JwtService,
+    @Inject('SessionRepository')
     private _sessionRepository: ISessionRepository,
+    private jwtService: JwtService,
     private reflector: Reflector, // recover custom metadata
   ) {}
 

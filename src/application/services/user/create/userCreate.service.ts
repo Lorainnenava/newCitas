@@ -1,20 +1,22 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, Inject } from '@nestjs/common';
 import { PasswordService } from '../../../../utils/bcrypt/bcrypt.service';
-import { DoctorFindOneService } from '../../doctor/findOne/doctorFindOne.service';
 import { RandomTokenService } from '../../../../utils/randomToken/randomToken.service';
-import { UserRepository } from '../../../../infrastructure/repository/user/user.repository';
-import { ConfirmationEmailService } from '../../confirmationEmail/confirmationEmail.service';
+import { IUserRepository } from '../../../../domain/interfaces/repository/user/IUser.repository';
 import { UserRequestDto } from '../../../../domain/entities/user/dto/request/user/userRequest.dto';
-import { IUserCreateService } from '../../../../domain/interfaces/service/user/create/IUserService';
+import { ConfirmationEmailService } from '../../emails/confirmationEmail/confirmationEmail.service';
 import { UserResponseDto } from '../../../../domain/entities/user/dto/response/user/userResponse.dto';
+import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
+import { IUserCreateService } from '../../../../domain/interfaces/service/user/create/IUserCreateService';
 
 @Injectable()
 export class UserCreateService implements IUserCreateService {
   constructor(
-    private readonly userRepository: UserRepository,
+    @Inject('UserRepository')
+    private readonly _userRepository: IUserRepository,
+    @Inject('DoctorRepository')
+    private readonly _doctorRepository: IDoctorRepository,
     private readonly passwordService: PasswordService,
     private readonly randomTokenService: RandomTokenService,
-    private readonly doctorFindOneService: DoctorFindOneService,
     private readonly confirmationEmailService: ConfirmationEmailService,
   ) {}
 
@@ -25,21 +27,23 @@ export class UserCreateService implements IUserCreateService {
   async create(request: UserRequestDto): Promise<UserResponseDto> {
     try {
       // verify if the user exists
-      const exitedUser = await this.userRepository.findOne({
+      const exitedUser = await this._userRepository.findOne({
         $and: [{ email: request.email }, { state: true }],
       });
 
       if (exitedUser) throw new ConflictException('This user already exists');
 
       // verify is the user is a doctor
-      const isDoctor = (await this.doctorFindOneService.findOne(
-        request.documentInfo.documentNumber,
-      ))
+      const isDoctor = (await this._doctorRepository.findOne({
+        'documentInfo.documentNumber': Number(
+          request.documentInfo.documentNumber,
+        ),
+      }))
         ? 'DOCTOR'
         : 'PACIENTE';
 
       // create user
-      const createUser = await this.userRepository.create({
+      const createUser = await this._userRepository.create({
         ...request,
         password: await this.passwordService.encryptPassword(request.password),
         role: request.role ? request.role : isDoctor,

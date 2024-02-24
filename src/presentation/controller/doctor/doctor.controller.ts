@@ -25,9 +25,9 @@ export class DoctorController {
   constructor(
     private readonly doctorCreateService: DoctorCreateService,
     private readonly doctorDeleteService: DoctorDeleteService,
-    private readonly DoctorsGetAllService: DoctorsGetAllService,
-    private readonly DoctorUpdateService: DoctorUpdateService,
-    private readonly DoctorFindOneService: DoctorFindOneService,
+    private readonly doctorsGetAllService: DoctorsGetAllService,
+    private readonly doctorUpdateService: DoctorUpdateService,
+    private readonly doctorFindOneService: DoctorFindOneService,
   ) {}
 
   /**
@@ -50,7 +50,7 @@ export class DoctorController {
   @Get('/getAll')
   // @Roles(Role.ADMIN)
   async getAll(): Promise<DoctorResponseDto[]> {
-    return this.DoctorsGetAllService.getAll();
+    return this.doctorsGetAllService.getAll();
   }
 
   /**
@@ -62,7 +62,7 @@ export class DoctorController {
   async findOne(
     @Param('documentNumber') documentNumber: number,
   ): Promise<DoctorResponseDto> {
-    return this.DoctorFindOneService.findOne(documentNumber);
+    return this.doctorFindOneService.findOne(documentNumber);
   }
 
   /**
@@ -77,7 +77,7 @@ export class DoctorController {
     @Param('_id') _id: string,
     @Body() request: DoctorRequestDto,
   ): Promise<DoctorResponseDto> {
-    return this.DoctorUpdateService.update(_id, request);
+    return this.doctorUpdateService.update(_id, request);
   }
 
   /**

@@ -1,10 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
+import { DomainModule } from '../domain/entity.module';
 import { DependenciesInjectionInfrastructure } from './dependencies';
-import { EntityModule } from '../domain/entity.module';
 
+/**
+ * Module of infrastructure layer
+ */
 @Module({
-  imports: [EntityModule],
+  imports: [DomainModule],
   providers: [...DependenciesInjectionInfrastructure],
   exports: [...DependenciesInjectionInfrastructure],
 })
+@Global()
 export class InfrastructureModule {}

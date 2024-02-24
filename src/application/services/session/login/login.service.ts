@@ -3,6 +3,7 @@ import {
   ConflictException,
   NotFoundException,
   UnauthorizedException,
+  Inject,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PasswordService } from '../../../../utils/bcrypt/bcrypt.service';
@@ -14,10 +15,12 @@ import { ISessionRepository } from '../../../../domain/interfaces/repository/ses
 @Injectable()
 export class LoginService implements ILoginService {
   constructor(
+    @Inject('UserRepository')
+    private readonly _userRepository: IUserRepository,
+    @Inject('SessionRepository')
+    private readonly _sessionRepository: ISessionRepository,
     private readonly jwtService: JwtService,
     private readonly passwordService: PasswordService,
-    private readonly _userRepository: IUserRepository,
-    private readonly _sessionRepository: ISessionRepository,
   ) {}
 
   /**

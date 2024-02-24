@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InvoiceRepository } from '../../../../infrastructure/repository/invoice/invoice.repository';
+import { Inject, Injectable } from '@nestjs/common';
+import { IInvoiceRepository } from '../../../../domain/interfaces/repository/invoice/IInvoice.repository';
 import { InvoiceResponseDto } from '../../../../domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
 import { IInvoiceFindOneService } from '../../../../domain/interfaces/service/invoice/FindOne/IInvoiceFindOneService';
 
 @Injectable()
 export class InvoiceFindOneService implements IInvoiceFindOneService {
-  constructor(private readonly invoiceRepository: InvoiceRepository) {}
+  constructor(
+    @Inject('InvoiceRepository')
+    private readonly _invoiceRepository: IInvoiceRepository,
+  ) {}
 
   /**
    * findOne invoice
@@ -14,7 +17,7 @@ export class InvoiceFindOneService implements IInvoiceFindOneService {
    */
   async findOne(code: number): Promise<InvoiceResponseDto> {
     try {
-      return await this.invoiceRepository.findOne({ code: Number(code) });
+      return await this._invoiceRepository.findOne({ code: Number(code) });
     } catch (error) {
       throw error;
     }

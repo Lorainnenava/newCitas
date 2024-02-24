@@ -1,6 +1,6 @@
 import { TypeOfDocumentResponseDto } from '../../../../entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
 
-export interface ITypeOfDocumentGetAllService {
+export interface ITypeOfDocumentsGetAllService {
   /**
    * getAll users
    */

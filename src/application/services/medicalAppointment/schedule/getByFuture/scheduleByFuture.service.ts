@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../../utils/types';
 import { DateService } from '../../../../../utils/date/date.service';
-import { MedicalAppointmentRepository } from '../../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
 import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
 import { IScheduleGetFutureAppointmentsService } from '../../../../../domain/interfaces/service/medicalAppointment/schedule/getFutureAppointments/IScheduleGetFutureAppointmentsService';
 
 @Injectable()
@@ -10,7 +10,8 @@ export class ScheduleByFutureAppointmentsService
   implements IScheduleGetFutureAppointmentsService
 {
   constructor(
-    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
+    @Inject('MedicalAppointmentRepository')
+    private readonly _medicalAppointmentRepository: IMedicalAppointmentRepository,
     private dateService: DateService,
   ) {}
 
@@ -22,7 +23,7 @@ export class ScheduleByFutureAppointmentsService
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
-    return await this.medicalAppointmentRepository.getAll({
+    return await this._medicalAppointmentRepository.getAll({
       state: true,
       date: { $gt: dateAppointment },
       'doctor.documentInfo.documentNumber': user.documentNumber,

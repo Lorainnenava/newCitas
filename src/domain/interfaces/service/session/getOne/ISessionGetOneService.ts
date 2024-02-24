@@ -1,9 +1,9 @@
 import { SessionResponseDto } from '../../../../entities/session/dto/response/sessionResponse.dto';
 
-export interface ISessionFindSessionService {
+export interface ISessionGetOneService {
   /**
-   * method findSession
+   * method findOne
    * @param email
    */
-  findSession(email: string): Promise<SessionResponseDto>;
+  findOne(email: string): Promise<SessionResponseDto>;
 }

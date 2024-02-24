@@ -1,14 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { MedicalAppointmentRepository } from '../../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IMedicalAppointmentDeleteService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/delete/IMedicalAppointmentService';
+import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
+import { IMedicalAppointmentDeleteService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/delete/IDeleteMedicalAppointmentService';
 
 @Injectable()
 export class MedicalAppointmentDeleteService
   implements IMedicalAppointmentDeleteService
 {
   constructor(
-    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
+    @Inject('MedicalAppointmentRepository')
+    private readonly _medicalAppointmentRepository: IMedicalAppointmentRepository,
   ) {}
 
   /**
@@ -19,7 +20,7 @@ export class MedicalAppointmentDeleteService
   async delete(_id: string): Promise<MedicalAppointmentResponseDto> {
     try {
       const deleteMedicalAppointment =
-        await this.medicalAppointmentRepository.delete({ _id });
+        await this._medicalAppointmentRepository.delete({ _id });
       if (deleteMedicalAppointment === null)
         throw new NotFoundException('This medicalAppointment does not exist');
       return deleteMedicalAppointment.toObject();

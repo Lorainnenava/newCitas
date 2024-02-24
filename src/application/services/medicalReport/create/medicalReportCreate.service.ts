@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { MedicalReportRepository } from '../../../../infrastructure/repository/medicalReport/medicalReport.repository';
+import { Inject, Injectable } from '@nestjs/common';
+import { IMedicalReportRepository } from '../../../../domain/interfaces/repository/medicalReport/IMedicalReport.repository';
 import { IMedicalReportCreateService } from '../../../../domain/interfaces/service/medicalReport/create/IMedicalReportCreateService';
 import { MedicalReportRequestDto } from '../../../../domain/entities/medicalReport/dto/request/medicalReport/medicalReportRequest.dto';
 import { MedicalReportResponseDto } from '../../../../domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
@@ -7,7 +7,8 @@ import { MedicalReportResponseDto } from '../../../../domain/entities/medicalRep
 @Injectable()
 export class MedicalReportCreateService implements IMedicalReportCreateService {
   constructor(
-    private readonly medicalReportRepository: MedicalReportRepository,
+    @Inject('MedicalReportRepository')
+    private readonly _medicalReportRepository: IMedicalReportRepository,
   ) {}
 
   /**
@@ -18,7 +19,7 @@ export class MedicalReportCreateService implements IMedicalReportCreateService {
     request: MedicalReportRequestDto,
   ): Promise<MedicalReportResponseDto> {
     try {
-      return await this.medicalReportRepository.create(request);
+      return await this._medicalReportRepository.create(request);
     } catch (error) {
       throw error;
     }

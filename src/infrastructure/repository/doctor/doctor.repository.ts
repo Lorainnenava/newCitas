@@ -2,9 +2,9 @@ import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Doctor } from '../../../domain/entities/doctor/doctor.entity';
+import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
 import { IDoctorRepository } from '../../../domain/interfaces/repository/doctor/IDoctor.repository';
 import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
-import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
 
 @Injectable()
 export class DoctorRepository implements IDoctorRepository {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { ConfirmationMedicalAppointmentRequestDtoRequestDto } from '../../../utils/types';
+import { ConfirmationMedicalAppointmentRequestDtoRequestDto } from '../../../../utils/types';
 
 @Injectable()
 export class ConfirmationMedicalAppointmentService {

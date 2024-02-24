@@ -2,12 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { DomainModule } from './domain/entity.module';
 import { RolesGuard } from './utils/roles/roles.guard';
 import { ValidationPipe } from './utils/validation/validation.pipe';
-import { EntityModule } from './domain/entity.module';
-import { PresentationModule } from './presentation/controller/presentation.module';
-import { UtilsModule } from './utils/utils.module';
-import { AuthGuard } from './utils/protectRoute/auth.guard';
+import { PresentationModule } from './presentation/controller/controller.module';
 
 @Module({
   imports: [
@@ -17,15 +15,9 @@ import { AuthGuard } from './utils/protectRoute/auth.guard';
       envFilePath: '.env',
     }),
     MongooseModule.forRoot(`${process.env.MONGODB_URI}`), // connection dataBase
-    EntityModule,
-    UtilsModule,
+    DomainModule,
   ],
-  controllers: [],
   providers: [
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,

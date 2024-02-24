@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../../utils/types';
-import { MedicalAppointmentRepository } from '../../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
 import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
 import { IMedicalAppointmentsGetAllByIdService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/getAllById/IMedicalAppointmentsGetAllByIdService';
 
 @Injectable()
@@ -9,7 +9,8 @@ export class MedicalAppointmentGetAllByIdService
   implements IMedicalAppointmentsGetAllByIdService
 {
   constructor(
-    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
+    @Inject('MedicalAppointmentRepository')
+    private readonly _medicalAppointmentRepository: IMedicalAppointmentRepository,
   ) {}
 
   /**
@@ -21,7 +22,7 @@ export class MedicalAppointmentGetAllByIdService
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     try {
-      return await this.medicalAppointmentRepository.getAll(user);
+      return await this._medicalAppointmentRepository.getAll(user);
     } catch (error) {
       throw error;
     }

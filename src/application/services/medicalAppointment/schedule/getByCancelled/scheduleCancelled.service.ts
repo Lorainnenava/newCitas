@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { RequestUser } from '../../../../../utils/types';
-import { MedicalAppointmentRepository } from '../../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
 import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
 import { IScheduleGetCancelledAppointmentsService } from '../../../../../domain/interfaces/service/medicalAppointment/schedule/getCancelledAppointments/IScheduleGetCancelledAppointmentsService';
 
 @Injectable()
@@ -9,7 +9,8 @@ export class ScheduleByCancelledAppointmentsService
   implements IScheduleGetCancelledAppointmentsService
 {
   constructor(
-    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
+    @Inject('MedicalAppointmentRepository')
+    private readonly _medicalAppointmentRepository: IMedicalAppointmentRepository,
   ) {}
 
   /**
@@ -19,7 +20,7 @@ export class ScheduleByCancelledAppointmentsService
   async getCancelledAppointments(
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
-    return await this.medicalAppointmentRepository.getAll({
+    return await this._medicalAppointmentRepository.getAll({
       'doctor.documentInfo.documentNumber': user.documentNumber,
       cancelled: true,
     });

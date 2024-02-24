@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { RolRepository } from '../../../../infrastructure/repository/rol/rol.repository';
+import { Inject, Injectable } from '@nestjs/common';
 import { RolResponseDto } from '../../../../domain/entities/rol/dto/response/rolResponse.dto';
+import { IRolRepository } from '../../../../domain/interfaces/repository/rol/IRol.repository';
 import { IRolesGetAllService } from '../../../../domain/interfaces/service/rol/getAll/IRolesGetAllService';
 
 @Injectable()
 export class RolesGetAllService implements IRolesGetAllService {
-  constructor(private readonly rolRepository: RolRepository) {}
+  constructor(
+    @Inject('RolRepository') private readonly _rolRepository: IRolRepository,
+  ) {}
 
   /**
    * getAll role
@@ -13,7 +15,7 @@ export class RolesGetAllService implements IRolesGetAllService {
    */
   async getAll(): Promise<RolResponseDto[]> {
     try {
-      return await this.rolRepository.getAll();
+      return await this._rolRepository.getAll();
     } catch (error) {
       throw error;
     }

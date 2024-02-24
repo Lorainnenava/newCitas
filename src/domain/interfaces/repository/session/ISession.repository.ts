@@ -1,6 +1,6 @@
 import { FilterQuery } from 'mongoose';
-import { SessionRequestDto } from '../../../entities/session/dto/request/session/sessionRequest.dto';
 import { SessionResponseDto } from '../../../entities/session/dto/response/sessionResponse.dto';
+import { SessionRequestDto } from '../../../entities/session/dto/request/session/sessionRequest.dto';
 
 export interface ISessionRepository {
   /**

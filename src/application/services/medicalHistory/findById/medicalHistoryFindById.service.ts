@@ -1,5 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { MedicalHistoryRepository } from '../../../../infrastructure/repository/medicalHistory/medicalHistory.repository';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { IMedicalHistoryRepository } from '../../../../domain/interfaces/repository/medicalHistory/IMedicalHistory.repository';
 import { IMedicalHistoryFindByIdService } from '../../../../domain/interfaces/service/medicalHistory/findById/IMedicalHistoryFindByIdService';
 import { MedicalHistoryResponseDto } from '../../../../domain/entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
 
@@ -8,7 +8,8 @@ export class MedicalHistoryFindByIdService
   implements IMedicalHistoryFindByIdService
 {
   constructor(
-    private readonly medicalHistoryRepository: MedicalHistoryRepository,
+    @Inject('MedicalHistoryRepository')
+    private readonly _medicalHistoryRepository: IMedicalHistoryRepository,
   ) {}
 
   /**
@@ -18,9 +19,11 @@ export class MedicalHistoryFindByIdService
    */
   async findById(_id: string): Promise<MedicalHistoryResponseDto> {
     try {
-      const searchMedicalHistory = await this.medicalHistoryRepository.findOne({
-        _id,
-      });
+      const searchMedicalHistory = await this._medicalHistoryRepository.findOne(
+        {
+          _id,
+        },
+      );
       if (!searchMedicalHistory) {
         throw new NotFoundException('This medicalHistory doest not exist');
       }

@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { DoctorRepository } from '../../../../infrastructure/repository/doctor/doctor.repository';
+import { Inject, Injectable } from '@nestjs/common';
 import { DoctorResponseDto } from '../../../../domain/entities/doctor/dto/response/doctorResponse.dto';
-import { IDoctorsGetAllService } from '../../../../domain/interfaces/service/doctor/getAll/IDoctorsGetAllService';
+import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
+import { IDoctorsGetAllService } from '../../../../domain/interfaces/service/doctor/getAll/IGetAllDoctorsService';
 
 @Injectable()
 export class DoctorsGetAllService implements IDoctorsGetAllService {
-  constructor(private readonly doctorRepository: DoctorRepository) {}
+  constructor(
+    @Inject('DoctorRepository')
+    private readonly _doctorRepository: IDoctorRepository,
+  ) {}
 
   /**
    * getAll doctors
@@ -13,7 +16,7 @@ export class DoctorsGetAllService implements IDoctorsGetAllService {
    */
   async getAll(): Promise<DoctorResponseDto[]> {
     try {
-      return await this.doctorRepository.getAll();
+      return await this._doctorRepository.getAll();
     } catch (error) {
       throw error;
     }

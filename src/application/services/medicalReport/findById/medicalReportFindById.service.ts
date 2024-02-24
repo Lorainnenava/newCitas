@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { MedicalReportRepository } from '../../../../infrastructure/repository/medicalReport/medicalReport.repository';
+import { Inject, Injectable } from '@nestjs/common';
+import { IMedicalReportRepository } from '../../../../domain/interfaces/repository/medicalReport/IMedicalReport.repository';
 import { MedicalReportResponseDto } from '../../../../domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
 import { IMedicalReportFindByIdService } from '../../../../domain/interfaces/service/medicalReport/findById/IMedicalReportFindByIdService';
 
@@ -8,7 +8,8 @@ export class MedicalReportFindByIdService
   implements IMedicalReportFindByIdService
 {
   constructor(
-    private readonly medicalReportRepository: MedicalReportRepository,
+    @Inject('MedicalReportRepository')
+    private readonly _medicalReportRepository: IMedicalReportRepository,
   ) {}
 
   /**
@@ -18,7 +19,7 @@ export class MedicalReportFindByIdService
    */
   async findById(_id: string): Promise<MedicalReportResponseDto> {
     try {
-      return await this.medicalReportRepository.findOne({ _id });
+      return await this._medicalReportRepository.findOne({ _id });
     } catch (error) {
       throw error;
     }

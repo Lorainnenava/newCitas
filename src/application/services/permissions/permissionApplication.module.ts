@@ -3,6 +3,9 @@ import { PermissionsCreateService } from './create/permissionsCreate.service';
 import { PermissionsUpdateService } from './update/permissionsUpdate.service';
 import { PermissionsGetAllByRoleService } from './getAlByRole/permissionsGetAllByRole.service';
 
+/**
+ * Module for importing permission services.
+ */
 @Module({
   providers: [
     PermissionsCreateService,

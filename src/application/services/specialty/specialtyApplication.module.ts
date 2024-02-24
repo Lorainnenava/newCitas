@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { SpecialtyCreateService } from './create/specialtyCreate.service';
 import { SpecialtiesGetAllService } from './getAll/specialtiesGetAll.service';
 
+/**
+ * Module for importing specialty services.
+ */
 @Module({
   providers: [SpecialtyCreateService, SpecialtiesGetAllService],
   exports: [SpecialtyCreateService, SpecialtiesGetAllService],

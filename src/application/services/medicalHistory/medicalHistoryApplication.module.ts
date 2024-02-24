@@ -4,6 +4,9 @@ import { MedicalHistoryUpdateService } from './update/medicalHistoryUpdate.servi
 import { MedicalHistoriesGetAllService } from './getAll/medicalHistoriesGetAll.service';
 import { MedicalHistoryFindByIdService } from './findById/medicalHistoryFindById.service';
 
+/**
+ * Module for importing medicalHistory services.
+ */
 @Module({
   providers: [
     MedicalHistoryCreateService,

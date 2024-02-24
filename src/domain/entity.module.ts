@@ -1,9 +1,13 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { entityConfig } from './dependencies';
+import { Entities } from './dependencies';
 
+/**
+ * Module of domain layer
+ */
 @Module({
-  imports: [MongooseModule.forFeature(entityConfig)],
+  imports: [MongooseModule.forFeature(Entities)],
   exports: [MongooseModule],
 })
-export class EntityModule {}
+@Global()
+export class DomainModule {}

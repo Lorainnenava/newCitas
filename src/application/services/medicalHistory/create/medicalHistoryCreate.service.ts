@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { MedicalHistoryRepository } from '../../../../infrastructure/repository/medicalHistory/medicalHistory.repository';
+import { Inject, Injectable } from '@nestjs/common';
+import { IMedicalHistoryRepository } from '../../../../domain/interfaces/repository/medicalHistory/IMedicalHistory.repository';
 import { IMedicalHistoryCreateService } from '../../../../domain/interfaces/service/medicalHistory/create/IMedicalHistoryCreateService';
 import { MedicalHistoryRequestDto } from '../../../../domain/entities/medicalHistory/dto/request/medicalHistory/medicalHistoryRequest.dto';
 import { MedicalHistoryResponseDto } from '../../../../domain/entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
@@ -9,7 +9,8 @@ export class MedicalHistoryCreateService
   implements IMedicalHistoryCreateService
 {
   constructor(
-    private readonly medicalHistoryRepository: MedicalHistoryRepository,
+    @Inject('MedicalHistoryRepository')
+    private readonly _medicalHistoryRepository: IMedicalHistoryRepository,
   ) {}
 
   /**
@@ -20,7 +21,7 @@ export class MedicalHistoryCreateService
     request: MedicalHistoryRequestDto,
   ): Promise<MedicalHistoryResponseDto> {
     try {
-      return await this.medicalHistoryRepository.create(request);
+      return await this._medicalHistoryRepository.create(request);
     } catch (error) {
       throw error;
     }

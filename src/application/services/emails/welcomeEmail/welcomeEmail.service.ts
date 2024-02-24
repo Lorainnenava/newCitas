@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { EmailRequestDto } from '../../../utils/types';
+import { EmailRequestDto } from '../../../../utils/types';
 
 @Injectable()
 export class WelcomeEmailService {

@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { TypeOfDocumentRepository } from '../../../../infrastructure/repository/typeOfDocument/typeOfDocument.repository';
+import { Inject, Injectable } from '@nestjs/common';
 import { TypeOfDocumentResponseDto } from '../../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
-import { ITypeOfDocumentGetAllService } from '../../../../domain/interfaces/service/typeOfDocument/getAll/ITypeOfDocumentGetAllService';
+import { ITypeOfDocumentRepository } from '../../../../domain/interfaces/repository/typeOfDocument/ITypeOfDocument.repository';
+import { ITypeOfDocumentsGetAllService } from '../../../../domain/interfaces/service/typeOfDocument/getAll/ITypeOfDocumentsGetAllService';
 
 @Injectable()
 export class TypeOfDocumentsGetAllService
-  implements ITypeOfDocumentGetAllService
+  implements ITypeOfDocumentsGetAllService
 {
   constructor(
-    private readonly typeOfDocumentRepository: TypeOfDocumentRepository,
+    @Inject('TypeOfDocumentRepository')
+    private readonly _typeOfDocumentRepository: ITypeOfDocumentRepository,
   ) {}
 
   /**
@@ -17,7 +18,7 @@ export class TypeOfDocumentsGetAllService
    */
   async getAll(): Promise<TypeOfDocumentResponseDto[]> {
     try {
-      return await this.typeOfDocumentRepository.getAll();
+      return await this._typeOfDocumentRepository.getAll();
     } catch (error) {
       throw error;
     }

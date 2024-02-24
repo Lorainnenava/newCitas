@@ -1,11 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { UserRepository } from '../../../../infrastructure/repository/user/user.repository';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { IUserRepository } from '../../../../domain/interfaces/repository/user/IUser.repository';
 import { UserResponseDto } from '../../../../domain/entities/user/dto/response/user/userResponse.dto';
 import { IUserDeleteTokenService } from '../../../../domain/interfaces/service/user/deleteToken/IUserDeleteTokenService';
 
 @Injectable()
 export class UserDeleteTokenService implements IUserDeleteTokenService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    @Inject('UserRepository') private readonly _userRepository: IUserRepository,
+  ) {}
 
   /**
    * Delete token from users
@@ -13,12 +15,12 @@ export class UserDeleteTokenService implements IUserDeleteTokenService {
    */
   async deleteToken(token: string): Promise<UserResponseDto> {
     try {
-      const search = await this.userRepository.findOne({
+      const search = await this._userRepository.findOne({
         $and: [{ token: token }, { state: false }],
       });
 
       if (search) {
-        return await this.userRepository.update(
+        return await this._userRepository.update(
           { _id: search._id },
           {
             $set: {

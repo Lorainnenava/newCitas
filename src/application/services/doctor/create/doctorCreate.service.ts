@@ -1,4 +1,4 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, Inject } from '@nestjs/common';
 import { DoctorRequestDto } from '../../../../domain/entities/doctor/dto/request/doctorRequest.dto';
 import { DoctorResponseDto } from '../../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
@@ -6,7 +6,10 @@ import { IDoctorCreateService } from '../../../../domain/interfaces/service/doct
 
 @Injectable()
 export class DoctorCreateService implements IDoctorCreateService {
-  constructor(private readonly _doctorRepository: IDoctorRepository) {}
+  constructor(
+    @Inject('DoctorRepository')
+    private readonly _doctorRepository: IDoctorRepository,
+  ) {}
 
   /**
    * create doctor

@@ -1,34 +1,36 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, Inject } from '@nestjs/common';
 import { DateService } from '../../../../../utils/date/date.service';
-import { DoctorFindOneService } from '../../../doctor/findOne/doctorFindOne.service';
-import { InvoiceCreateService } from '../../../invoice/create/invoiceCreate.service';
-import { InvoiceFindOneService } from '../../../invoice/findOne/invoiceFindOne.service';
 import { CodeRandomService } from '../../../../../utils/code/codeRandom.service';
 import { DescriptionService } from '../../../../../utils/description/description.service';
 import { ObjectEntriesService } from '../../../../../utils/objectEntries/objectEntries.service';
 import { DoctorRequestDto } from '../../../../../domain/entities/doctor/dto/request/doctorRequest.dto';
+import { IDoctorRepository } from '../../../../../domain/interfaces/repository/doctor/IDoctor.repository';
 import { IPatientRepository } from '../../../../../domain/interfaces/repository/patient/IPatient.repository';
-import { ConfirmationMedicalAppointmentService } from '../../../confirmationMedicalAppointment/confirmationMedicalAppointment.service';
-import { MedicalAppointmentRepository } from '../../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
+import { IInvoiceRepository } from '../../../../../domain/interfaces/repository/invoice/IInvoice.repository';
+import { ConfirmationMedicalAppointmentService } from '../../../emails/confirmationMedicalAppointment/confirmationMedicalAppointment.service';
 import { PatientInformationRequestDto } from '../../../../../domain/entities/invoice/dto/request/patientInformation/patientInformationRequest.dto';
 import { MedicalAppointmentRequestDto } from '../../../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
 import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IMedicalAppointmentCreateService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/create/IMedicalAppointmentCreateService';
+import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
+import { IMedicalAppointmentCreateService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/create/ICreateMedicalAppointmentService';
 
 @Injectable()
 export class MedicalAppointmentCreateService
   implements IMedicalAppointmentCreateService
 {
   constructor(
+    @Inject('InvoiceRepository')
+    private readonly _invoiceRepository: IInvoiceRepository,
+    @Inject('PatientRepository')
+    private readonly _patientRepository: IPatientRepository,
+    @Inject('MedicalAppointmentRepository')
+    private readonly _medicalAppointmentRepository: IMedicalAppointmentRepository,
+    @Inject('DoctorRepository')
+    private readonly _doctorRepository: IDoctorRepository,
     private readonly dateService: DateService,
-    private readonly doctorService: DoctorFindOneService,
     private readonly codeRandomService: CodeRandomService,
     private readonly descriptionService: DescriptionService,
     private readonly objectEntriesService: ObjectEntriesService,
-    private readonly invoiceCreateService: InvoiceCreateService,
-    private readonly invoiceFindOneService: InvoiceFindOneService,
-    private readonly _patientRepository: IPatientRepository,
-    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
     private readonly confirmationMedicalAppointmentService: ConfirmationMedicalAppointmentService,
   ) {}
 
@@ -42,13 +44,15 @@ export class MedicalAppointmentCreateService
   ): Promise<MedicalAppointmentResponseDto> {
     try {
       // search doctor
-      const searchDoctor = await this.doctorService.findOne(
-        request.doctor.documentInfo.documentNumber,
-      );
+      const searchDoctor = await this._doctorRepository.findOne({
+        'documentInfo.documentNumber': Number(
+          request.doctor.documentInfo.documentNumber,
+        ),
+      });
 
       // verify if the medicalAppointment exists
       const existingAppointment =
-        await this.medicalAppointmentRepository.findOne({
+        await this._medicalAppointmentRepository.findOne({
           date: request.date,
           'doctor.documentInfo.documentNumber':
             searchDoctor.documentInfo.documentNumber,
@@ -88,7 +92,7 @@ export class MedicalAppointmentCreateService
 
       // createMedicalAppointment
       const createMedicalAppointment =
-        await this.medicalAppointmentRepository.create({
+        await this._medicalAppointmentRepository.create({
           ...request,
           userInfo: patient as PatientInformationRequestDto,
           doctor: (await this.objectEntriesService.omitPropertiesFromObject(
@@ -101,10 +105,12 @@ export class MedicalAppointmentCreateService
       let generate: number;
       do {
         generate = this.codeRandomService.generateCode();
-      } while (await this.invoiceFindOneService.findOne(generate));
+      } while (
+        await this._invoiceRepository.findOne({ code: Number(generate) })
+      );
 
       // create invoice
-      await this.invoiceCreateService.create({
+      await this._invoiceRepository.create({
         code: generate,
         description: await this.descriptionService.createDescription(
           request.doctor.specialty,

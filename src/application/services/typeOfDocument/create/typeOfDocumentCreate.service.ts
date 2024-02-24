@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { TypeOfDocumentRepository } from '../../../../infrastructure/repository/typeOfDocument/typeOfDocument.repository';
+import { Inject, Injectable } from '@nestjs/common';
 import { TypeOfDocumentRequestDto } from '../../../../domain/entities/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
 import { TypeOfDocumentResponseDto } from '../../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
+import { ITypeOfDocumentRepository } from '../../../../domain/interfaces/repository/typeOfDocument/ITypeOfDocument.repository';
 import { ITypeOfDocumentCreateService } from '../../../../domain/interfaces/service/typeOfDocument/create/ITypeOfDocumentCreateService';
 
 @Injectable()
@@ -9,7 +9,8 @@ export class TypeOfDocumentCreateService
   implements ITypeOfDocumentCreateService
 {
   constructor(
-    private readonly typeOfDocumentRepository: TypeOfDocumentRepository,
+    @Inject('TypeOfDocumentRepository')
+    private readonly _typeOfDocumentRepository: ITypeOfDocumentRepository,
   ) {}
 
   /**
@@ -20,7 +21,7 @@ export class TypeOfDocumentCreateService
     request: TypeOfDocumentRequestDto,
   ): Promise<TypeOfDocumentResponseDto> {
     try {
-      return await this.typeOfDocumentRepository.create(request);
+      return await this._typeOfDocumentRepository.create(request);
     } catch (error) {
       throw error;
     }

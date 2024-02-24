@@ -5,6 +5,9 @@ import { DoctorUpdateService } from './update/doctorUpdate.service';
 import { DoctorsGetAllService } from './getAll/doctorsGetAll.service';
 import { DoctorFindOneService } from './findOne/doctorFindOne.service';
 
+/**
+ * Module for importing doctor services.
+ */
 @Module({
   providers: [
     DoctorCreateService,

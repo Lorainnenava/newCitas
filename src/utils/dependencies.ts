@@ -7,11 +7,14 @@ import { DescriptionService } from './description/description.service';
 import { ObjectEntriesService } from './objectEntries/objectEntries.service';
 import { RandomTokenService } from './randomToken/randomToken.service';
 
-export const DependenciesInyection: Provider[] = [
+/**
+ * This module injects the dependencies of the utils
+ */
+export const DependenciesInyectionUtils: Provider[] = [
+  DateService,
   AgeService,
   PasswordService,
   CodeRandomService,
-  DateService,
   DescriptionService,
   ObjectEntriesService,
   RandomTokenService,

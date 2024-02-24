@@ -1,12 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PatientRepository } from '../../../../infrastructure/repository/patient/patient.repository';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PatientRequestDto } from '../../../../domain/entities/patient/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
 import { IPatientUpdateService } from '../../../../domain/interfaces/service/patient/update/IPatientUpdateService';
+import { IPatientRepository } from '../../../../domain/interfaces/repository/patient/IPatient.repository';
 
 @Injectable()
 export class PatientUpdateService implements IPatientUpdateService {
-  constructor(private patientRepository: PatientRepository) {}
+  constructor(
+    @Inject('PatientRepository') private _patientRepository: IPatientRepository,
+  ) {}
 
   /**
    * update patient
@@ -15,7 +17,7 @@ export class PatientUpdateService implements IPatientUpdateService {
    */
   async update(request: PatientRequestDto): Promise<PatientResponseDto> {
     try {
-      const searchPatient = await this.patientRepository.update(
+      const searchPatient = await this._patientRepository.update(
         request._id,
         request,
       );

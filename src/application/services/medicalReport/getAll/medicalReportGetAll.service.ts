@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { MedicalReportRepository } from '../../../../infrastructure/repository/medicalReport/medicalReport.repository';
+import { Inject, Injectable } from '@nestjs/common';
+import { IMedicalReportRepository } from '../../../../domain/interfaces/repository/medicalReport/IMedicalReport.repository';
 import { IMedicalReportsGetAllService } from '../../../../domain/interfaces/service/medicalReport/getAll/IMedicalReportsGetAllService';
 import { MedicalReportResponseDto } from '../../../../domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
 
@@ -8,7 +8,8 @@ export class MedicalReportsGetAllService
   implements IMedicalReportsGetAllService
 {
   constructor(
-    private readonly medicalReportRepository: MedicalReportRepository,
+    @Inject('MedicalReportRepository')
+    private readonly _medicalReportRepository: IMedicalReportRepository,
   ) {}
 
   /**
@@ -17,7 +18,7 @@ export class MedicalReportsGetAllService
    */
   async getAll(): Promise<MedicalReportResponseDto[]> {
     try {
-      return await this.medicalReportRepository.getAll();
+      return await this._medicalReportRepository.getAll();
     } catch (error) {
       throw error;
     }

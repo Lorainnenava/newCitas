@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { MedicalAppointmentRepository } from '../../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
 import { IMedicalAppointmentFindByIdService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/findById/IMedicalAppointmentFindByIdService';
 
 @Injectable()
@@ -8,7 +8,8 @@ export class MedicalAppointmentFindByIdService
   implements IMedicalAppointmentFindByIdService
 {
   constructor(
-    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
+    @Inject('MedicalAppointmentRepository')
+    private readonly _medicalAppointmentRepository: IMedicalAppointmentRepository,
   ) {}
 
   /**
@@ -19,7 +20,7 @@ export class MedicalAppointmentFindByIdService
   async findById(_id: string): Promise<MedicalAppointmentResponseDto> {
     try {
       const searchMedicalAppointment =
-        await this.medicalAppointmentRepository.findOne({ _id });
+        await this._medicalAppointmentRepository.findOne({ _id });
       if (searchMedicalAppointment === null)
         throw new NotFoundException('This medicalAppointment does not exist');
       return searchMedicalAppointment.toObject();

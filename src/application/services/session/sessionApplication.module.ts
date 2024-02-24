@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
-import { SessionFindSessionService } from './find/sessionFind.service';
 import { LoginService } from './login/login.service';
+import { SessionGetOneService } from './getOne/sessionFind.service';
 
+/**
+ * Module for importing session services.
+ */
 @Module({
-  providers: [LoginService, SessionFindSessionService],
-  exports: [LoginService, SessionFindSessionService],
+  providers: [LoginService, SessionGetOneService],
+  exports: [LoginService, SessionGetOneService],
 })
 export class SessionApplicationModule {}

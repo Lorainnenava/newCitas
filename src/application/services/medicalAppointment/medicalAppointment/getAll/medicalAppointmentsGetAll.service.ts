@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { MedicalAppointmentRepository } from '../../../../../infrastructure/repository/medicalAppointment/medicalAppointment.repository';
+import { Inject, Injectable } from '@nestjs/common';
 import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
 import { IMedicalAppointmentsGetAllService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/getAll/IMedicalAppointmentsGetAllService';
 
 @Injectable()
@@ -8,7 +8,8 @@ export class MedicalAppointmentsGetAllService
   implements IMedicalAppointmentsGetAllService
 {
   constructor(
-    private readonly medicalAppointmentRepository: MedicalAppointmentRepository,
+    @Inject('MedicalAppointmentRepository')
+    private readonly _medicalAppointmentRepository: IMedicalAppointmentRepository,
   ) {}
 
   /**
@@ -17,7 +18,7 @@ export class MedicalAppointmentsGetAllService
    */
   async getAll(): Promise<MedicalAppointmentResponseDto[]> {
     try {
-      return await this.medicalAppointmentRepository.getAll();
+      return await this._medicalAppointmentRepository.getAll();
     } catch (error) {
       throw error;
     }

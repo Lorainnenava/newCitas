@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { PermissionRepository } from '../../../../infrastructure/repository/permission/permission.repository';
+import { Inject, Injectable } from '@nestjs/common';
 import { PermissionResponseDto } from '../../../../domain/entities/permission/dto/response/permissionResponse.dto';
+import { IPermissionRepository } from '../../../../domain/interfaces/repository/permission/IPermission.repository';
 import { IPermissionsGetAllByRoleService } from '../../../../domain/interfaces/service/permission/getAllByRole/IPermissionsGetAllByRoleService';
 
 @Injectable()
 export class PermissionsGetAllByRoleService
   implements IPermissionsGetAllByRoleService
 {
-  constructor(private readonly permissionRepository: PermissionRepository) {}
+  constructor(
+    @Inject('PermissionRepository')
+    private readonly _permissionRepository: IPermissionRepository,
+  ) {}
 
   /**
    * getAllByRole permissions
@@ -16,7 +19,7 @@ export class PermissionsGetAllByRoleService
    */
   async getAllByRole(role: string): Promise<PermissionResponseDto[]> {
     try {
-      return await this.permissionRepository.getAll({ role });
+      return await this._permissionRepository.getAll({ role });
     } catch (error) {
       throw error;
     }

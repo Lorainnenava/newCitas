@@ -1,12 +1,14 @@
-import { Injectable, ConflictException } from '@nestjs/common';
-import { RolRepository } from '../../../../infrastructure/repository/rol/rol.repository';
+import { Injectable, ConflictException, Inject } from '@nestjs/common';
 import { RolRequestDto } from '../../../../domain/entities/rol/dto/request/rolRequest.dto';
 import { RolResponseDto } from '../../../../domain/entities/rol/dto/response/rolResponse.dto';
+import { IRolRepository } from '../../../../domain/interfaces/repository/rol/IRol.repository';
 import { IRolCreateService } from '../../../../domain/interfaces/service/rol/create/IRolCreateService';
 
 @Injectable()
 export class RolCreateService implements IRolCreateService {
-  constructor(private readonly rolRepository: RolRepository) {}
+  constructor(
+    @Inject('RolRepository') private readonly _rolRepository: IRolRepository,
+  ) {}
 
   /**
    * create rol
@@ -14,11 +16,11 @@ export class RolCreateService implements IRolCreateService {
    */
   async create(request: RolRequestDto): Promise<RolResponseDto> {
     try {
-      const searchRole = await this.rolRepository.findOne({
+      const searchRole = await this._rolRepository.findOne({
         name: request.name,
       });
       if (searchRole) throw new ConflictException('This role already exists');
-      return await this.rolRepository.create(request);
+      return await this._rolRepository.create(request);
     } catch (error) {
       throw error;
     }
