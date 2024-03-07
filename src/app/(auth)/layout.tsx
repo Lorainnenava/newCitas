@@ -1,6 +1,7 @@
 import './styles.css';
-import Providers from '@/redux/store/providers';
-import Template from '../../common/template';
+import Providers from '@/redux/providers';
+import NewTemplate from '../../components/template';
+import ProtectRoutes from '../../utils/routes/ProtectRoutes';
 
 export const metadata = {
     title: 'Next.js',
@@ -15,7 +16,9 @@ export default function AuthLayout({
     return (
         <div className="myBox">
             <Providers>
-                <Template children={children}></Template>
+                <NewTemplate>
+                    <ProtectRoutes>{children}</ProtectRoutes>
+                </NewTemplate>
             </Providers>
         </div>
     );

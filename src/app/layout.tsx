@@ -1,7 +1,7 @@
 import './globals.css';
 import { Suspense } from 'react';
 import { Inter } from 'next/font/google';
-import Providers from '@/redux/store/providers';
+import Providers from '@/redux/providers';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '@/common/loading/Loading';
 import { ToastContainer } from 'react-toastify';

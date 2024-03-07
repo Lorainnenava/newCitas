@@ -1,4 +1,4 @@
-import Login from '@/container/SignIn';
+import Login from '@/app/SignIn/container';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 

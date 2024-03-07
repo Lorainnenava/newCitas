@@ -1,7 +1,7 @@
 'use client';
 import { FC } from 'react';
 import Image from 'next/image';
-import { ISize } from '@/types/types';
+import { ISize } from '@/utils/types/types';
 import styled, { keyframes } from 'styled-components';
 import logo from '../../../public/assets/img/main/logo.png';
 

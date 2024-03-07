@@ -10,7 +10,9 @@ import { initialStateDoctor } from '../initialState';
 const DoctorGetAllSlice = createSlice({
     name: 'doctorGetAll',
     initialState: initialStateDoctor,
-    reducers: {},
+    reducers: {
+        reset: () => initialStateDoctor,
+    },
     extraReducers: (builder) => {
         builder.addCase(doctorGetAll.pending, (state) => {
             state.loading = true;
@@ -29,4 +31,6 @@ const DoctorGetAllSlice = createSlice({
         });
     },
 });
+
+export const { reset } = DoctorGetAllSlice.actions;
 export const DoctorGetAllReducer = DoctorGetAllSlice.reducer;

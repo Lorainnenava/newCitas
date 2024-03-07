@@ -1,6 +1,6 @@
 'use client';
 
-import PaginaPrincipal from '@/views/Inicio';
+import PaginaPrincipal from '@/common/mainView';
 
 export default function Home() {
     return (

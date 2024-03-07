@@ -1,5 +1,5 @@
 'use client';
-import ProtectRoutes from '@/app/routes/ProtectRoutes';
+import ProtectRoutes from '@/utils/routes/ProtectRoutes';
 import { Layout } from '../../../common/layout';
 
 function User() {

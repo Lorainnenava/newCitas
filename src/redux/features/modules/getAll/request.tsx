@@ -4,10 +4,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 /**
  * Request modulesGetAll
  */
-export const modulesGetAll = createAsyncThunk('modules/getAll', async () => {
+export const modulesGetAll = createAsyncThunk('module/getAll', async () => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/modules/getAll`,
+            `http://localhost:5000/module/getAll`,
             {
                 headers: {
                     'Content-type': 'application/json',

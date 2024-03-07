@@ -1,4 +1,4 @@
-import { ArgVal } from '@/types/types';
+import { ArgVal } from '@/utils/types/types';
 
 /**
  * Validación numerica
