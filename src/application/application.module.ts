@@ -15,6 +15,7 @@ import { MedicalReportApplicationModule } from './services/medicalReport/medical
 import { MedicalHistoryAplicationModule } from './services/medicalHistory/medicalHistoryApplication.module';
 import { TypeOfDocumentApplicationModule } from './services/typeOfDocument/typeOfDocumentApplication.module';
 import { MedicalAppointmentApplicationModule } from './services/medicalAppointment/medicalAppointmentApplication.module';
+import { DocumentApplicationModule } from './services/document/document.module';
 
 /**
  * Module of applicatión layer
@@ -37,6 +38,7 @@ import { MedicalAppointmentApplicationModule } from './services/medicalAppointme
     SpecialtyApplicatiomModule,
     TypeOfDocumentApplicationModule,
     UserApplicationModule,
+    DocumentApplicationModule,
   ],
   exports: [
     EmailApplicationModule,
@@ -53,6 +55,7 @@ import { MedicalAppointmentApplicationModule } from './services/medicalAppointme
     SpecialtyApplicatiomModule,
     TypeOfDocumentApplicationModule,
     UserApplicationModule,
+    DocumentApplicationModule,
   ],
 })
 @Global()

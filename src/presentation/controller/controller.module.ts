@@ -14,6 +14,7 @@ import { MedicalReportController } from './medicalReport/medicalReport.controlle
 import { TypeOfDocumentController } from './typeOfDocument/typeOfDocument.controller';
 import { MedicalHistoryController } from './medicalHistory/medicalHistory.controller';
 import { MedicalAppointmentController } from './medicalAppointment/medicalAppointment.controller';
+import { FileController } from './ownCloud/owncloud.controller';
 
 /**
  * Module of presentatión layer
@@ -35,6 +36,7 @@ import { MedicalAppointmentController } from './medicalAppointment/medicalAppoin
     RolController,
     SpecialtyController,
     TypeOfDocumentController,
+    FileController,
   ],
 })
 export class PresentationModule {}

@@ -64,6 +64,7 @@ export class LoginService implements ILoginService {
     // create session
     const createSession = await this._sessionRepository.create({
       ...request,
+      password: await this.passwordService.encryptPassword(request.password),
       token: accessToken,
       userInfo: searchUser,
     });

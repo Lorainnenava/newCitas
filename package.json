@@ -21,6 +21,7 @@
     "copy-public": "copyfiles -u 1 public/**/* dist/public"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "@casl/ability": "^6.5.0",
     "@nestjs-modules/mailer": "^1.9.1",
     "@nestjs/common": "^10.0.0",
@@ -34,7 +35,10 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "mongoose": "^7.6.3",
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.7",
+    "owncloud": "^1.0.2",
+    "owncloud-sdk": "^3.1.0-alpha.10",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
@@ -47,6 +51,7 @@
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
     "@types/mongoose": "^5.11.97",
+    "@types/multer": "^1.4.11",
     "@types/node": "^20.3.1",
     "@types/passport-jwt": "^3.0.12",
     "@types/supertest": "^2.0.12",
