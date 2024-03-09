@@ -67,7 +67,7 @@ const index = () => {
      */
     useEffect(() => {
         if (documentosSelector.success === true) {
-            toast(documentosSelector.data as string, {
+            toast("Archivo guardado exitosamente", {
                 autoClose: 2000,
                 type: "success",
                 hideProgressBar: false,
