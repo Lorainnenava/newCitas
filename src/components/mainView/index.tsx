@@ -2,9 +2,9 @@ import React from 'react';
 import {
     Box,
     Carta,
+    Portada,
     Container,
     IconoCarta,
-    Portada,
     TituloCarta,
 } from './styled';
 import { useRouter } from 'next/navigation';

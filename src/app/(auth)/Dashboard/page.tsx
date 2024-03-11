@@ -1,69 +1,54 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { ComponentContainer, MainContainer } from './styled';
-import {
-    Box,
-    Card,
-    CardContent,
-    Divider,
-    Grid,
-    Typography,
-} from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { modulesGetAll } from '../../../redux/features/modules/getAll/request';
-import { colors } from '../../../utils/colors/colors';
-import BasicDateCalendar from '../../../components/calendar/calendar';
-import DoctorAppointmentsChart from '../../../components/grafic/chart';
-import SalesChart from '../../../components/grafic/line/line';
-import { Cards } from '../../../components/card/card';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { TDataModulesGetAll } from '../../../components/template/layout/types';
-import { CardWelcome } from '../../../components/card/cardWelcome/cardWelcome';
+import { Cards } from '../../../components/card';
+import PeopleIcon from '@mui/icons-material/People';
+import { BoxDashboard, MainContainer } from './styled';
+import EventBusyIcon from '@mui/icons-material/EventBusy';
+import AppointmentCard from '../../../components/infoCard';
+import Diversity1Icon from '@mui/icons-material/Diversity1';
+import BasicDateCalendar from '../../../components/calendar';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { Box, Divider, Grid, Typography } from '@mui/material';
+import TableComponent from '../../../components/appointmentTable';
+import { CardWelcome } from '../../../components/card/cardWelcome';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import Odontologia from '../../../../public/assets/img/specialties/diente.png';
+import Nutricion from '../../../../public/assets/img/specialties/nutricion.png';
+import MedicinaGeneral from '../../../../public/assets/img/specialties/medicina.png';
 
 function User() {
-    const dispatch = useAppDispatch();
-
     /**
-     * useState
+     * Array de cartas
      */
-    const [data, setData] = useState<Array<any>>();
-
-    /**
-     * modulesGetAllSelector
-     */
-    const modulesGetAllSelector = useAppSelector(
-        (state) => state.root.modulesGetAll
-    );
-
-    /**
-     * useEffect para obtener los modules y subModules
-     */
-    useEffect(() => {
-        if (modulesGetAllSelector.data instanceof Array) {
-            setData(
-                modulesGetAllSelector.data.map(
-                    (x: TDataModulesGetAll, index: number) => {
-                        return {
-                            index,
-                            name: x.name,
-                            subModule: x.subModule,
-                        };
-                    }
-                )
-            );
-        }
-    }, [modulesGetAllSelector.data]);
-
-    /**
-     * useEffect para llamar a los dispatches
-     */
-    useEffect(() => {
-        dispatch(modulesGetAll());
-    }, [dispatch]);
+    const dataCards = [
+        {
+            tittle: 'Pacientes',
+            icon: <PeopleIcon />,
+            data: '5',
+            colorIcon: '#ff8800',
+        },
+        {
+            tittle: 'Doctores',
+            icon: <Diversity1Icon />,
+            data: '20',
+            colorIcon: '#991d5d',
+        },
+        {
+            tittle: 'Citas completadas',
+            icon: <EventAvailableIcon />,
+            data: '200',
+            colorIcon: '#c8cd3b',
+        },
+        {
+            tittle: 'Citas canceladas',
+            icon: <EventBusyIcon />,
+            data: '50',
+            colorIcon: '#1693a7',
+        },
+    ];
 
     return (
         <MainContainer>
-            {/* <Grid container>
+            <Grid container>
                 <Grid item xs={9} sm={9} md={9} lg={9} xl={9}>
                     <Box
                         sx={{
@@ -78,12 +63,12 @@ function User() {
                             md={12}
                             lg={12}
                             xl={12}
-                            marginBottom={3}
+                            marginBottom={2}
                         >
                             <CardWelcome data={'Admin'} />
                         </Grid>
                         <Grid container spacing={2} rowSpacing={0.5}>
-                            {[...Array(4)].map((_, i) => (
+                            {[...dataCards].map((x, i) => (
                                 <Grid
                                     key={i}
                                     item
@@ -94,71 +79,87 @@ function User() {
                                     xl={3}
                                 >
                                     <Cards
-                                        tittle="xd"
-                                        icon={<AdminPanelSettingsIcon />}
-                                        data={'huevis'}
+                                        tittle={x.tittle}
+                                        icon={x.icon}
+                                        data={x.data}
+                                        colorIcon={x.colorIcon}
                                     />
                                 </Grid>
                             ))}
                         </Grid>
+                        <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                            marginTop={2}
+                        >
+                            <TableComponent />
+                        </Grid>
                     </Box>
                 </Grid>
-                <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-                    <Box
-                        sx={{
-                            width: '92%',
-                            margin: 'auto',
-                            backgroundColor: 'white',
-                            borderRadius: '8px',
-                            height: '100%',
-                            boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-                        }}
-                    >
+                <Grid
+                    item
+                    xs={3}
+                    sm={3}
+                    md={3}
+                    lg={3}
+                    xl={3}
+                    display={'flex'}
+                    justifyContent={'flex-end'}
+                >
+                    <BoxDashboard>
                         <BasicDateCalendar />
                         <Box
                             sx={{
                                 width: '85%',
                                 margin: 'auto',
-                                height: '50%',
+                                height: '60%',
                             }}
                         >
-                            <Divider style={{ margin: '15px 0px' }} />
-                            <Typography>Proximas citas</Typography>
-                            <Card
-                                style={{
+                            <Divider style={{ margin: '15px 0px' }} />{' '}
+                            <Box
+                                sx={{
                                     width: '100%',
-                                    backgroundColor: colors.first,
-                                    marginTop: '10px',
                                     display: 'flex',
-                                    boxShadow:
-                                        'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+                                    alignItems: 'center',
+                                    gap: '10px',
                                 }}
                             >
-                                <Box
-                                    style={{
-                                        backgroundColor: '#fc6747',
-                                        width: '2%',
-                                        height: '100px',
-                                    }}
-                                />
-                                <CardContent
-                                    style={{ color: 'white', width: '98%' }}
-                                >
-                                    <Typography variant="body2">
-                                        Lorainne Navarro
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        7: 45 AM
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        Dr. Juliana Galviz
-                                    </Typography>
-                                </CardContent>
-                            </Card>
+                                <EmojiEventsIcon color="warning" />
+                                <Typography>Top doctors</Typography>
+                            </Box>
+                            <AppointmentCard
+                                name="Lorainne Navarro"
+                                specialty="odontologia"
+                                icon={Odontologia}
+                            />
+                            <AppointmentCard
+                                name="Lorainne Navarro"
+                                specialty="nutricion"
+                                icon={Nutricion}
+                            />
+                            <AppointmentCard
+                                name="Lorainne Navarro"
+                                specialty="consulta general"
+                                icon={MedicinaGeneral}
+                            />
+                            <AppointmentCard
+                                name="Lorainne Navarro"
+                                specialty="consulta general"
+                                icon={Odontologia}
+                            />
+                            <AppointmentCard
+                                name="Lorainne Navarro"
+                                specialty="consulta general"
+                                icon={Nutricion}
+                            />
                         </Box>
-                    </Box>
+                    </BoxDashboard>
                 </Grid>
-            </Grid> */}
+            </Grid>
         </MainContainer>
     );
 }

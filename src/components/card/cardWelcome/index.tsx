@@ -36,9 +36,9 @@ export const CardWelcome: FC<TCardWelcome> = ({ data }) => {
                         color: `${colors.first}`,
                     }}
                 >
-                    <Typography
-                        sx={{ fontSize: '40px' }}
-                    >{`Bienvenido, ${data} !`}</Typography>
+                    <Typography sx={{ fontSize: '40px', color: '#1b325f' }}>
+                        <b>{`Bienvenido, ${data} !`}</b>
+                    </Typography>
                 </Box>
                 <Box
                     sx={{
@@ -49,8 +49,8 @@ export const CardWelcome: FC<TCardWelcome> = ({ data }) => {
                     }}
                 >
                     <Typography>
-                        Le deseamos un lindo dia y no olvides que tu salud
-                        eimpre es lo más importante!
+                        Le deseamos un lindo día y no olvides que tu salud
+                        simpre es lo más importante!
                     </Typography>
                 </Box>
             </Box>

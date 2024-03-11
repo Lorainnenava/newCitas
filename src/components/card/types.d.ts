@@ -4,6 +4,7 @@ export type TCards = {
         muiName: string;
     };
     data: any;
+    colorIcon?: string;
 };
 
 export type TCardWelcome = {

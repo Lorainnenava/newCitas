@@ -12,7 +12,7 @@ import Loading from '../../common/loading/Loading';
 export const ProtectRoutes = async ({
     children,
 }: {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }) => {
     const router = useRouter();
     const { status } = useSession({ required: true });
@@ -21,6 +21,7 @@ export const ProtectRoutes = async ({
      * useEffect para verificar si el usuario tiene una sesión
      */
     useEffect(() => {
+        console.log('object');
         const protecter = async () => {
             try {
                 const response = await fetch('/api/getOneSession', {

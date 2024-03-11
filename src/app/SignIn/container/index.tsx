@@ -74,7 +74,6 @@ const Login = () => {
                         hideProgressBar: false,
                     });
                 }
-                router.refresh();
             }
         } catch (error) {
             setLoading(false);

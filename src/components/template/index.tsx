@@ -37,7 +37,11 @@ const NewTemplate = ({ children }: { children: React.ReactNode }) => {
                 <Grid
                     item
                     xs={12}
-                    style={{ backgroundColor: colors.third, height: '94%' }}
+                    style={{
+                        backgroundColor: colors.third,
+                        height: '94%',
+                        padding: '20px',
+                    }}
                 >
                     {children}
                 </Grid>
