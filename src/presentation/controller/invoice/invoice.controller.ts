@@ -49,7 +49,7 @@ export class InvoiceController {
    */
   @ApiBearerAuth('token')
   @Get('/getAll')
-  @Roles(Role.ADMIN || Role.RECEPCIONISTA)
+  // @Roles(Role.ADMIN || Role.RECEPCIONISTA)
   async getAll(): Promise<InvoiceResponseDto[]> {
     return this.invoicesGetAllService.getAll();
   }

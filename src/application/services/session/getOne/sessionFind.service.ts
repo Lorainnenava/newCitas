@@ -19,6 +19,7 @@ export class SessionGetOneService implements ISessionGetOneService {
     try {
       if (email) {
         const findSession = await this._sessionRepository.findOne({ email });
+
         if (findSession === null)
           throw new NotFoundException('This sesion does not exist');
         return findSession;

@@ -1,9 +1,7 @@
-import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './protectRoute/auth.guard';
-import { InfrastructureModule } from '../infrastructure/infrastructure.module';
+import { Global, Module } from '@nestjs/common';
 import { DependenciesInyectionUtils } from './dependencies';
+import { InfrastructureModule } from '../infrastructure/infrastructure.module';
 
 /**
  * Module of utils layer
@@ -15,16 +13,10 @@ import { DependenciesInyectionUtils } from './dependencies';
       // jwt setting
       global: true,
       secret: 'MY_SECRET_KEY',
-      signOptions: { expiresIn: '2h' },
+      signOptions: { expiresIn: '60s' },
     }),
   ],
-  providers: [
-    ...DependenciesInyectionUtils,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-  ],
+  providers: [...DependenciesInyectionUtils],
   exports: [...DependenciesInyectionUtils],
 })
 @Global()

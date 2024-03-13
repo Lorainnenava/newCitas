@@ -7,8 +7,6 @@ export class DocumentUploadService {
 
   //asi sirve averigua como crear una carpeta
   async upload(Body: Buffer | ArrayBuffer, key?: string): Promise<string> {
-    console.log(key, 'key');
-    console.log(Body, 'body');
     try {
       // Extraer el nombre del archivo de la key
       const buffer = Body instanceof ArrayBuffer ? Body : Buffer?.from(Body);
