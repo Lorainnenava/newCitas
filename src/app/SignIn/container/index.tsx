@@ -4,12 +4,12 @@ import * as yup from 'yup';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { validateEmail } from '@/utils';
-import ViewLogin from '@/app/SignIn/view';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { getSession, signIn } from 'next-auth/react';
-import { handler } from '../../api/createCookie/route';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { handler } from '../../api/createCookie/route';
+import { FormLogin } from './form';
 
 const Login = () => {
     /**
@@ -17,6 +17,7 @@ const Login = () => {
      */
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [disabled, setDisabled] = useState(false);
 
     /**
      * schema de validación
@@ -39,65 +40,59 @@ const Login = () => {
      * useForm
      */
     const {
-        handleSubmit,
+        handleSubmit: onSubmit,
         formState: { errors },
-        getValues,
         control,
     } = useForm({ resolver: yupResolver(schema), mode: 'onBlur' });
 
     /**
-     * crear credenciales de acceso y consultar ruta api SignIn
-     */
-    const credential = async (data: { email: string; password: string }) => {
-        try {
-            const signInPromise = await signIn('credentials', {
-                redirect: false,
-                email: data.email,
-                password: data.password,
-            });
-            if (signInPromise?.ok !== true) {
-                setLoading(false);
-                toast('Los datos son incorrectos.', {
-                    autoClose: 2000,
-                    type: 'error',
-                    hideProgressBar: false,
-                });
-            } else {
-                const session = await getSession();
-                const fetchPromise = await handler(session?.user.token);
-                if (fetchPromise === true) {
-                    router.push('/Dashboard');
-                    setLoading(true);
-                    toast('Se inicio sesion correctamente.', {
-                        autoClose: 2000,
-                        type: 'success',
-                        hideProgressBar: false,
-                    });
-                }
-            }
-        } catch (error) {
-            setLoading(false);
-        }
-    };
-
-    /**
      * handleSubmitLogin
      */
-    const handleSubmitLogin = () => {
-        credential({
-            email: getValues().email,
-            password: getValues().password,
-        });
-    };
+    const handleSubmit = onSubmit(async (dataValue) => {
+        setLoading(true);
+        setDisabled(true);
+        await signIn('credentials', {
+            redirect: false,
+            email: dataValue?.email,
+            password: dataValue?.password,
+        })
+            .then(async (response) => {
+                if (!response?.ok) {
+                    setLoading(false);
+                    setDisabled(false);
+                    toast('Los datos son incorrectos.', {
+                        autoClose: 2000,
+                        type: 'error',
+                        hideProgressBar: false,
+                    });
+                } else {
+                    const session = await getSession();
+                    const fetchPromise = await handler(session?.user.token);
+                    if (fetchPromise === true) {
+                        setLoading(false);
+                        router.push('/Dashboard');
+                        toast('Se inicio sesion correctamente.', {
+                            autoClose: 2000,
+                            type: 'success',
+                            hideProgressBar: false,
+                        });
+                    }
+                }
+            })
+            .catch(() => {
+                setLoading(false);
+                setDisabled(false);
+            });
+    });
 
     return (
-        <ViewLogin
+        <FormLogin
             schema={schema}
             errors={errors}
             control={control}
             loading={loading}
+            disabled={disabled}
             handleSubmit={handleSubmit}
-            handleSubmitLogin={handleSubmitLogin}
         />
     );
 };

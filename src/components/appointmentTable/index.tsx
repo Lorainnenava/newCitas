@@ -152,7 +152,14 @@ const TableComponent = () => {
                     rows={data || []}
                     getRowId={(row) => row._id}
                     density="compact"
-                    pageSizeOptions={[10]}
+                    initialState={{
+                        pagination: {
+                            paginationModel: {
+                                pageSize: 4,
+                            },
+                        },
+                    }}
+                    pageSizeOptions={[4, 5]}
                     localeText={
                         esES.components.MuiDataGrid.defaultProps.localeText
                     }

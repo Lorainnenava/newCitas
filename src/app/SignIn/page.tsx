@@ -1,13 +1,12 @@
-import Login from '@/app/SignIn/container';
+import Login from './container';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-async function handle() {
+const SignIn = () => {
     const myToken = cookies().has('my-token');
-    if (myToken) redirect('/Dashboard');
-}
-const SignIn = async () => {
-    await handle();
+    if (myToken) {
+        redirect('/Dashboard');
+    }
     return <Login />;
 };
 

@@ -9,11 +9,7 @@ import Loading from '../../common/loading/Loading';
 /**
  * Función para proteger las rutas
  */
-export const ProtectRoutes = async ({
-    children,
-}: {
-    children?: React.ReactNode;
-}) => {
+export const ProtectRoutes = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const { status } = useSession({ required: true });
 
@@ -21,16 +17,11 @@ export const ProtectRoutes = async ({
      * useEffect para verificar si el usuario tiene una sesión
      */
     useEffect(() => {
-        console.log('object');
         const protecter = async () => {
             try {
-                const response = await fetch('/api/getOneSession', {
-                    method: 'GET',
-                    headers: {
-                        'Content-type': 'application/json',
-                    },
-                });
-                if (!response?.ok) {
+                const response = await fetch('/api/getOneSession');
+
+                if (response?.ok !== true && response?.status !== 200) {
                     router.push('/SignIn');
                     toast(`Su tiempo de expiración a vencido`, {
                         autoClose: 2000,
@@ -43,7 +34,7 @@ export const ProtectRoutes = async ({
             }
         };
         protecter();
-    }, [status, router]);
+    }, []);
 
     if (status === 'loading') {
         return <Loading />;

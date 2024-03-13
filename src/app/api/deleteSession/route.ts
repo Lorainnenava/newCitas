@@ -20,10 +20,11 @@ export async function DELETE() {
                 }
             );
             if (!response?.ok) {
+                cookieStore.delete('my-token');
+                cookieStore.delete('next-auth.session-token');
                 throw new Error('Failed to fetch data');
             }
             const data = await response.json();
-            cookieStore.delete('my-token');
             return NextResponse.json(data);
         }
     } catch (error) {

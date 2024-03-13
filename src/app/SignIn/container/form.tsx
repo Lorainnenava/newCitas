@@ -18,20 +18,20 @@ import { TLogin } from './types';
 import Link from 'next/link';
 import CustomerInput from '@/common/input/input';
 
-const ViewLogin: FC<TLogin> = ({
+export const FormLogin: FC<TLogin> = ({
     errors,
     schema,
     control,
     loading,
+    disabled,
     handleSubmit,
-    handleSubmitLogin,
 }) => {
     return (
         <Container>
             <Box1>
                 <Contents />
                 <Box sx={styles.box2}>
-                    <Form onSubmit={handleSubmit(handleSubmitLogin)}>
+                    <Form>
                         <Typography
                             align="center"
                             variant="h5"
@@ -62,7 +62,8 @@ const ViewLogin: FC<TLogin> = ({
                             <Button
                                 type="submit"
                                 variant="contained"
-                                disabled={loading}
+                                disabled={disabled}
+                                onClick={handleSubmit}
                             >
                                 {loading ? (
                                     <CircularProgress
@@ -87,5 +88,3 @@ const ViewLogin: FC<TLogin> = ({
         </Container>
     );
 };
-
-export default ViewLogin;

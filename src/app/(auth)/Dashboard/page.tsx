@@ -14,6 +14,9 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import Odontologia from '../../../../public/assets/img/specialties/diente.png';
 import Nutricion from '../../../../public/assets/img/specialties/nutricion.png';
 import MedicinaGeneral from '../../../../public/assets/img/specialties/medicina.png';
+import { GET } from '../../api/getOneSession/route';
+import { useEffect, useState } from 'react';
+import { NextResponse } from 'next/server';
 
 function User() {
     /**
@@ -45,6 +48,7 @@ function User() {
             colorIcon: '#1693a7',
         },
     ];
+
 
     return (
         <MainContainer>

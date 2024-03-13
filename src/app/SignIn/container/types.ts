@@ -1,9 +1,4 @@
-import {
-    Control,
-    FieldErrors,
-    FieldValues,
-    UseFormHandleSubmit,
-} from 'react-hook-form';
+import { Control, FieldErrors } from 'react-hook-form';
 import { AnySchema } from 'yup';
 
 export type TLogin = {
@@ -12,10 +7,12 @@ export type TLogin = {
         password: string;
     }>;
     control: Control<any>;
-    handleSubmit: UseFormHandleSubmit<FieldValues>;
     schema: AnySchema;
     loading: boolean;
-    handleSubmitLogin: () => void;
+    disabled: boolean;
+    handleSubmit: (
+        e?: React.BaseSyntheticEvent<object, any, any> | undefined
+    ) => Promise<void>;
 };
 
 export const loginInitialState = {

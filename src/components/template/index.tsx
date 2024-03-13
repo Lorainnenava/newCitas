@@ -22,7 +22,7 @@ const NewTemplate = ({ children }: { children: React.ReactNode }) => {
                     <Layout />
                 </Grid>
             )}
-            <Grid container xs={10} sm={8} md={9} lg={9} xl={10}>
+            <Grid item xs={10} sm={8} md={9} lg={9} xl={10}>
                 <Grid
                     item
                     xs={12}
