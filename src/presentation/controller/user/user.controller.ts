@@ -1,6 +1,6 @@
-import { Get, Put, Body, Post, Param, Controller } from '@nestjs/common';
-import { Public } from '../../../utils';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/shared/guards';
 import { UserCreateService } from '../../../application/services/user/create/userCreate.service';
 import { UserDeleteTokenService } from '../../../application/services/user/deleteToken/userDeleteToken.service';
 import { UserRequestDto } from '../../../domain/entities/user/dto/request/user/userRequest.dto';

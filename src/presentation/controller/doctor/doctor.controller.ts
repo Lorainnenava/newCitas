@@ -1,21 +1,19 @@
-import { Roles } from '../../../utils/roles/roles';
-import { Role } from '../../../utils/roles/role.enum';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
-  Get,
-  Put,
   Body,
-  Post,
-  Param,
-  Delete,
   Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
 } from '@nestjs/common';
-import { Public } from '../../../utils';
+import { ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/shared/guards';
 import { DoctorCreateService } from '../../../application/services/doctor/create/doctorCreate.service';
 import { DoctorDeleteService } from '../../../application/services/doctor/delete/doctorDelete.service';
+import { DoctorFindOneService } from '../../../application/services/doctor/findOne/doctorFindOne.service';
 import { DoctorsGetAllService } from '../../../application/services/doctor/getAll/doctorsGetAll.service';
 import { DoctorUpdateService } from '../../../application/services/doctor/update/doctorUpdate.service';
-import { DoctorFindOneService } from '../../../application/services/doctor/findOne/doctorFindOne.service';
 import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
 import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 

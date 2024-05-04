@@ -1,10 +1,10 @@
-import { Roles } from '../../../utils/roles/roles';
-import { Role } from '../../../utils/roles/role.enum';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Param, Post } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Role } from 'src/shared/guards/roles/role.enum';
+import { Roles } from 'src/shared/guards/roles/roles';
 import { MedicalReportCreateService } from '../../../application/services/medicalReport/create/medicalReportCreate.service';
-import { MedicalReportsGetAllService } from '../../../application/services/medicalReport/getAll/medicalReportGetAll.service';
 import { MedicalReportFindByIdService } from '../../../application/services/medicalReport/findById/medicalReportFindById.service';
+import { MedicalReportsGetAllService } from '../../../application/services/medicalReport/getAll/medicalReportGetAll.service';
 import { MedicalReportRequestDto } from '../../../domain/entities/medicalReport/dto/request/medicalReport/medicalReportRequest.dto';
 import { MedicalReportResponseDto } from '../../../domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
 

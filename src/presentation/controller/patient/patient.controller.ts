@@ -1,21 +1,20 @@
 import {
-  Put,
-  Get,
-  Req,
-  Post,
   Body,
-  Param,
-  Delete,
   Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put
 } from '@nestjs/common';
-import { Roles } from '../../../utils/roles/roles';
-import { Role } from '../../../utils/roles/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PatientDeleteService } from '../../../application/services/patient/delete/patientDelete.service';
-import { PatientUpdateService } from '../../../application/services/patient/update/patientUpdate.service';
-import { PatientsGetAllService } from '../../../application/services/patient/getAll/patientsGetAll.service';
+import { Role } from 'src/shared/guards/roles/role.enum';
+import { Roles } from 'src/shared/guards/roles/roles';
 import { PatientCreateService } from '../../../application/services/patient/create/patientCreate.service';
+import { PatientDeleteService } from '../../../application/services/patient/delete/patientDelete.service';
 import { PatientFindByIdService } from '../../../application/services/patient/findById/patientFindById.service';
+import { PatientsGetAllService } from '../../../application/services/patient/getAll/patientsGetAll.service';
+import { PatientUpdateService } from '../../../application/services/patient/update/patientUpdate.service';
 import { PatientRequestDto } from '../../../domain/entities/patient/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
 

@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { TypeOfDocument } from '../../../domain/entities/typeOfDocument/typeOfDocument.entity';
 import { ITypeOfDocumentRepository } from '../../../domain/interfaces/repository/typeOfDocument/ITypeOfDocument.repository';
 import { TypeOfDocumentRequestDto } from '../../../domain/entities/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
-import { TypeOfDocumentResponseDto } from '../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponsedto';
+import { TypeOfDocumentResponseDto } from '../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponse.dto';
 
 @Injectable()
 export class TypeOfDocumentRepository implements ITypeOfDocumentRepository {

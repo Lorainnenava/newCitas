@@ -3,10 +3,10 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { DomainModule } from './domain/entity.module';
-import { RolesGuard } from './utils/roles/roles.guard';
-import { AuthGuard } from './utils/protectRoute/auth.guard';
-import { ValidationPipe } from './utils/validation/validation.pipe';
 import { PresentationModule } from './presentation/controller/controller.module';
+import { AuthGuard } from './shared/guards/auth/auth.guard';
+import { ValidationPipe } from './shared/guards/validation/validation.pipe';
+import { RolesGuard } from './shared/guards/roles/roles.guard';
 
 @Module({
   imports: [

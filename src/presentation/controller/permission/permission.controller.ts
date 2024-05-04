@@ -1,10 +1,10 @@
-import { Roles } from '../../../utils/roles/roles';
-import { Role } from '../../../utils/roles/role.enum';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Role } from 'src/shared/guards/roles/role.enum';
+import { Roles } from 'src/shared/guards/roles/roles';
 import { PermissionsCreateService } from '../../../application/services/permissions/create/permissionsCreate.service';
-import { PermissionsUpdateService } from '../../../application/services/permissions/update/permissionsUpdate.service';
 import { PermissionsGetAllByRoleService } from '../../../application/services/permissions/getAlByRole/permissionsGetAllByRole.service';
+import { PermissionsUpdateService } from '../../../application/services/permissions/update/permissionsUpdate.service';
 import { PermissionRequestDto } from '../../../domain/entities/permission/dto/request/permissionRequest.dto';
 import { PermissionResponseDto } from '../../../domain/entities/permission/dto/response/permissionResponse.dto';
 
