@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { SpecialtyCreateService } from 'src/services/specialty/create/specialtyCreate.service';
+import { SpecialtiesGetAllService } from 'src/services/specialty/getAll/specialtiesGetAll.service';
 import { Public } from 'src/shared/guards';
-import { SpecialtyCreateService } from '../../../application/services/specialty/create/specialtyCreate.service';
-import { SpecialtiesGetAllService } from '../../../application/services/specialty/getAll/specialtiesGetAll.service';
 import { SpecialtyRequestDto } from '../../../domain/entities/specialty/dto/request/specialtyRequest.dto';
 import { SpecialtyResponseDto } from '../../../domain/entities/specialty/dto/response/specialtyResponse.dto';
 

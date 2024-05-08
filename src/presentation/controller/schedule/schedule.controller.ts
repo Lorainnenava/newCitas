@@ -1,13 +1,13 @@
 import { Controller, Post, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
+import { ScheduleByCancelledAppointmentsService } from 'src/services/medicalAppointment/schedule/getByCancelled/scheduleCancelled.service';
+import { ScheduleByDayService } from 'src/services/medicalAppointment/schedule/getByDay/scheduleByDay.service';
+import { ScheduleByFutureAppointmentsService } from 'src/services/medicalAppointment/schedule/getByFuture/scheduleByFuture.service';
+import { ScheduleByAppointmentHistoryService } from 'src/services/medicalAppointment/schedule/getHistory/scheduleByHistory.service';
 import { Role } from 'src/shared/guards/roles/role.enum';
 import { Roles } from 'src/shared/guards/roles/roles';
 import { RequestUser } from 'src/shared/interface/types';
-import { ScheduleByCancelledAppointmentsService } from '../../../application/services/medicalAppointment/schedule/getByCancelled/scheduleCancelled.service';
-import { ScheduleByDayService } from '../../../application/services/medicalAppointment/schedule/getByDay/scheduleByDay.service';
-import { ScheduleByFutureAppointmentsService } from '../../../application/services/medicalAppointment/schedule/getByFuture/scheduleByFuture.service';
-import { ScheduleByAppointmentHistoryService } from '../../../application/services/medicalAppointment/schedule/getHistory/scheduleByHistory.service';
 import { MedicalAppointmentResponseDto } from '../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 
 @ApiTags('Schedule')

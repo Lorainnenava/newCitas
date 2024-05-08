@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PermissionResponseDto } from '../../../../domain/entities/permission/dto/response/permissionResponse.dto';
-import { IPermissionRepository } from '../../../../domain/interfaces/repository/permission/IPermission.repository';
-import { IPermissionsGetAllByRoleService } from '../../../../domain/interfaces/service/permission/getAllByRole/IPermissionsGetAllByRoleService';
+import { PermissionResponseDto } from 'src/domain/entities/permission/dto/response/permissionResponse.dto';
+import { IPermissionRepository } from 'src/domain/interfaces/infrastructure/permission/IPermission.repository';
+import { IPermissionsGetAllByRoleService } from 'src/domain/interfaces/services/permission/getAllByRole/IPermissionsGetAllByRoleService';
 
 @Injectable()
 export class PermissionsGetAllByRoleService

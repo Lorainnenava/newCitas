@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { DoctorResponseDto } from '../../../../domain/entities/doctor/dto/response/doctorResponse.dto';
-import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
-import { IDoctorFindOneService } from '../../../../domain/interfaces/service/doctor/findOne/IDoctorFindOneService';
+import { DoctorResponseDto } from 'src/domain/entities/doctor/dto/response/doctorResponse.dto';
+import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
+import { IDoctorFindOneService } from 'src/domain/interfaces/services/doctor/findOne/IDoctorFindOneService';
 
 @Injectable()
 export class DoctorFindOneService implements IDoctorFindOneService {

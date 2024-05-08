@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { MedicalAppointmentRequestDto } from '../../../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
-import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
-import { IMedicalAppointmentUpdateService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/update/IMedicalAppointmentUpdateService';
+import { MedicalAppointmentRequestDto } from 'src/domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentResponseDto } from 'src/domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from 'src/domain/interfaces/infrastructure/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
+import { IMedicalAppointmentUpdateService } from 'src/domain/interfaces/services/medicalAppointment/medicalAppointment/update/IMedicalAppointmentUpdateService';
 
 @Injectable()
 export class MedicalAppointmentUpdateService

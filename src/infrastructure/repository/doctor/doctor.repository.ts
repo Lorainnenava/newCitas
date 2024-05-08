@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Doctor } from '../../../domain/entities/doctor/doctor.entity';
 import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
-import { IDoctorRepository } from '../../../domain/interfaces/repository/doctor/IDoctor.repository';
 import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
+import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
 
 @Injectable()
 export class DoctorRepository implements IDoctorRepository {

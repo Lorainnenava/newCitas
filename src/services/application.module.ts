@@ -1,30 +1,28 @@
 import { Global, Module } from '@nestjs/common';
-import { UtilsModule } from '../utils/utils.module';
-import { EmailApplicationModule } from './services/emails/emails.module';
-import { RolApplicationModule } from './services/rol/rolApplication.module';
-import { UserApplicationModule } from './services/user/userApplication.module';
-import { InfrastructureModule } from '../infrastructure/infrastructure.module';
-import { DoctorApplicationModule } from './services/doctor/doctorApplication.module';
-import { ModuleApplicationModule } from './services/module/moduleApplication.module';
-import { PatientApplicationModule } from './services/patient/patientApplication.module';
-import { InvoiceApplicationModule } from './services/invoice/invoiceApplication.module';
-import { SessionApplicationModule } from './services/session/sessionApplication.module';
-import { SpecialtyApplicatiomModule } from './services/specialty/specialtyApplication.module';
-import { PermissionApplicationModule } from './services/permissions/permissionApplication.module';
-import { MedicalReportApplicationModule } from './services/medicalReport/medicalReportApplication.module';
-import { MedicalHistoryAplicationModule } from './services/medicalHistory/medicalHistoryApplication.module';
-import { TypeOfDocumentApplicationModule } from './services/typeOfDocument/typeOfDocumentApplication.module';
-import { MedicalAppointmentApplicationModule } from './services/medicalAppointment/medicalAppointmentApplication.module';
-import { DocumentApplicationModule } from './services/document/document.module';
+import { InfrastructureModule } from 'src/infrastructure/infrastructure.module';
+import { SharedModule } from 'src/shared/shared.module';
+import { DoctorApplicationModule } from './doctor/doctorApplication.module';
+import { InvoiceApplicationModule } from './invoice/invoiceApplication.module';
+import { PatientApplicationModule } from './patient/patientApplication.module';
+import { MedicalAppointmentApplicationModule } from './medicalAppointment/medicalAppointmentApplication.module';
+import { MedicalHistoryAplicationModule } from './medicalHistory/medicalHistoryApplication.module';
+import { MedicalReportApplicationModule } from './medicalReport/medicalReportApplication.module';
+import { ModuleApplicationModule } from './module/moduleApplication.module';
+import { PermissionApplicationModule } from './permissions/permissionApplication.module';
+import { RolApplicationModule } from './rol/rolApplication.module';
+import { SessionApplicationModule } from './session/sessionApplication.module';
+import { SpecialtyApplicatiomModule } from './specialty/specialtyApplication.module';
+import { TypeOfDocumentApplicationModule } from './typeOfDocument/typeOfDocumentApplication.module';
+import { UserApplicationModule } from './user/userApplication.module';
 
 /**
  * Module of applicatión layer
  */
 @Module({
   imports: [
+    SharedModule,
     InfrastructureModule,
-    UtilsModule,
-    EmailApplicationModule,
+    SharedModule,
     DoctorApplicationModule,
     InvoiceApplicationModule,
     PatientApplicationModule,
@@ -38,10 +36,9 @@ import { DocumentApplicationModule } from './services/document/document.module';
     SpecialtyApplicatiomModule,
     TypeOfDocumentApplicationModule,
     UserApplicationModule,
-    DocumentApplicationModule,
+    TypeOfDocumentApplicationModule,
   ],
   exports: [
-    EmailApplicationModule,
     DoctorApplicationModule,
     InvoiceApplicationModule,
     MedicalAppointmentApplicationModule,
@@ -55,7 +52,6 @@ import { DocumentApplicationModule } from './services/document/document.module';
     SpecialtyApplicatiomModule,
     TypeOfDocumentApplicationModule,
     UserApplicationModule,
-    DocumentApplicationModule,
   ],
 })
 @Global()

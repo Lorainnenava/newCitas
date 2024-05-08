@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { ModuleCreateService } from 'src/services/module/create/moduleCreate.service';
+import { ModulesGetAllService } from 'src/services/module/getAll/modulesGetAll.service';
+import { ModuleUpdateService } from 'src/services/module/update/moduleUpdate.service';
 import { Public } from 'src/shared/guards';
-import { ModuleCreateService } from '../../../application/services/module/create/moduleCreate.service';
-import { ModulesGetAllService } from '../../../application/services/module/getAll/modulesGetAll.service';
-import { ModuleUpdateService } from '../../../application/services/module/update/moduleUpdate.service';
 import { ModuleRequestDto } from '../../../domain/entities/module/dto/request/module/moduleRequest.dto';
 import { ModuleResponseDto } from '../../../domain/entities/module/dto/response/module/moduleResponse.dto';
 

@@ -2,9 +2,9 @@ import { FilterQuery, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Body, Injectable } from '@nestjs/common';
 import { Session } from '../../../domain/entities/session/session.entity';
-import { ISessionRepository } from '../../../domain/interfaces/repository/session/ISession.repository';
 import { SessionRequestDto } from '../../../domain/entities/session/dto/request/session/sessionRequest.dto';
 import { SessionResponseDto } from '../../../domain/entities/session/dto/response/sessionResponse.dto';
+import { ISessionRepository } from 'src/domain/interfaces/infrastructure/session/ISession.repository';
 
 @Injectable()
 export class SessionRepository implements ISessionRepository {

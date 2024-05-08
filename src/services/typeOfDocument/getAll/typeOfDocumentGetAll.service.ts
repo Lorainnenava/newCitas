@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { TypeOfDocumentResponseDto } from '../../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponse.dto';
-import { ITypeOfDocumentRepository } from '../../../../domain/interfaces/repository/typeOfDocument/ITypeOfDocument.repository';
-import { ITypeOfDocumentsGetAllService } from '../../../../domain/interfaces/service/typeOfDocument/getAll/ITypeOfDocumentsGetAllService';
+import { TypeOfDocumentResponseDto } from 'src/domain/entities/typeOfDocument/dto/response/typeOfDocumentResponse.dto';
+import { ITypeOfDocumentRepository } from 'src/domain/interfaces/infrastructure/typeOfDocument/ITypeOfDocument.repository';
+import { ITypeOfDocumentsGetAllService } from 'src/domain/interfaces/services/typeOfDocument/getAll/ITypeOfDocumentsGetAllService';
 
 @Injectable()
 export class TypeOfDocumentsGetAllService

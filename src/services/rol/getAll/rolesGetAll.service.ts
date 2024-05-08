@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RolResponseDto } from '../../../../domain/entities/rol/dto/response/rolResponse.dto';
-import { IRolRepository } from '../../../../domain/interfaces/repository/rol/IRol.repository';
-import { IRolesGetAllService } from '../../../../domain/interfaces/service/rol/getAll/IRolesGetAllService';
+import { RolResponseDto } from 'src/domain/entities/rol/dto/response/rolResponse.dto';
+import { IRolRepository } from 'src/domain/interfaces/infrastructure/rol/IRol.repository';
+import { IRolesGetAllService } from 'src/domain/interfaces/services/rol/getAll/IRolesGetAllService';
 
 @Injectable()
 export class RolesGetAllService implements IRolesGetAllService {

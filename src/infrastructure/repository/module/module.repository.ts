@@ -2,9 +2,9 @@ import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Modules } from '../../../domain/entities/module/module.entity';
-import { IModuleRepository } from '../../../domain/interfaces/repository/module/IModule.repository';
 import { ModuleRequestDto } from '../../../domain/entities/module/dto/request/module/moduleRequest.dto';
 import { ModuleResponseDto } from '../../../domain/entities/module/dto/response/module/moduleResponse.dto';
+import { IModuleRepository } from 'src/domain/interfaces/infrastructure/module/IModule.repository';
 
 @Injectable()
 export class ModuleRepository implements IModuleRepository {

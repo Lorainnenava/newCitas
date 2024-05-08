@@ -8,13 +8,12 @@ import { SessionController } from './session/session.controller';
 import { PatientController } from './patient/patient.controller';
 import { ScheduleController } from './schedule/schedule.controller';
 import { SpecialtyController } from './specialty/specialty.controller';
-import { ApplicationModule } from '../../application/application.module';
 import { PermissionController } from './permission/permission.controller';
 import { MedicalReportController } from './medicalReport/medicalReport.controller';
 import { TypeOfDocumentController } from './typeOfDocument/typeOfDocument.controller';
 import { MedicalHistoryController } from './medicalHistory/medicalHistory.controller';
 import { MedicalAppointmentController } from './medicalAppointment/medicalAppointment.controller';
-import { FileController } from './ownCloud/owncloud.controller';
+import { ApplicationModule } from 'src/services/application.module';
 
 /**
  * Module of presentatión layer
@@ -36,7 +35,6 @@ import { FileController } from './ownCloud/owncloud.controller';
     RolController,
     SpecialtyController,
     TypeOfDocumentController,
-    FileController,
   ],
 })
 export class PresentationModule {}

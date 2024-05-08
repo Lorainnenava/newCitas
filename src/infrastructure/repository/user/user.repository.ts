@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { User } from '../../../domain/entities/user/user.entity';
-import { IUserRepository } from '../../../domain/interfaces/repository/user/IUser.repository';
 import { UserRequestDto } from '../../../domain/entities/user/dto/request/user/userRequest.dto';
 import { UserResponseDto } from '../../../domain/entities/user/dto/response/user/userResponse.dto';
+import { IUserRepository } from 'src/domain/interfaces/infrastructure/user/IUser.repository';
 
 @Injectable()
 export class UserRepository implements IUserRepository {

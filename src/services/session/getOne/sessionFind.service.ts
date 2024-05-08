@@ -1,7 +1,7 @@
 import { NotFoundException, Injectable, Inject } from '@nestjs/common';
-import { SessionResponseDto } from '../../../../domain/entities/session/dto/response/sessionResponse.dto';
-import { ISessionRepository } from '../../../../domain/interfaces/repository/session/ISession.repository';
-import { ISessionGetOneService } from '../../../../domain/interfaces/service/session/getOne/ISessionGetOneService';
+import { SessionResponseDto } from 'src/domain/entities/session/dto/response/sessionResponse.dto';
+import { ISessionRepository } from 'src/domain/interfaces/infrastructure/session/ISession.repository';
+import { ISessionGetOneService } from 'src/domain/interfaces/services/session/getOne/ISessionGetOneService';
 
 @Injectable()
 export class SessionGetOneService implements ISessionGetOneService {
@@ -21,7 +21,7 @@ export class SessionGetOneService implements ISessionGetOneService {
         const findSession = await this._sessionRepository.findOne({ email });
 
         if (findSession === null)
-          throw new NotFoundException('This sesion does not exist');
+          throw new NotFoundException('This session does not exist');
         return findSession;
       }
     } catch (error) {

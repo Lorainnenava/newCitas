@@ -2,9 +2,9 @@ import { FilterQuery, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { TypeOfDocument } from '../../../domain/entities/typeOfDocument/typeOfDocument.entity';
-import { ITypeOfDocumentRepository } from '../../../domain/interfaces/repository/typeOfDocument/ITypeOfDocument.repository';
 import { TypeOfDocumentRequestDto } from '../../../domain/entities/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
 import { TypeOfDocumentResponseDto } from '../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponse.dto';
+import { ITypeOfDocumentRepository } from 'src/domain/interfaces/infrastructure/typeOfDocument/ITypeOfDocument.repository';
 
 @Injectable()
 export class TypeOfDocumentRepository implements ITypeOfDocumentRepository {

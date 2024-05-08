@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
-import { IMedicalAppointmentFindByIdService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/findById/IMedicalAppointmentFindByIdService';
+import { MedicalAppointmentResponseDto } from 'src/domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from 'src/domain/interfaces/infrastructure/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
+import { IMedicalAppointmentFindByIdService } from 'src/domain/interfaces/services/medicalAppointment/medicalAppointment/findById/IMedicalAppointmentFindByIdService';
 
 @Injectable()
 export class MedicalAppointmentFindByIdService

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IModuleRepository } from '../../../../domain/interfaces/repository/module/IModule.repository';
-import { ModuleResponseDto } from '../../../../domain/entities/module/dto/response/module/moduleResponse.dto';
-import { IModulesGetAllService } from '../../../../domain/interfaces/service/module/getAll/IModulesGetAllService';
+import { ModuleResponseDto } from 'src/domain/entities/module/dto/response/module/moduleResponse.dto';
+import { IModuleRepository } from 'src/domain/interfaces/infrastructure/module/IModule.repository';
+import { IModulesGetAllService } from 'src/domain/interfaces/services/module/getAll/IModulesGetAllService';
 
 @Injectable()
 export class ModulesGetAllService implements IModulesGetAllService {

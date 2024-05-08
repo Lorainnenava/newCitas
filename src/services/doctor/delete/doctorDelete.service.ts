@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DoctorResponseDto } from '../../../../domain/entities/doctor/dto/response/doctorResponse.dto';
-import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
-import { IDoctorDeleteService } from '../../../../domain/interfaces/service/doctor/delete/IDoctorDeleteService';
+import { DoctorResponseDto } from 'src/domain/entities/doctor/dto/response/doctorResponse.dto';
+import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
+import { IDoctorDeleteService } from 'src/domain/interfaces/services/doctor/delete/IDoctorDeleteService';
 
 @Injectable()
 export class DoctorDeleteService implements IDoctorDeleteService {

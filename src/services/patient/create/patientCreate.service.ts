@@ -1,9 +1,9 @@
-import { Injectable, ConflictException, Inject } from '@nestjs/common';
-import { WelcomeEmailService } from '../../emails/welcomeEmail/welcomeEmail.service';
-import { IPatientRepository } from '../../../../domain/interfaces/repository/patient/IPatient.repository';
-import { PatientRequestDto } from '../../../../domain/entities/patient/dto/request/patient/patientRequest.dto';
-import { PatientResponseDto } from '../../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
-import { IPatientCreateService } from '../../../../domain/interfaces/service/patient/create/IPatientCreateService';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { PatientRequestDto } from 'src/domain/entities/patient/dto/request/patient/patientRequest.dto';
+import { PatientResponseDto } from 'src/domain/entities/patient/dto/response/patient/patientResponse.dto';
+import { IPatientRepository } from 'src/domain/interfaces/infrastructure/patient/IPatient.repository';
+import { IPatientCreateService } from 'src/domain/interfaces/services/patient/create/IPatientCreateService';
+import { WelcomeEmailService } from 'src/shared/services/emails/welcomeEmail/welcomeEmail.service';
 
 @Injectable()
 export class PatientCreateService implements IPatientCreateService {
@@ -20,10 +20,16 @@ export class PatientCreateService implements IPatientCreateService {
   async create(request: PatientRequestDto): Promise<PatientResponseDto> {
     try {
       const searchPatient = await this._patientRepository.findOne({
-        'documentInfo.documentNumber': Number(
-          request.documentInfo.documentNumber,
-        ),
+        $or: [
+          {
+            'documentInfo.documentNumber': Number(
+              request?.documentInfo?.documentNumber,
+            ),
+          },
+          { email: request?.email },
+        ],
       });
+
       if (searchPatient)
         throw new ConflictException('This patient already exists');
 
@@ -31,12 +37,12 @@ export class PatientCreateService implements IPatientCreateService {
       const createPatient = await this._patientRepository.create(request);
 
       // if the patient was created so you must send a email
-      if (createPatient) {
+      if (createPatient?._id) {
         await this.welcomeEmailService.sendEmailWelcome(
           {
-            email: createPatient.email,
-            firstName: createPatient.firstName,
-            firstLastName: createPatient.firstLastName,
+            email: createPatient?.email,
+            firstName: createPatient?.firstName,
+            firstLastName: createPatient?.firstLastName,
             secondName: createPatient?.secondName,
             secondLastName: createPatient?.secondLastName,
           },

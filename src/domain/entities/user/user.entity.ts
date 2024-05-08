@@ -42,8 +42,8 @@ export class User {
   /**
    * dateOfBirth
    */
-  @Prop({ type: String })
-  dateOfBirth: string;
+  @Prop({ type: Date })
+  dateOfBirth: Date;
 
   /**
    * gender

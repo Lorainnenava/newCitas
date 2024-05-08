@@ -1,18 +1,18 @@
-import { Injectable, ConflictException, Inject } from '@nestjs/common';
-import { DateService } from '../../../../../utils/date/date.service';
-import { CodeRandomService } from '../../../../../utils/code/codeRandom.service';
-import { DescriptionService } from '../../../../../utils/description/description.service';
-import { ObjectEntriesService } from '../../../../../utils/objectEntries/objectEntries.service';
-import { DoctorRequestDto } from '../../../../../domain/entities/doctor/dto/request/doctorRequest.dto';
-import { IDoctorRepository } from '../../../../../domain/interfaces/repository/doctor/IDoctor.repository';
-import { IPatientRepository } from '../../../../../domain/interfaces/repository/patient/IPatient.repository';
-import { IInvoiceRepository } from '../../../../../domain/interfaces/repository/invoice/IInvoice.repository';
-import { ConfirmationMedicalAppointmentService } from '../../../emails/confirmationMedicalAppointment/confirmationMedicalAppointment.service';
-import { PatientInformationRequestDto } from '../../../../../domain/entities/invoice/dto/request/patientInformation/patientInformationRequest.dto';
-import { MedicalAppointmentRequestDto } from '../../../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
-import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
-import { IMedicalAppointmentCreateService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/create/ICreateMedicalAppointmentService';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { DoctorRequestDto } from 'src/domain/entities/doctor/dto/request/doctorRequest.dto';
+import { PatientInformationRequestDto } from 'src/domain/entities/invoice/dto/request/patientInformation/patientInformationRequest.dto';
+import { MedicalAppointmentRequestDto } from 'src/domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
+import { MedicalAppointmentResponseDto } from 'src/domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
+import { IInvoiceRepository } from 'src/domain/interfaces/infrastructure/invoice/IInvoice.repository';
+import { IMedicalAppointmentRepository } from 'src/domain/interfaces/infrastructure/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
+import { IPatientRepository } from 'src/domain/interfaces/infrastructure/patient/IPatient.repository';
+import { IMedicalAppointmentCreateService } from 'src/domain/interfaces/services/medicalAppointment/medicalAppointment/create/ICreateMedicalAppointmentService';
+import { ConfirmationMedicalAppointmentService } from 'src/shared/services/emails/confirmationMedicalAppointment/confirmationMedicalAppointment.service';
+import { CodeRandomService } from 'src/shared/utils/code/codeRandom.service';
+import { DateService } from 'src/shared/utils/date/date.service';
+import { DescriptionService } from 'src/shared/utils/description/description.service';
+import { ObjectEntriesService } from 'src/shared/utils/objectEntries/objectEntries.service';
 
 @Injectable()
 export class MedicalAppointmentCreateService
@@ -69,7 +69,7 @@ export class MedicalAppointmentCreateService
           request.userInfo.documentInfo.documentNumber,
       });
 
-      // propertytoOmit patient
+      // propertyToOmit patient
       const propertiesToOmitPatient = [
         '_id',
         'dateOfBirth',

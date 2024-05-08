@@ -2,9 +2,9 @@ import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Patient } from '../../../domain/entities/patient/patient.entity';
-import { IPatientRepository } from '../../../domain/interfaces/repository/patient/IPatient.repository';
 import { PatientRequestDto } from '../../../domain/entities/patient/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
+import { IPatientRepository } from 'src/domain/interfaces/infrastructure/patient/IPatient.repository';
 
 @Injectable()
 export class PatientRepository implements IPatientRepository {

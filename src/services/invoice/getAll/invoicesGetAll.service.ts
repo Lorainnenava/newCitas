@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IInvoiceRepository } from '../../../../domain/interfaces/repository/invoice/IInvoice.repository';
-import { InvoiceResponseDto } from '../../../../domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
-import { IInvoicesGetAllService } from '../../../../domain/interfaces/service/invoice/getAll/IInvoicesGetAllService';
+import { InvoiceResponseDto } from 'src/domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
+import { IInvoiceRepository } from 'src/domain/interfaces/infrastructure/invoice/IInvoice.repository';
+import { IInvoicesGetAllService } from 'src/domain/interfaces/services/invoice/getAll/IInvoicesGetAllService';
 
 @Injectable()
 export class InvoicesGetAllService implements IInvoicesGetAllService {

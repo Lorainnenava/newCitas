@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { IPatientRepository } from '../../../../domain/interfaces/repository/patient/IPatient.repository';
-import { PatientResponseDto } from '../../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
-import { IPatientDeleteService } from '../../../../domain/interfaces/service/patient/delete/IPatientDeleteService';
+import { PatientResponseDto } from 'src/domain/entities/patient/dto/response/patient/patientResponse.dto';
+import { IPatientRepository } from 'src/domain/interfaces/infrastructure/patient/IPatient.repository';
+import { IPatientDeleteService } from 'src/domain/interfaces/services/patient/delete/IPatientDeleteService';
 
 @Injectable()
 export class PatientDeleteService implements IPatientDeleteService {

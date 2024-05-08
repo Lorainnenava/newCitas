@@ -1,8 +1,8 @@
-import { Injectable, ConflictException, Inject } from '@nestjs/common';
-import { DoctorRequestDto } from '../../../../domain/entities/doctor/dto/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../../domain/entities/doctor/dto/response/doctorResponse.dto';
-import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
-import { IDoctorCreateService } from '../../../../domain/interfaces/service/doctor/create/IDoctorCreateService';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { DoctorRequestDto } from 'src/domain/entities/doctor/dto/request/doctorRequest.dto';
+import { DoctorResponseDto } from 'src/domain/entities/doctor/dto/response/doctorResponse.dto';
+import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
+import { IDoctorCreateService } from 'src/domain/interfaces/services/doctor/create/IDoctorCreateService';
 
 @Injectable()
 export class DoctorCreateService implements IDoctorCreateService {

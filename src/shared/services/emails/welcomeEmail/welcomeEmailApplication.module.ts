@@ -19,7 +19,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
         from: '"Center Hospital" <lorewow23@gmail.com>',
       },
       template: {
-        dir: join(__dirname, '../../../utils/template/welcome'),
+        dir: join(__dirname, 'shared/utils/template/welcome/'),
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true,

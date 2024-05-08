@@ -2,9 +2,9 @@ import { FilterQuery, Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Specialty } from '../../../domain/entities/specialty/specialty.entity';
-import { ISpecialtyRepository } from '../../../domain/interfaces/repository/specialty/ISpecialty.repository';
 import { SpecialtyRequestDto } from '../../../domain/entities/specialty/dto/request/specialtyRequest.dto';
 import { SpecialtyResponseDto } from '../../../domain/entities/specialty/dto/response/specialtyResponse.dto';
+import { ISpecialtyRepository } from 'src/domain/interfaces/infrastructure/specialty/ISpecialty.repository';
 
 @Injectable()
 export class SpecialtyRepository implements ISpecialtyRepository {

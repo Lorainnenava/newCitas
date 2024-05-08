@@ -21,7 +21,7 @@ export class ValidationPipe implements PipeTransform<any> {
     const errors = await validate(object);
     if (errors.length > 0) {
       // Aquí es donde se recogen los errores de validación y se incluyen en la excepción
-      let errorMessages = errors
+      const errorMessages = errors
         .map((error) => Object.values(error.constraints))
         .join(', ');
       throw new BadRequestException(errorMessages);

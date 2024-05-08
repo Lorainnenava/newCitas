@@ -2,9 +2,9 @@ import { FilterQuery, Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Rol } from '../../../domain/entities/rol/rol.entity';
-import { IRolRepository } from '../../../domain/interfaces/repository/rol/IRol.repository';
 import { RolRequestDto } from '../../../domain/entities/rol/dto/request/rolRequest.dto';
 import { RolResponseDto } from '../../../domain/entities/rol/dto/response/rolResponse.dto';
+import { IRolRepository } from 'src/domain/interfaces/infrastructure/rol/IRol.repository';
 
 @Injectable()
 export class RolRepository implements IRolRepository {

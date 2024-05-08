@@ -1,16 +1,16 @@
 import {
-  Injectable,
   ConflictException,
+  Inject,
+  Injectable,
   NotFoundException,
   UnauthorizedException,
-  Inject,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PasswordService } from '../../../../utils/bcrypt/bcrypt.service';
-import { IUserRepository } from '../../../../domain/interfaces/repository/user/IUser.repository';
-import { ILoginService } from '../../../../domain/interfaces/service/session/login/ILoginService';
-import { LoginRequestDto } from '../../../../domain/entities/session/dto/request/Login/LoginRequest.dto';
-import { ISessionRepository } from '../../../../domain/interfaces/repository/session/ISession.repository';
+import { LoginRequestDto } from 'src/domain/entities/session/dto/request/login/loginRequest.dto';
+import { ISessionRepository } from 'src/domain/interfaces/infrastructure/session/ISession.repository';
+import { IUserRepository } from 'src/domain/interfaces/infrastructure/user/IUser.repository';
+import { ILoginService } from 'src/domain/interfaces/services/session/login/ILoginService';
+import { PasswordService } from 'src/shared/utils/bcrypt/bcrypt.service';
 
 @Injectable()
 export class LoginService implements ILoginService {

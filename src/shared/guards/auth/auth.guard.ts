@@ -11,7 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { IS_PUBLIC_KEY } from '..';
 import { RequestUser } from '../../interface/types';
-import { ISessionRepository } from '../../../domain/interfaces/repository/session/ISession.repository';
+import { ISessionRepository } from 'src/domain/interfaces/infrastructure/session/ISession.repository';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

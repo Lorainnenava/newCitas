@@ -1,12 +1,12 @@
 import { Injectable, ConflictException, Inject } from '@nestjs/common';
-import { PasswordService } from '../../../../utils/bcrypt/bcrypt.service';
-import { RandomTokenService } from '../../../../utils/randomToken/randomToken.service';
-import { IUserRepository } from '../../../../domain/interfaces/repository/user/IUser.repository';
-import { UserRequestDto } from '../../../../domain/entities/user/dto/request/user/userRequest.dto';
-import { ConfirmationEmailService } from '../../emails/confirmationEmail/confirmationEmail.service';
-import { UserResponseDto } from '../../../../domain/entities/user/dto/response/user/userResponse.dto';
-import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
-import { IUserCreateService } from '../../../../domain/interfaces/service/user/create/IUserCreateService';
+import { UserRequestDto } from 'src/domain/entities/user/dto/request/user/userRequest.dto';
+import { UserResponseDto } from 'src/domain/entities/user/dto/response/user/userResponse.dto';
+import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
+import { IUserRepository } from 'src/domain/interfaces/infrastructure/user/IUser.repository';
+import { IUserCreateService } from 'src/domain/interfaces/services/user/create/IUserCreateService';
+import { ConfirmationEmailService } from 'src/shared/services/emails/confirmationEmail/confirmationEmail.service';
+import { PasswordService } from 'src/shared/utils/bcrypt/bcrypt.service';
+import { RandomTokenService } from 'src/shared/utils/randomToken/randomToken.service';
 
 @Injectable()
 export class UserCreateService implements IUserCreateService {
@@ -28,7 +28,7 @@ export class UserCreateService implements IUserCreateService {
     try {
       // verify if the user exists
       const exitedUser = await this._userRepository.findOne({
-        $and: [{ email: request.email }, { state: true }],
+        $and: [{ email: request?.email }, { state: true }],
       });
 
       if (exitedUser) throw new ConflictException('This user already exists');
@@ -36,7 +36,7 @@ export class UserCreateService implements IUserCreateService {
       // verify is the user is a doctor
       const isDoctor = (await this._doctorRepository.findOne({
         'documentInfo.documentNumber': Number(
-          request.documentInfo.documentNumber,
+          request?.documentInfo?.documentNumber,
         ),
       }))
         ? 'DOCTOR'
@@ -46,7 +46,7 @@ export class UserCreateService implements IUserCreateService {
       const createUser = await this._userRepository.create({
         ...request,
         password: await this.passwordService.encryptPassword(request.password),
-        role: request.role ? request.role : isDoctor,
+        role: request?.role ? request?.role : isDoctor,
         token: await this.randomTokenService.generarToken(),
       });
 

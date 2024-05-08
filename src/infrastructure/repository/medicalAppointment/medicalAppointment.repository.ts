@@ -1,11 +1,11 @@
 import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { RequestUser } from '../../../utils/types';
 import { MedicalAppointment } from '../../../domain/entities/medicalAppointment/medicalAppointment.entity';
-import { IMedicalAppointmentRepository } from '../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
 import { MedicalAppointmentRequestDto } from '../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
 import { MedicalAppointmentResponseDto } from '../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from 'src/domain/interfaces/infrastructure/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
+import { RequestUser } from 'src/shared/interface/types';
 
 @Injectable()
 export class MedicalAppointmentRepository

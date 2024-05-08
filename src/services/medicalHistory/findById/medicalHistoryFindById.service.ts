@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { IMedicalHistoryRepository } from '../../../../domain/interfaces/repository/medicalHistory/IMedicalHistory.repository';
-import { IMedicalHistoryFindByIdService } from '../../../../domain/interfaces/service/medicalHistory/findById/IMedicalHistoryFindByIdService';
-import { MedicalHistoryResponseDto } from '../../../../domain/entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
+import { MedicalHistoryResponseDto } from 'src/domain/entities/medicalHistory/dto/response/medicalHistory/medicalHistoryResponse.dto';
+import { IMedicalHistoryRepository } from 'src/domain/interfaces/infrastructure/medicalHistory/IMedicalHistory.repository';
+import { IMedicalHistoryFindByIdService } from 'src/domain/interfaces/services/medicalHistory/findById/IMedicalHistoryFindByIdService';
 
 @Injectable()
 export class MedicalHistoryFindByIdService

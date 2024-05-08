@@ -1,7 +1,7 @@
 import { FilterQuery, UpdateQuery } from 'mongoose';
-import { RequestUser } from '../../../../../utils/types';
 import { MedicalAppointmentRequestDto } from '../../../../entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
 import { MedicalAppointmentResponseDto } from '../../../../entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { RequestUser } from 'src/shared/interface/types';
 
 export interface IMedicalAppointmentRepository {
   /**

@@ -28,7 +28,7 @@ export class UserResponseDto extends Document {
   documentInfo: DocumentInfoResponseDto;
 
   @ApiProperty()
-  dateOfBirth: string;
+  dateOfBirth: Date;
 
   @ApiProperty()
   gender: string;

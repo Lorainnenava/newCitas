@@ -1,8 +1,8 @@
 import { Injectable, ConflictException, Inject } from '@nestjs/common';
-import { IModuleRepository } from '../../../../domain/interfaces/repository/module/IModule.repository';
-import { ModuleRequestDto } from '../../../../domain/entities/module/dto/request/module/moduleRequest.dto';
-import { ModuleResponseDto } from '../../../../domain/entities/module/dto/response/module/moduleResponse.dto';
-import { IModuleCreateService } from '../../../../domain/interfaces/service/module/create/IModuleCreateService';
+import { ModuleRequestDto } from 'src/domain/entities/module/dto/request/module/moduleRequest.dto';
+import { ModuleResponseDto } from 'src/domain/entities/module/dto/response/module/moduleResponse.dto';
+import { IModuleRepository } from 'src/domain/interfaces/infrastructure/module/IModule.repository';
+import { IModuleCreateService } from 'src/domain/interfaces/services/module/create/IModuleCreateService';
 
 @Injectable()
 export class ModuleCreateService implements IModuleCreateService {

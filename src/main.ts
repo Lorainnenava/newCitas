@@ -1,14 +1,18 @@
-import { AppModule } from './app.module';
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { ConfigService } from '@nestjs/config';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
 import { ValidationPipe } from './shared/guards/validation/validation.pipe';
 
 async function bootstrap() {
+  const HOST = process.env.HOST || 'localhost';
+  const PORT = process.env.PORT || 3000;
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: { origin: '*', credentials: true },
   });
+
   app.useGlobalPipes(new ValidationPipe()); // global class-validator setting
 
   /**
@@ -30,13 +34,21 @@ async function bootstrap() {
       'token', // This name here is important for matching up with @ApiBearerAuth() in your controller!
     )
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
 
-  const configService = app.get(ConfigService);
-  await app.listen(configService.get('PORT'));
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      filter: true,
+    },
+  });
 
-  console.log(`Application is running on: ${await app.getUrl()} ✨`);
-  console.log(`Swagger UI available at ${await app.getUrl()}/api`);
+  await app.listen(PORT);
+
+  Logger.log(
+    `Swagger UI available at http://${HOST}:${PORT}/api/ ✨`,
+    'Bootstrap',
+    false,
+  );
 }
 bootstrap();

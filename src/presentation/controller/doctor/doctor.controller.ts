@@ -8,12 +8,12 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { DoctorCreateService } from 'src/services/doctor/create/doctorCreate.service';
+import { DoctorDeleteService } from 'src/services/doctor/delete/doctorDelete.service';
+import { DoctorFindOneService } from 'src/services/doctor/findOne/doctorFindOne.service';
+import { DoctorsGetAllService } from 'src/services/doctor/getAll/doctorsGetAll.service';
+import { DoctorUpdateService } from 'src/services/doctor/update/doctorUpdate.service';
 import { Public } from 'src/shared/guards';
-import { DoctorCreateService } from '../../../application/services/doctor/create/doctorCreate.service';
-import { DoctorDeleteService } from '../../../application/services/doctor/delete/doctorDelete.service';
-import { DoctorFindOneService } from '../../../application/services/doctor/findOne/doctorFindOne.service';
-import { DoctorsGetAllService } from '../../../application/services/doctor/getAll/doctorsGetAll.service';
-import { DoctorUpdateService } from '../../../application/services/doctor/update/doctorUpdate.service';
 import { DoctorRequestDto } from '../../../domain/entities/doctor/dto/request/doctorRequest.dto';
 import { DoctorResponseDto } from '../../../domain/entities/doctor/dto/response/doctorResponse.dto';
 

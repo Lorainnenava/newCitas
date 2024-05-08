@@ -1,7 +1,7 @@
 import { NotFoundException, Injectable, Inject } from '@nestjs/common';
-import { SessionResponseDto } from '../../../../domain/entities/session/dto/response/sessionResponse.dto';
-import { ISessionRepository } from '../../../../domain/interfaces/repository/session/ISession.repository';
-import { ISessionDeleteService } from '../../../../domain/interfaces/service/session/delete/ISessionDeleteService';
+import { SessionResponseDto } from 'src/domain/entities/session/dto/response/sessionResponse.dto';
+import { ISessionRepository } from 'src/domain/interfaces/infrastructure/session/ISession.repository';
+import { ISessionDeleteService } from 'src/domain/interfaces/services/session/delete/ISessionDeleteService';
 
 @Injectable()
 export class SessionDeleteService implements ISessionDeleteService {
@@ -19,7 +19,7 @@ export class SessionDeleteService implements ISessionDeleteService {
     try {
       const deleteSession = await this._sessionRepository.delete({ token });
       if (deleteSession === null)
-        throw new NotFoundException('This sesion does not exist');
+        throw new NotFoundException('This session does not exist');
       return deleteSession;
     } catch (error) {
       throw error;

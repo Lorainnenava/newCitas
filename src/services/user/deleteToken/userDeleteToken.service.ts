@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { IUserRepository } from '../../../../domain/interfaces/repository/user/IUser.repository';
-import { UserResponseDto } from '../../../../domain/entities/user/dto/response/user/userResponse.dto';
-import { IUserDeleteTokenService } from '../../../../domain/interfaces/service/user/deleteToken/IUserDeleteTokenService';
+import { UserResponseDto } from 'src/domain/entities/user/dto/response/user/userResponse.dto';
+import { IUserRepository } from 'src/domain/interfaces/infrastructure/user/IUser.repository';
+import { IUserDeleteTokenService } from 'src/domain/interfaces/services/user/deleteToken/IUserDeleteTokenService';
 
 @Injectable()
 export class UserDeleteTokenService implements IUserDeleteTokenService {

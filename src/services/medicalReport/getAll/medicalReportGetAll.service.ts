@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IMedicalReportRepository } from '../../../../domain/interfaces/repository/medicalReport/IMedicalReport.repository';
-import { IMedicalReportsGetAllService } from '../../../../domain/interfaces/service/medicalReport/getAll/IMedicalReportsGetAllService';
-import { MedicalReportResponseDto } from '../../../../domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
+import { MedicalReportResponseDto } from 'src/domain/entities/medicalReport/dto/response/medicalReport/medicalReportResponse.dto';
+import { IMedicalReportRepository } from 'src/domain/interfaces/infrastructure/medicalReport/IMedicalReport.repository';
+import { IMedicalReportsGetAllService } from 'src/domain/interfaces/services/medicalReport/getAll/IMedicalReportsGetAllService';
 
 @Injectable()
 export class MedicalReportsGetAllService

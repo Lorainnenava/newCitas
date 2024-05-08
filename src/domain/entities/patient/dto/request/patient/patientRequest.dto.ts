@@ -5,6 +5,8 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsOptional,
+  IsDateString,
+  IsEmail,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { AddressRequestDto } from '../address/addressRequest.dto';
@@ -46,9 +48,9 @@ export class PatientRequestDto {
   documentInfo: DocumentInfoRequestDto;
 
   @ApiProperty()
-  @IsString()
+  @IsDateString()
   @IsNotEmpty()
-  dateOfBirth: string;
+  dateOfBirth: Date;
 
   @ApiProperty()
   @IsString()
@@ -59,6 +61,7 @@ export class PatientRequestDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   gender: string;
 
   @ApiProperty()
@@ -69,10 +72,11 @@ export class PatientRequestDto {
   @ApiProperty()
   @IsInt()
   @IsNotEmpty()
+  @IsOptional()
   mobileNumber: number;
 
   @ApiProperty()
-  @IsString()
+  @IsEmail()
   @IsNotEmpty()
   email: string;
 

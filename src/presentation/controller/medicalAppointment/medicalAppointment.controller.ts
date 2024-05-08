@@ -10,15 +10,15 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
+import { MedicalAppointmentCreateService } from 'src/services/medicalAppointment/medicalAppointment/create/medicalAppointmentCreate.service';
+import { MedicalAppointmentDeleteService } from 'src/services/medicalAppointment/medicalAppointment/delete/medicalAppointmentDelete.service';
+import { MedicalAppointmentFindByIdService } from 'src/services/medicalAppointment/medicalAppointment/findById/medicalAppointmentFindById.service';
+import { MedicalAppointmentsGetAllService } from 'src/services/medicalAppointment/medicalAppointment/getAll/medicalAppointmentsGetAll.service';
+import { MedicalAppointmentGetAllByIdService } from 'src/services/medicalAppointment/medicalAppointment/getAllById/medicalAppointmentGetAllById.service';
+import { MedicalAppointmentUpdateService } from 'src/services/medicalAppointment/medicalAppointment/update/medicalAppointmentUpdate.service';
 import { Role } from 'src/shared/guards/roles/role.enum';
 import { Roles } from 'src/shared/guards/roles/roles';
 import { RequestUser } from 'src/shared/interface/types';
-import { MedicalAppointmentCreateService } from '../../../application/services/medicalAppointment/medicalAppointment/create/medicalAppointmentCreate.service';
-import { MedicalAppointmentDeleteService } from '../../../application/services/medicalAppointment/medicalAppointment/delete/medicalAppointmentDelete.service';
-import { MedicalAppointmentFindByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/findById/medicalAppointmentFindById.service';
-import { MedicalAppointmentsGetAllService } from '../../../application/services/medicalAppointment/medicalAppointment/getAll/medicalAppointmentsGetAll.service';
-import { MedicalAppointmentGetAllByIdService } from '../../../application/services/medicalAppointment/medicalAppointment/getAllById/medicalAppointmentGetAllById.service';
-import { MedicalAppointmentUpdateService } from '../../../application/services/medicalAppointment/medicalAppointment/update/medicalAppointmentUpdate.service';
 import { MedicalAppointmentRequestDto } from '../../../domain/entities/medicalAppointment/dto/request/medicalAppointment/medicalAppointmentRequest.dto';
 import { MedicalAppointmentResponseDto } from '../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
 

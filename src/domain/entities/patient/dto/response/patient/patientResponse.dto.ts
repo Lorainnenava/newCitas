@@ -26,7 +26,7 @@ export class PatientResponseDto {
   secondLastName: string;
 
   @ApiProperty()
-  dateOfBirth: string;
+  dateOfBirth: Date;
 
   @ApiProperty()
   @IsOptional()

@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { IInvoiceRepository } from '../../../../domain/interfaces/repository/invoice/IInvoice.repository';
-import { InvoiceResponseDto } from '../../../../domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
-import { IInvoiceFindByIdService } from '../../../../domain/interfaces/service/invoice/findById/IInvoiceFindByIdService';
+import { InvoiceResponseDto } from 'src/domain/entities/invoice/dto/response/invoice/invoiceResponse.dto';
+import { IInvoiceRepository } from 'src/domain/interfaces/infrastructure/invoice/IInvoice.repository';
+import { IInvoiceFindByIdService } from 'src/domain/interfaces/services/invoice/findById/IInvoiceFindByIdService';
 
 @Injectable()
 export class InvoiceFindByIdService implements IInvoiceFindByIdService {

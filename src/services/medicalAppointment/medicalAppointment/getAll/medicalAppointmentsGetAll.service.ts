@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { MedicalAppointmentResponseDto } from '../../../../../domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
-import { IMedicalAppointmentRepository } from '../../../../../domain/interfaces/repository/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
-import { IMedicalAppointmentsGetAllService } from '../../../../../domain/interfaces/service/medicalAppointment/medicalAppointment/getAll/IMedicalAppointmentsGetAllService';
+import { MedicalAppointmentResponseDto } from 'src/domain/entities/medicalAppointment/dto/response/medicalAppointment/medicalAppointmentResponse.dto';
+import { IMedicalAppointmentRepository } from 'src/domain/interfaces/infrastructure/medicalAppointment/medicalAppointment/IMedicalAppointment.repository';
+import { IMedicalAppointmentsGetAllService } from 'src/domain/interfaces/services/medicalAppointment/medicalAppointment/getAll/IMedicalAppointmentsGetAllService';
 
 @Injectable()
 export class MedicalAppointmentsGetAllService

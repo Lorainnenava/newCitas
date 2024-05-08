@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DoctorResponseDto } from '../../../../domain/entities/doctor/dto/response/doctorResponse.dto';
-import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
-import { IDoctorsGetAllService } from '../../../../domain/interfaces/service/doctor/getAll/IGetAllDoctorsService';
+import { DoctorResponseDto } from 'src/domain/entities/doctor/dto/response/doctorResponse.dto';
+import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
+import { IDoctorsGetAllService } from 'src/domain/interfaces/services/doctor/getAll/IGetAllDoctorsService';
 
 @Injectable()
 export class DoctorsGetAllService implements IDoctorsGetAllService {

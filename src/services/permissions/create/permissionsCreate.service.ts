@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PermissionRequestDto } from '../../../../domain/entities/permission/dto/request/permissionRequest.dto';
-import { PermissionResponseDto } from '../../../../domain/entities/permission/dto/response/permissionResponse.dto';
-import { IPermissionRepository } from '../../../../domain/interfaces/repository/permission/IPermission.repository';
-import { IPermissionsCreateService } from '../../../../domain/interfaces/service/permission/create/IPermissionsCreateService';
+import { PermissionRequestDto } from 'src/domain/entities/permission/dto/request/permissionRequest.dto';
+import { PermissionResponseDto } from 'src/domain/entities/permission/dto/response/permissionResponse.dto';
+import { IPermissionRepository } from 'src/domain/interfaces/infrastructure/permission/IPermission.repository';
+import { IPermissionsCreateService } from 'src/domain/interfaces/services/permission/create/IPermissionsCreateService';
 
 @Injectable()
 export class PermissionsCreateService implements IPermissionsCreateService {

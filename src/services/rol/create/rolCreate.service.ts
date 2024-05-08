@@ -1,8 +1,8 @@
 import { Injectable, ConflictException, Inject } from '@nestjs/common';
-import { RolRequestDto } from '../../../../domain/entities/rol/dto/request/rolRequest.dto';
-import { RolResponseDto } from '../../../../domain/entities/rol/dto/response/rolResponse.dto';
-import { IRolRepository } from '../../../../domain/interfaces/repository/rol/IRol.repository';
-import { IRolCreateService } from '../../../../domain/interfaces/service/rol/create/IRolCreateService';
+import { RolRequestDto } from 'src/domain/entities/rol/dto/request/rolRequest.dto';
+import { RolResponseDto } from 'src/domain/entities/rol/dto/response/rolResponse.dto';
+import { IRolRepository } from 'src/domain/interfaces/infrastructure/rol/IRol.repository';
+import { IRolCreateService } from 'src/domain/interfaces/services/rol/create/IRolCreateService';
 
 @Injectable()
 export class RolCreateService implements IRolCreateService {

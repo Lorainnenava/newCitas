@@ -5,16 +5,14 @@ import {
   Get,
   Param,
   Post,
-  Put
+  Put,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Role } from 'src/shared/guards/roles/role.enum';
-import { Roles } from 'src/shared/guards/roles/roles';
-import { PatientCreateService } from '../../../application/services/patient/create/patientCreate.service';
-import { PatientDeleteService } from '../../../application/services/patient/delete/patientDelete.service';
-import { PatientFindByIdService } from '../../../application/services/patient/findById/patientFindById.service';
-import { PatientsGetAllService } from '../../../application/services/patient/getAll/patientsGetAll.service';
-import { PatientUpdateService } from '../../../application/services/patient/update/patientUpdate.service';
+import { PatientCreateService } from 'src/services/patient/create/patientCreate.service';
+import { PatientDeleteService } from 'src/services/patient/delete/patientDelete.service';
+import { PatientFindByIdService } from 'src/services/patient/findById/patientFindById.service';
+import { PatientsGetAllService } from 'src/services/patient/getAll/patientsGetAll.service';
+import { PatientUpdateService } from 'src/services/patient/update/patientUpdate.service';
 import { PatientRequestDto } from '../../../domain/entities/patient/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from '../../../domain/entities/patient/dto/response/patient/patientResponse.dto';
 
@@ -36,7 +34,6 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Post('/create')
-  @Roles(Role.ADMIN)
   async create(
     @Body() requestPatient: PatientRequestDto,
   ): Promise<PatientResponseDto> {
@@ -50,7 +47,6 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Put('/update')
-  @Roles(Role.ADMIN || Role.PACIENTE)
   async update(
     @Body() request: PatientRequestDto,
   ): Promise<PatientResponseDto> {
@@ -64,7 +60,6 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Post('/:_id')
-  @Roles(Role.ADMIN || Role.PACIENTE)
   async findById(@Param('_id') _id: string): Promise<PatientResponseDto> {
     return this.patientFindByIdService.findById(_id);
   }
@@ -75,7 +70,6 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Get('/getAll')
-  @Roles(Role.ADMIN)
   async getAll(): Promise<PatientResponseDto[]> {
     return this.patientsGetAllService.getAll();
   }
@@ -87,7 +81,6 @@ export class PatientController {
    */
   @ApiBearerAuth('token')
   @Delete('/delete/:_id')
-  @Roles(Role.ADMIN)
   async delete(@Param('_id') _id: string): Promise<PatientResponseDto> {
     return this.patientDeleteService.delete(_id);
   }

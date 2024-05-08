@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { TypeOfDocumentCreateService } from 'src/services/typeOfDocument/create/typeOfDocumentCreate.service';
+import { TypeOfDocumentsGetAllService } from 'src/services/typeOfDocument/getAll/typeOfDocumentGetAll.service';
 import { Public } from 'src/shared/guards';
-import { TypeOfDocumentCreateService } from '../../../application/services/typeOfDocument/create/typeOfDocumentCreate.service';
-import { TypeOfDocumentsGetAllService } from '../../../application/services/typeOfDocument/getAll/typeOfDocumentGetAll.service';
 import { TypeOfDocumentRequestDto } from '../../../domain/entities/typeOfDocument/dto/request/typeOfDocumentRequest.dto';
 import { TypeOfDocumentResponseDto } from '../../../domain/entities/typeOfDocument/dto/response/typeOfDocumentResponse.dto';
 

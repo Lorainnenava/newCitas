@@ -19,7 +19,7 @@ export class Patient {
   /**
    * secondName
    */
-  @Prop({ type: String, required: false })
+  @Prop({ type: String, default: null })
   secondName: string;
 
   /**
@@ -31,25 +31,25 @@ export class Patient {
   /**
    * secondSurname
    */
-  @Prop({ type: String, required: false })
+  @Prop({ type: String, default: null })
   secondLastName: string;
 
   /**
    * dateOfBirth
    */
-  @Prop({ type: String })
-  dateOfBirth: string;
+  @Prop({ type: Date })
+  dateOfBirth: Date;
 
   /**
    * placeOfBirth
    */
-  @Prop({ type: String })
+  @Prop({ type: String, default: null })
   placeOfBirth: string;
 
   /**
    * gender
    */
-  @Prop({ type: String })
+  @Prop({ type: String, default: null })
   gender: string;
 
   /**
@@ -73,13 +73,13 @@ export class Patient {
   /**
    * mobileNumber
    */
-  @Prop({ type: Number })
+  @Prop({ type: Number, default: null })
   mobileNumber: number;
 
   /**
    * address
    */
-  @Prop({ type: AddressRequestDto })
+  @Prop({ type: AddressRequestDto, default: null })
   address: AddressRequestDto;
 
   /**

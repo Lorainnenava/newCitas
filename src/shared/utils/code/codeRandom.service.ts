@@ -7,6 +7,6 @@ export class CodeRandomService {
     for (let i = 0; i < 8; i++) {
       randomNum += Math.floor(Math.random() * 10);
     }
-    return Number(randomNum)
+    return Number(randomNum);
   }
 }

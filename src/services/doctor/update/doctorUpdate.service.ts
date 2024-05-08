@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DoctorRequestDto } from '../../../../domain/entities/doctor/dto/request/doctorRequest.dto';
-import { DoctorResponseDto } from '../../../../domain/entities/doctor/dto/response/doctorResponse.dto';
-import { IDoctorRepository } from '../../../../domain/interfaces/repository/doctor/IDoctor.repository';
-import { IDoctorUpdateService } from '../../../../domain/interfaces/service/doctor/update/IUpdateDoctorService';
+import { DoctorRequestDto } from 'src/domain/entities/doctor/dto/request/doctorRequest.dto';
+import { DoctorResponseDto } from 'src/domain/entities/doctor/dto/response/doctorResponse.dto';
+import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
+import { IDoctorUpdateService } from 'src/domain/interfaces/services/doctor/update/IUpdateDoctorService';
 
 @Injectable()
 export class DoctorUpdateService implements IDoctorUpdateService {
