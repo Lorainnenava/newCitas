@@ -10,12 +10,14 @@ export class PatientsGetAllService implements IPatientsGetAllService {
   ) {}
 
   /**
-   * getAll patient
+   * Obtener todos los pacientes
    * @returns
    */
   async getAll(): Promise<PatientResponseDto[]> {
     try {
-      return await this._patientRepository.getAll();
+      const obtainPatients = await this._patientRepository.getAll();
+
+      return obtainPatients;
     } catch (error) {
       throw error;
     }

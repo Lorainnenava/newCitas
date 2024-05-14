@@ -89,6 +89,7 @@ export class PatientRequestDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   regimen: string;
 
   @ApiProperty()

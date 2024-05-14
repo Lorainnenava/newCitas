@@ -1,4 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
 import { DoctorRequestDto } from 'src/domain/entities/doctor/dto/request/doctorRequest.dto';
 import { DoctorResponseDto } from 'src/domain/entities/doctor/dto/response/doctorResponse.dto';
 import { IDoctorRepository } from 'src/domain/interfaces/infrastructure/doctor/IDoctor.repository';
@@ -12,16 +13,27 @@ export class DoctorUpdateService implements IDoctorUpdateService {
   ) {}
 
   /**
-   * update doctor
+   * Actualizar un doctor
    * @param request
    * @returns
    */
   async update(
-    _id: string,
+    _id: ObjectId,
     request: DoctorRequestDto,
   ): Promise<DoctorResponseDto> {
     try {
-      return await this._doctorRepository.update({ _id }, request);
+      const findDoctor = await this._doctorRepository.findOne({
+        _id,
+      });
+
+      if (!findDoctor) throw new NotFoundException('Este doctor no existe');
+
+      const updateDoctor = await this._doctorRepository.update(
+        { _id },
+        request,
+      );
+
+      return updateDoctor;
     } catch (error) {
       throw error;
     }

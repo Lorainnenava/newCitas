@@ -11,7 +11,7 @@ export class RolCreateService implements IRolCreateService {
   ) {}
 
   /**
-   * create rol
+   * Crear rol
    * @param request
    */
   async create(request: RolRequestDto): Promise<RolResponseDto> {
@@ -19,7 +19,9 @@ export class RolCreateService implements IRolCreateService {
       const searchRole = await this._rolRepository.findOne({
         name: request.name,
       });
-      if (searchRole) throw new ConflictException('This role already exists');
+
+      if (searchRole) throw new ConflictException('Este rol ya existe');
+
       return await this._rolRepository.create(request);
     } catch (error) {
       throw error;

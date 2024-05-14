@@ -25,5 +25,8 @@ export class DoctorResponseDto {
   documentInfo: DocumentInfoResponseDto;
 
   @ApiProperty()
+  email: string;
+
+  @ApiProperty()
   specialty: string;
 }

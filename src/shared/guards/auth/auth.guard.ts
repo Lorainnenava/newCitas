@@ -57,7 +57,7 @@ export class AuthGuard implements CanActivate {
         .catch(async (error) => {
           if (error instanceof TokenExpiredError) {
             await this._sessionRepository.delete({ token });
-            throw new UnauthorizedException('This session expired');
+            throw new UnauthorizedException('La sesión expiro.');
           }
         });
 

@@ -19,15 +19,15 @@ export class ConfirmationMedicalAppointmentService {
     await this.mailerService.sendMail({
       to: data.email,
       subject: 'Center Hospital te confirma tu cita',
-      template: 'templateMedicalAppointment',
+      template: 'medicalAppointment/templateMedicalAppointment',
       context: {
         name,
-        date: data.date,
-        timeAppointment: data.timeAppointment,
-        doctor: data.doctor,
+        date: data?.date,
+        timeAppointment: data?.timeAppointment,
+        doctor: data?.doctor,
         place: 'CALLE 30 #17 -69',
-        specialty: data.specialty,
-        firstName: data.firstName,
+        specialty: data?.specialty,
+        firstName: data?.firstName,
       },
       attachments: [
         {

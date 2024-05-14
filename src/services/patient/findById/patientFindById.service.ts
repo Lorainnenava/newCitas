@@ -10,14 +10,16 @@ export class PatientFindByIdService implements IPatientFindByIdService {
   ) {}
 
   /**
-   * findById
+   * Buscar un paciente por el _id
    * @param _id
    */
   async findById(_id: string): Promise<PatientResponseDto> {
     try {
       const searchPatient = await this._patientRepository.findOne({ _id });
+
       if (!searchPatient)
-        throw new NotFoundException('This patient does not exist');
+        throw new NotFoundException('Este paciente no existe');
+
       return searchPatient;
     } catch (error) {
       throw error;

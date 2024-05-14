@@ -11,7 +11,7 @@ export class SessionGetOneService implements ISessionGetOneService {
   ) {}
 
   /**
-   * findSession
+   * Buscar sesion
    * @param email
    * @returns
    */
@@ -21,7 +21,8 @@ export class SessionGetOneService implements ISessionGetOneService {
         const findSession = await this._sessionRepository.findOne({ email });
 
         if (findSession === null)
-          throw new NotFoundException('This session does not exist');
+          throw new NotFoundException('Esta sesión no existe');
+
         return findSession;
       }
     } catch (error) {

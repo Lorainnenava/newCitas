@@ -21,8 +21,10 @@ export class MedicalAppointmentDeleteService
     try {
       const deleteMedicalAppointment =
         await this._medicalAppointmentRepository.delete({ _id });
+
       if (deleteMedicalAppointment === null)
         throw new NotFoundException('This medicalAppointment does not exist');
+
       return deleteMedicalAppointment.toObject();
     } catch (error) {
       throw error;

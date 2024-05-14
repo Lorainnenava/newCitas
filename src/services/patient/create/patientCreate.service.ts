@@ -3,18 +3,20 @@ import { PatientRequestDto } from 'src/domain/entities/patient/dto/request/patie
 import { PatientResponseDto } from 'src/domain/entities/patient/dto/response/patient/patientResponse.dto';
 import { IPatientRepository } from 'src/domain/interfaces/infrastructure/patient/IPatient.repository';
 import { IPatientCreateService } from 'src/domain/interfaces/services/patient/create/IPatientCreateService';
-import { WelcomeEmailService } from 'src/shared/services/emails/welcomeEmail/welcomeEmail.service';
+import { UserCreateService } from 'src/services/user/create/userCreate.service';
+import { WelcomeEmailPatientService } from 'src/shared/services/emails/welcomeEmailPatient/welcomeEmailPatient.service';
 
 @Injectable()
 export class PatientCreateService implements IPatientCreateService {
   constructor(
     @Inject('PatientRepository')
     private _patientRepository: IPatientRepository,
-    private welcomeEmailService: WelcomeEmailService,
+    private _userCreateService: UserCreateService,
+    private _welcomeEmailPatientService: WelcomeEmailPatientService,
   ) {}
 
   /**
-   * create patient
+   * Crear un paciente
    * @param request
    */
   async create(request: PatientRequestDto): Promise<PatientResponseDto> {
@@ -30,15 +32,20 @@ export class PatientCreateService implements IPatientCreateService {
         ],
       });
 
-      if (searchPatient)
-        throw new ConflictException('This patient already exists');
+      if (searchPatient) throw new ConflictException('Este paciente ya existe');
 
-      // createPatient
       const createPatient = await this._patientRepository.create(request);
 
-      // if the patient was created so you must send a email
+      // Una vez que se haya creado el paciente, automáticamente se generará su usuario y recibirán un correo de bienvenida.
       if (createPatient?._id) {
-        await this.welcomeEmailService.sendEmailWelcome(
+        await this._userCreateService.create({
+          documentInfo: createPatient?.documentInfo,
+          email: createPatient?.email,
+          role: 'PACIENTE',
+          state: false,
+        });
+
+        await this._welcomeEmailPatientService.sendEmailWelcome(
           {
             email: createPatient?.email,
             firstName: createPatient?.firstName,
@@ -52,7 +59,7 @@ export class PatientCreateService implements IPatientCreateService {
 
       return createPatient;
     } catch (error) {
-      throw error;
+      throw new Error(error);
     }
   }
 }

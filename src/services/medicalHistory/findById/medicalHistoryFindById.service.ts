@@ -24,9 +24,11 @@ export class MedicalHistoryFindByIdService
           _id,
         },
       );
+
       if (!searchMedicalHistory) {
         throw new NotFoundException('This medicalHistory doest not exist');
       }
+
       return searchMedicalHistory;
     } catch (error) {
       throw error;

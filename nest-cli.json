@@ -3,7 +3,9 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "assets": ["shared/utils/template/**/*"],
+    "assets": [
+      { "include": "shared/utils/template/**/*.hbs", "outDir": "dist" }
+    ],
     "watchAssets": true,
     "deleteOutDir": true
   }

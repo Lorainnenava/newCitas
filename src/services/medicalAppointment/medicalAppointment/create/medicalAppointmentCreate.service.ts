@@ -46,27 +46,27 @@ export class MedicalAppointmentCreateService
       // search doctor
       const searchDoctor = await this._doctorRepository.findOne({
         'documentInfo.documentNumber': Number(
-          request.doctor.documentInfo.documentNumber,
+          request?.doctor?.documentInfo?.documentNumber,
         ),
       });
 
       // verify if the medicalAppointment exists
       const existingAppointment =
         await this._medicalAppointmentRepository.findOne({
-          date: request.date,
+          date: request?.date,
           'doctor.documentInfo.documentNumber':
-            searchDoctor.documentInfo.documentNumber,
-          timeAppointment: request.timeAppointment,
-          'doctor.specialty': searchDoctor.specialty,
+            searchDoctor?.documentInfo?.documentNumber,
+          timeAppointment: request?.timeAppointment,
+          'doctor.specialty': searchDoctor?.specialty,
         });
 
       if (existingAppointment)
-        throw new ConflictException('This medicalAppointment already exists');
+        throw new ConflictException('Ya existe una cita igual');
 
       // search patient
       const searchPatient = await this._patientRepository.findOne({
         'userInfo.documentInfo.documentNumber':
-          request.userInfo.documentInfo.documentNumber,
+          request?.userInfo?.documentInfo?.documentNumber,
       });
 
       // propertyToOmit patient
@@ -113,27 +113,28 @@ export class MedicalAppointmentCreateService
       await this._invoiceRepository.create({
         code: generate,
         description: await this.descriptionService.createDescription(
-          request.doctor.specialty,
+          request?.doctor?.specialty,
         ),
-        patientInformation: createMedicalAppointment.userInfo,
+        patientInformation: createMedicalAppointment?.userInfo,
         date: this.dateService.getCurrentDate(),
-        cost: searchPatient.regimen === 'CONTRIBUTIVO' ? 5000 : 2500,
-        _idMedicalAppointment: createMedicalAppointment._id,
+        cost: searchPatient?.regimen === 'CONTRIBUTIVO' ? 5000 : 2500,
+        _idMedicalAppointment: createMedicalAppointment?._id,
       });
 
       if (createMedicalAppointment) {
         await this.confirmationMedicalAppointmentService.sendConfirmation({
-          email: createMedicalAppointment.userInfo.email,
-          firstName: createMedicalAppointment.userInfo.firstName,
-          firstLastName: createMedicalAppointment.userInfo.firstLastName,
-          secondName: createMedicalAppointment.userInfo.secondName,
-          secondLastName: createMedicalAppointment.userInfo.secondLastName,
-          timeAppointment: createMedicalAppointment.timeAppointment,
-          doctor: `${createMedicalAppointment.doctor.firstName} ${createMedicalAppointment.doctor.secondName} ${createMedicalAppointment?.doctor.firstLastName} ${createMedicalAppointment.doctor?.secondLastName}`,
-          date: createMedicalAppointment.date,
-          specialty: createMedicalAppointment.doctor.specialty,
+          email: createMedicalAppointment?.userInfo?.email,
+          firstName: createMedicalAppointment?.userInfo?.firstName,
+          firstLastName: createMedicalAppointment?.userInfo?.firstLastName,
+          secondName: createMedicalAppointment?.userInfo?.secondName,
+          secondLastName: createMedicalAppointment?.userInfo?.secondLastName,
+          timeAppointment: createMedicalAppointment?.timeAppointment,
+          doctor: `${createMedicalAppointment?.doctor?.firstName} ${createMedicalAppointment?.doctor?.secondName} ${createMedicalAppointment?.doctor?.firstLastName} ${createMedicalAppointment?.doctor?.secondLastName}`,
+          date: createMedicalAppointment?.date,
+          specialty: createMedicalAppointment?.doctor?.specialty,
         });
       }
+
       return createMedicalAppointment;
     } catch (error) {
       throw error;

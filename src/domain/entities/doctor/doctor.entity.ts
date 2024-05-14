@@ -18,7 +18,7 @@ export class Doctor {
   /**
    * secondName
    */
-  @Prop({ type: String })
+  @Prop({ type: String, default: null })
   secondName: string;
 
   /**
@@ -30,7 +30,7 @@ export class Doctor {
   /**
    * secondLastName
    */
-  @Prop({ type: String })
+  @Prop({ type: String, default: null })
   secondLastName: string;
 
   /**
@@ -38,6 +38,12 @@ export class Doctor {
    */
   @Prop({ type: DocumentInfoRequestDto })
   documentInfo: DocumentInfoRequestDto;
+
+  /**
+   * email
+   */
+  @Prop({ type: String })
+  email: string;
 
   /**
    * specialty

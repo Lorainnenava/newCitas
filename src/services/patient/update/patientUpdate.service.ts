@@ -1,4 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
 import { PatientRequestDto } from 'src/domain/entities/patient/dto/request/patient/patientRequest.dto';
 import { PatientResponseDto } from 'src/domain/entities/patient/dto/response/patient/patientResponse.dto';
 import { IPatientRepository } from 'src/domain/interfaces/infrastructure/patient/IPatient.repository';
@@ -11,19 +12,23 @@ export class PatientUpdateService implements IPatientUpdateService {
   ) {}
 
   /**
-   * update patient
+   * Actualizar un paciente
    * @param request
    * @returns
    */
-  async update(request: PatientRequestDto): Promise<PatientResponseDto> {
+  async update(
+    _id: ObjectId,
+    request: PatientRequestDto,
+  ): Promise<PatientResponseDto> {
     try {
-      const searchPatient = await this._patientRepository.update(
-        request._id,
-        request,
-      );
+      const searchPatient = await this._patientRepository.findOne({ _id });
+
       if (!searchPatient)
-        throw new NotFoundException('This patient does not exist');
-      return searchPatient;
+        throw new NotFoundException('Este paciente no existe');
+
+      const update = await this._patientRepository.update(_id, request);
+
+      return update;
     } catch (error) {
       throw error;
     }

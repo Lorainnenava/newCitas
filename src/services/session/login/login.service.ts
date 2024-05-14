@@ -1,5 +1,4 @@
 import {
-  ConflictException,
   Inject,
   Injectable,
   NotFoundException,
@@ -7,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginRequestDto } from 'src/domain/entities/session/dto/request/login/loginRequest.dto';
+import { SessionResponseDto } from 'src/domain/entities/session/dto/response/sessionResponse.dto';
 import { ISessionRepository } from 'src/domain/interfaces/infrastructure/session/ISession.repository';
 import { IUserRepository } from 'src/domain/interfaces/infrastructure/user/IUser.repository';
 import { ILoginService } from 'src/domain/interfaces/services/session/login/ILoginService';
@@ -30,50 +30,86 @@ export class LoginService implements ILoginService {
    */
   async login(request: LoginRequestDto): Promise<object> {
     const searchUser = await this._userRepository.findOne({
-      email: request.email,
+      email: request?.email,
     });
 
-    if (!searchUser) throw new NotFoundException('User not found');
+    if (!searchUser) throw new NotFoundException('Usuario no encontrado');
+
+    // Verifica si el usuario esta habilitado
+    const searchUserEnabled = await this._userRepository.findOne({
+      email: request?.email,
+      state: true,
+    });
+
+    if (!searchUserEnabled) {
+      throw new UnauthorizedException('El usuario no está inhabilitado');
+    }
 
     const passwordCorrect = await this.passwordService.comparePassword(
-      request.password,
-      searchUser.password,
+      request?.password,
+      searchUser?.password,
     );
 
     if (!passwordCorrect || !searchUser) {
-      throw new UnauthorizedException('Wrong data');
+      throw new UnauthorizedException('Los datos son incorrectos');
     }
 
-    // verify if the session exists
+    // Verifica si ya hay una sesión activa
     const exitedSession = await this._sessionRepository.findOne({
-      email: request.email,
-    });
-    if (exitedSession)
-      throw new ConflictException('This session already exists');
-
-    // create token
-    const accessToken = await this.jwtService.signAsync({
-      sub: searchUser._id,
-      roles: searchUser.role,
-      email: searchUser.email,
-      name: searchUser.firstName,
-      typeDocument: searchUser.documentInfo.typeDocument,
-      documentNumber: searchUser.documentInfo.documentNumber,
+      email: request?.email,
     });
 
-    // create session
-    const createSession = await this._sessionRepository.create({
-      ...request,
-      password: await this.passwordService.encryptPassword(request.password),
-      token: accessToken,
-      userInfo: searchUser,
-    });
+    let session: SessionResponseDto;
+    let token: string;
+
+    if (exitedSession) {
+      // Actualizar el token existente
+      exitedSession.token = await this.jwtService.signAsync({
+        sub: searchUser?._id,
+        roles: searchUser?.role,
+        email: searchUser?.email,
+        typeDocument: searchUser?.documentInfo?.typeDocument,
+        documentNumber: searchUser?.documentInfo?.documentNumber,
+      });
+
+      token = exitedSession?.token;
+
+      try {
+        session = await this._sessionRepository.update(exitedSession?._id, {
+          ...exitedSession,
+        });
+      } catch (error) {
+        throw new Error('Error al actualizar la sesión');
+      }
+    } else {
+      // create token
+      token = await this.jwtService.signAsync({
+        sub: searchUser?._id,
+        roles: searchUser?.role,
+        email: searchUser?.email,
+        typeDocument: searchUser?.documentInfo?.typeDocument,
+        documentNumber: searchUser?.documentInfo?.documentNumber,
+      });
+
+      try {
+        // Crear un sesion para este usuario
+        session = await this._sessionRepository.create({
+          ...request,
+          password: await this.passwordService.encryptPassword(
+            request?.password,
+          ),
+          token,
+          userInfo: searchUser,
+        });
+      } catch (error) {
+        throw new Error('Error al crear la sesión');
+      }
+    }
 
     // return token
     return {
-      name: createSession.userInfo.firstName,
-      email: createSession.email,
-      token: accessToken,
+      email: session?.email,
+      token,
     };
   }
 }

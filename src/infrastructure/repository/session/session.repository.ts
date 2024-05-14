@@ -1,4 +1,4 @@
-import { FilterQuery, Model } from 'mongoose';
+import { FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Body, Injectable } from '@nestjs/common';
 import { Session } from '../../../domain/entities/session/session.entity';
@@ -53,6 +53,24 @@ export class SessionRepository implements ISessionRepository {
   ): Promise<SessionResponseDto> {
     try {
       return await this.sessionModel.findOneAndRemove(options);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
+   */
+  async update(
+    option: FilterQuery<SessionRequestDto>,
+    request: UpdateQuery<SessionRequestDto>,
+  ): Promise<SessionResponseDto> {
+    try {
+      return await this.sessionModel.findByIdAndUpdate(option, request, {
+        new: true,
+      });
     } catch (error) {
       throw new Error(error);
     }

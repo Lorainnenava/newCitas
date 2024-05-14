@@ -23,10 +23,11 @@ export class ScheduleByFutureAppointmentsService
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
+
     return await this._medicalAppointmentRepository.getAll({
       state: true,
       date: { $gt: dateAppointment },
-      'doctor.documentInfo.documentNumber': user.documentNumber,
+      'doctor.documentInfo.documentNumber': user?.documentNumber,
       cancelled: false,
     });
   }

@@ -1,4 +1,4 @@
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, UpdateQuery } from 'mongoose';
 import { SessionResponseDto } from '../../../entities/session/dto/response/sessionResponse.dto';
 import { SessionRequestDto } from '../../../entities/session/dto/request/session/sessionRequest.dto';
 
@@ -24,5 +24,15 @@ export interface ISessionRepository {
    */
   findOne(
     options?: FilterQuery<SessionRequestDto>,
+  ): Promise<SessionResponseDto>;
+
+  /**
+   * Deletes an entity from the database.
+   * @param options - The criteria to identify the entity to be deleted.
+   * @returns A promise that resolves to the deleted entity.
+   */
+  update(
+    option: FilterQuery<SessionRequestDto>,
+    request: UpdateQuery<SessionRequestDto>,
   ): Promise<SessionResponseDto>;
 }

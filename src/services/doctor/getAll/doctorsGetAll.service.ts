@@ -11,12 +11,14 @@ export class DoctorsGetAllService implements IDoctorsGetAllService {
   ) {}
 
   /**
-   * getAll doctors
+   * Obtener todos los doctores
    * @returns
    */
   async getAll(): Promise<DoctorResponseDto[]> {
     try {
-      return await this._doctorRepository.getAll();
+      const obtainDoctors = await this._doctorRepository.getAll();
+
+      return obtainDoctors;
     } catch (error) {
       throw error;
     }

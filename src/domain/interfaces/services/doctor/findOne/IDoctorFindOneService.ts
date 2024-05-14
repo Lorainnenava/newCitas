@@ -1,9 +1,10 @@
+import { ObjectId } from 'mongoose';
 import { DoctorResponseDto } from '../../../../entities/doctor/dto/response/doctorResponse.dto';
 
 export interface IDoctorFindOneService {
   /**
-   * findOne doctor
-   * @param documentNumber
+   * FindOne doctor
+   * @param _id
    */
-  findOne(documentNumber: number): Promise<DoctorResponseDto>;
+  findOne(_id: ObjectId): Promise<DoctorResponseDto>;
 }

@@ -31,7 +31,8 @@ export class UserDeleteTokenService implements IUserDeleteTokenService {
           },
         );
       }
-      throw new NotFoundException('This token does not exit');
+
+      throw new NotFoundException('Este token no existe');
     } catch (error) {
       throw error;
     }

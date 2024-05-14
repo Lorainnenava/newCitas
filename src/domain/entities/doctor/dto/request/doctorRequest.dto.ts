@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Types } from 'mongoose';
 import { DocumentInfoRequestDto } from '../../../user/dto/request/document/documentInfoRequest.dto';
 
@@ -36,6 +42,11 @@ export class DoctorRequestDto {
   @IsNotEmpty()
   @IsObject()
   documentInfo: DocumentInfoRequestDto;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
 
   @ApiProperty()
   @IsNotEmpty()

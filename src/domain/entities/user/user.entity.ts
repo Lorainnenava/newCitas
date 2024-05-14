@@ -10,28 +10,10 @@ export type userDocument = HydratedDocument<User>;
 @Schema({ timestamps: true, collection: 'users' })
 export class User {
   /**
-   * firstName
+   * email
    */
   @Prop({ type: String })
-  firstName: string;
-
-  /**
-   * secondName
-   */
-  @Prop({ type: String })
-  secondName: string;
-
-  /**
-   * firstSurname
-   */
-  @Prop({ type: String })
-  firstLastName: string;
-
-  /**
-   * secondLastName
-   */
-  @Prop({ type: String })
-  secondLastName: string;
+  email: string;
 
   /**
    * documentInfo
@@ -40,39 +22,15 @@ export class User {
   documentInfo: DocumentInfoRequestDto;
 
   /**
-   * dateOfBirth
-   */
-  @Prop({ type: Date })
-  dateOfBirth: Date;
-
-  /**
-   * gender
-   */
-  @Prop({ type: String })
-  gender: string;
-
-  /**
-   * mobileNumber
-   */
-  @Prop({ type: Number })
-  mobileNumber: number;
-
-  /**
-   * email
-   */
-  @Prop({ type: String })
-  email: string;
-
-  /**
    * password
    */
-  @Prop({ type: String })
+  @Prop({ type: String, default: null })
   password: string;
 
   /**
    * token
    */
-  @Prop({ type: String })
+  @Prop({ type: String, default: null })
   token: string;
 
   /**

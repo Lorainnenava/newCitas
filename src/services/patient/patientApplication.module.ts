@@ -7,7 +7,7 @@ import { PatientsGetAllService } from './getAll/patientsGetAll.service';
 import { PatientUpdateService } from './update/patientUpdate.service';
 
 /**
- * Module for importing patient services.
+ * Modulo para importar los servicios de "Patient".
  */
 @Module({
   imports: [SharedModule],

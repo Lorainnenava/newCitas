@@ -10,16 +10,20 @@ export class PatientDeleteService implements IPatientDeleteService {
   ) {}
 
   /**
-   * delete patient
+   * Eliminar un paciente
    * @param _id
    */
   async delete(_id: string): Promise<PatientResponseDto> {
     try {
       const search = await this._patientRepository.findOne({ _id });
+
       if (!search) {
-        throw new NotFoundException('This patient does not exist');
+        throw new NotFoundException('Este paciente no existe');
       }
-      return await this._patientRepository.delete({ _id });
+
+      const deletePatient = await this._patientRepository.delete({ _id });
+
+      return deletePatient;
     } catch (error) {
       throw error;
     }

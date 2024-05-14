@@ -21,7 +21,7 @@ export class ScheduleByCancelledAppointmentsService
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     return await this._medicalAppointmentRepository.getAll({
-      'doctor.documentInfo.documentNumber': user.documentNumber,
+      'doctor.documentInfo.documentNumber': user?.documentNumber,
       cancelled: true,
     });
   }

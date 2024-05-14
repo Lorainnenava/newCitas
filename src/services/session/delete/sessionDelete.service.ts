@@ -11,15 +11,17 @@ export class SessionDeleteService implements ISessionDeleteService {
   ) {}
 
   /**
-   * Delete session
+   * Eliminar sesion
    * @param token
    * @returns
    */
   async delete(token: string): Promise<SessionResponseDto> {
     try {
       const deleteSession = await this._sessionRepository.delete({ token });
+
       if (deleteSession === null)
-        throw new NotFoundException('This session does not exist');
+        throw new NotFoundException('Esta sesión no existe');
+
       return deleteSession;
     } catch (error) {
       throw error;

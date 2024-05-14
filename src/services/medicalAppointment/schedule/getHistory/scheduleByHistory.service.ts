@@ -23,10 +23,11 @@ export class ScheduleByAppointmentHistoryService
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
+
     return await this._medicalAppointmentRepository.getAll({
       date: { $lt: dateAppointment },
       cancelled: false,
-      'doctor.documentInfo.documentNumber': user.documentNumber,
+      'doctor.documentInfo.documentNumber': user?.documentNumber,
     });
   }
 }

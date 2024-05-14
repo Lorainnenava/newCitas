@@ -21,8 +21,10 @@ export class MedicalAppointmentFindByIdService
     try {
       const searchMedicalAppointment =
         await this._medicalAppointmentRepository.findOne({ _id });
+
       if (searchMedicalAppointment === null)
         throw new NotFoundException('This medicalAppointment does not exist');
+
       return searchMedicalAppointment.toObject();
     } catch (error) {
       throw error;

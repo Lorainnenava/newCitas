@@ -20,8 +20,9 @@ export class ModuleCreateService implements IModuleCreateService {
       const searchModule = await this._moduleRepository.findOne({
         name: request.name,
       });
-      if (searchModule)
-        throw new ConflictException('This module already exists');
+
+      if (searchModule) throw new ConflictException('Este modulo ya existe');
+
       return await this._moduleRepository.create(request);
     } catch (error) {
       throw error;

@@ -5,18 +5,13 @@ import { MailerService } from '@nestjs-modules/mailer';
 export class ConfirmationEmailService {
   constructor(private readonly mailerService: MailerService) {}
 
-  async sendConfirmationEmail(
-    token: string,
-    email: string,
-    name: string,
-  ): Promise<void> {
+  async sendConfirmationEmail(token: string, email: string): Promise<void> {
     await this.mailerService.sendMail({
       to: email,
       subject: 'Confirma tu dirección email',
-      template: 'templateConfirmation',
+      template: 'confirmation/templateConfirmation',
       context: {
         token,
-        name: name.toLocaleUpperCase(),
       },
       attachments: [
         {

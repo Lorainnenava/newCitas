@@ -21,10 +21,11 @@ export class ScheduleByDayService implements IScheduleFilterByDayService {
     user: RequestUser,
   ): Promise<MedicalAppointmentResponseDto[]> {
     const dateAppointment = this.dateService.getCurrentDate();
+
     return await this._medicalAppointmentRepository.getAll({
       state: true,
       date: dateAppointment,
-      'doctor.documentInfo.documentNumber': user.documentNumber,
+      'doctor.documentInfo.documentNumber': user?.documentNumber,
     });
   }
 }
